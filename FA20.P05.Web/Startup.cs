@@ -10,6 +10,7 @@ using FA20.P05.Web.Features.StaffMembers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,11 @@ namespace FA20.P05.Web
         {
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<DataContext>();
@@ -87,6 +93,8 @@ namespace FA20.P05.Web
 
             app.UseHttpsRedirection();
 
+            app.UseSpaStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -95,6 +103,16 @@ namespace FA20.P05.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
             });
         }
 
