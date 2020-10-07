@@ -27,15 +27,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  textBox: {
-    height: 40,
-    width: 250,
-    backgroundColor: "white",
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    borderBottomColor: 'rgba(125, 125, 125, 0.60)',
-    borderBottomWidth: 1
-  },
+  
   button: {
     height: 40,
     width: 150,
