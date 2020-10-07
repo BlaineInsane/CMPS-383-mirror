@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
 
   button: {
     height: 40,
-    width: 150,
-    padding: 20,
+    width: 130,
+    padding: 5,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 20,
