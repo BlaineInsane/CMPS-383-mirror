@@ -7,17 +7,55 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import axios from 'axios';
+import { BASE_URL } from '../env.js';
+
+//TODO: manage logged in user(cookies?)
+//      create frontend stuff if login returns 400
 
 export default class Login extends Component {
+  state = {
+    Username: "",
+    Password: "",
+  };
+
+  handleUsernameChange = (event) => {
+    this.setState({ Username: event });
+  };
+  handlePasswordChange = (event) => {
+    this.setState({ Password: event });
+  };
+
+  handleSubmit = event => {
+    const Username = this.state.Username;
+    const Password = this.state.Password;
+
+    // TODO: move axios call to ApiCalls/ApiLogin.js
+    // I(Blaine) can't get that to work
+    const loginUrl = `${BASE_URL}/api/authentication/login/`;
+
+    axios.post(loginUrl, { Username, Password }, {
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <TextInput placeholder="Username" style={styles.textBox}></TextInput>
-        <TextInput placeholder="Password" style={styles.textBox}></TextInput>
-        <TouchableOpacity style={styles.button}>
+        <TextInput placeholder="Username" style={styles.textBox} onChangeText={this.handleUsernameChange}></TextInput>
+        <TextInput placeholder="Password" style={styles.textBox} onChangeText={this.handlePasswordChange}></TextInput>
+        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
           <Text style={[{ color: "white", textAlign: "center", textAlignVertical: 'center', fontSize: 18 }]}>Log in</Text>
         </TouchableOpacity>
-        <TouchableOpacity><Text style={[{marginTop: 20, textDecorationLine: 'underline', color: 'gray'}]}>Create an account</Text></TouchableOpacity>
+        <TouchableOpacity><Text style={[{ marginTop: 20, textDecorationLine: 'underline', color: 'gray' }]}>Create an account</Text></TouchableOpacity>
       </View>
     );
   }
@@ -39,7 +77,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderBottomColor: 'rgba(125, 125, 125, 0.60)',
     borderBottomWidth: 1
-    
   },
   button: {
     height: 35,
