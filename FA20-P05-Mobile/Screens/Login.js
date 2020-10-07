@@ -70,13 +70,6 @@ export default class Login extends React.Component {
           <Text style={styles.text}>Log in</Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text
-            style={[
-              { marginTop: 20, textDecorationLine: "underline", color: "gray" },
-            ]}
-            onPress={() => this.props.navigation.navigate("Registration")}>
-            Create an account
-          </Text>
         </TouchableOpacity>
       </View>
     );
