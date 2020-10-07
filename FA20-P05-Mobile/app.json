@@ -26,6 +26,5 @@
       "package": "com.g03.mobile",
       "versionCode": 1
     }
-  },
-  "baseUrl": "https://18fe83190700.ngrok.io"
+  }
 }
