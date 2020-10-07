@@ -8,7 +8,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from 'axios';
+import { BASE_URL } from '../env.js';
 
+//TODO: manage logged in user(cookies?)
+//      create frontend stuff if login returns 400
 
 export default class Login extends Component {
   state = {
@@ -24,12 +27,18 @@ export default class Login extends Component {
   };
 
   handleSubmit = event => {
-    const LoginDto = {
-      Username: this.state.Username,
-      Password: this.state.Password
-    };
+    const Username = this.state.Username;
+    const Password = this.state.Password;
 
-    axios.post("http://6daf55970695.ngrok.io/api/authentication/login", { LoginDto })
+    // TODO: move axios call to ApiCalls/ApiLogin.js
+    // I(Blaine) can't get that to work
+    const loginUrl = `${BASE_URL}/api/authentication/login/`;
+
+    axios.post(loginUrl, { Username, Password }, {
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
       .then(function (response) {
         console.log(response);
       })
