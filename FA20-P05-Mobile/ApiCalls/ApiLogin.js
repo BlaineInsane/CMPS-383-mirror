@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "../env.js";
+import { configuration } from "../BaseUrl";
 
 async function ApiLogin(username, password) {
   const Username = username;
   const Password = password;
-  const loginUrl = `${BASE_URL}/api/authentication/login/`;
+  const loginUrl = `${configuration.BASE_URL}/api/authentication/login/`;
 
   axios
     .post(
