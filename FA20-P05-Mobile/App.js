@@ -1,19 +1,71 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Login from './Screens/Login';
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Main from "./Screens/Main";
+import Login from "./Screens/Login";
+import PublicData from "./Screens/PublicData";
+import PersonalData from "./Screens/PersonalData";
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function App() {
   return (
-   <Login/>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Main"
+          component={Main}
+          options={{
+            title: "Main Page",
+            headerStyle: {
+              backgroundColor: "rgba(50, 120, 150, 1.0)",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center"
+
+          }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            title: "Log In",
+            headerStyle: {
+              backgroundColor: "rgba(50, 120, 150, 1.0)",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center"
+
+          }}
+        />
+        <Stack.Screen
+          name="PublicData"
+          component={PublicData}
+          options={{
+            title: "Public Data",
+            headerStyle: {
+              backgroundColor: "rgba(50, 120, 150, 1.0)",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center"
+          }}
+        />
+        <Stack.Screen
+          name="PersonalData"
+          component={PersonalData}
+          options={{
+            title: "Personal Data",
+            headerStyle: {
+              backgroundColor: "rgba(50, 120, 150, 1.0)",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center"
+            
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

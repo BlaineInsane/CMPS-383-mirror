@@ -40,29 +40,10 @@ export default class Login extends Component {
           placeholder="Password"
           style={styles.textBox}
           onChangeText={this.handlePasswordChange}
+          secureTextEntry={true}
         ></TextInput>
         <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-          <Text
-            style={[
-              {
-                color: "white",
-                textAlign: "center",
-                textAlignVertical: "center",
-                fontSize: 18,
-              },
-            ]}
-          >
-            Log in
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text
-            style={[
-              { marginTop: 20, textDecorationLine: "underline", color: "gray" },
-            ]}
-          >
-            Create an account
-          </Text>
+          <Text style={styles.text}>Log in</Text>
         </TouchableOpacity>
       </View>
     );
@@ -93,5 +74,11 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     backgroundColor: "rgba(200, 20, 0, 0.60)",
+  },
+  text: {
+    color: "white",
+    textAlign: "center",
+    textAlignVertical: "center",
+    fontSize: 18,
   },
 });
