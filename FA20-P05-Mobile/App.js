@@ -5,7 +5,9 @@ import Main from "./Screens/Main";
 import Login from "./Screens/Login";
 import PublicData from "./Screens/PublicData";
 import PersonalData from "./Screens/PersonalData";
+import Staff from "./Screens/Staff";
 
+const headerColor = "rgba(50, 120, 150, 1.0)";
 const Stack = createStackNavigator();
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
           options={{
             title: "Main Page",
             headerStyle: {
-              backgroundColor: "rgba(50, 120, 150, 1.0)",
+              backgroundColor: headerColor,
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",
@@ -30,7 +32,7 @@ function App() {
           options={{
             title: "Log In",
             headerStyle: {
-              backgroundColor: "rgba(50, 120, 150, 1.0)",
+              backgroundColor: headerColor,
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",
@@ -42,7 +44,7 @@ function App() {
           options={{
             title: "Public Data",
             headerStyle: {
-              backgroundColor: "rgba(50, 120, 150, 1.0)",
+              backgroundColor: headerColor,
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",
@@ -54,7 +56,19 @@ function App() {
           options={{
             title: "Personal Data",
             headerStyle: {
-              backgroundColor: "rgba(50, 120, 150, 1.0)",
+              backgroundColor: headerColor,
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+          }}
+        />
+        <Stack.Screen
+          name="Staff"
+          component={Staff}
+          options={{
+            title: "Staff",
+            headerStyle: {
+              backgroundColor: headerColor,
             },
             headerTintColor: "#fff",
             headerTitleAlign: "center",
