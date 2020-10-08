@@ -21,8 +21,7 @@ function App() {
               backgroundColor: "rgba(50, 120, 150, 1.0)",
             },
             headerTintColor: "#fff",
-            headerTitleAlign: "center"
-
+            headerTitleAlign: "center",
           }}
         />
         <Stack.Screen
@@ -34,8 +33,7 @@ function App() {
               backgroundColor: "rgba(50, 120, 150, 1.0)",
             },
             headerTintColor: "#fff",
-            headerTitleAlign: "center"
-
+            headerTitleAlign: "center",
           }}
         />
         <Stack.Screen
@@ -47,7 +45,7 @@ function App() {
               backgroundColor: "rgba(50, 120, 150, 1.0)",
             },
             headerTintColor: "#fff",
-            headerTitleAlign: "center"
+            headerTitleAlign: "center",
           }}
         />
         <Stack.Screen
@@ -59,8 +57,7 @@ function App() {
               backgroundColor: "rgba(50, 120, 150, 1.0)",
             },
             headerTintColor: "#fff",
-            headerTitleAlign: "center"
-            
+            headerTitleAlign: "center",
           }}
         />
       </Stack.Navigator>
