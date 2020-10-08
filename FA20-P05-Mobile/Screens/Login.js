@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import ApiLogin from "../ApiCalls/ApiLogin";
 
+import { buttonColor, screenBackgroundColor } from "./Main";
+
 //TODO: manage logged in user(cookies?)
 //      create frontend stuff if login returns 400
 
@@ -26,6 +28,7 @@ export default class Login extends Component {
 
   handleSubmit = () => {
     const loginResult = ApiLogin(this.state.Username, this.state.Password);
+    this.props.navigation.navigate("Staff");
   };
 
   render() {
@@ -42,7 +45,11 @@ export default class Login extends Component {
           onChangeText={this.handlePasswordChange}
           secureTextEntry={true}
         ></TextInput>
-        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.handleSubmit}
+          //onPress={() => this.props.navigation.navigate("Staff")}
+        >
           <Text style={styles.text}>Log in</Text>
         </TouchableOpacity>
       </View>
@@ -53,7 +60,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(125, 125, 125, 0.10)",
+    backgroundColor: screenBackgroundColor,
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
@@ -73,7 +80,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 5,
     paddingBottom: 5,
-    backgroundColor: "rgba(200, 20, 0, 0.60)",
+    backgroundColor: buttonColor,
   },
   text: {
     color: "white",
