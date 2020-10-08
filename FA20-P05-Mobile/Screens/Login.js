@@ -28,7 +28,10 @@ export default class Login extends Component {
 
   handleSubmit = () => {
     const loginResult = ApiLogin(this.state.Username, this.state.Password);
-    this.props.navigation.navigate("Staff");
+    if (Response.status == 200) {
+      this.props.navigation.navigate("Staff");
+    }
+    alert("Username or password incorrect");
   };
 
   render() {
@@ -45,11 +48,7 @@ export default class Login extends Component {
           onChangeText={this.handlePasswordChange}
           secureTextEntry={true}
         ></TextInput>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.handleSubmit}
-          //onPress={() => this.props.navigation.navigate("Staff")}
-        >
+        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
           <Text style={styles.text}>Log in</Text>
         </TouchableOpacity>
       </View>
