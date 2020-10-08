@@ -65,11 +65,10 @@ export default class Login extends React.Component {
           placeholder="Password"
           style={styles.textBox}
           onChangeText={this.handlePasswordChange}
+          secureTextEntry={true}
         ></TextInput>
         <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
           <Text style={styles.text}>Log in</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
         </TouchableOpacity>
       </View>
     );
