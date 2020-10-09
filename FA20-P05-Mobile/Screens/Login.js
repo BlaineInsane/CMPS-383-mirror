@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import ApiLogin from "../ApiCalls/ApiLogin";
 
+import { buttonColor, screenBackgroundColor } from "./Main";
+
 //TODO: manage logged in user(cookies?)
 //      create frontend stuff if login returns 400
 
@@ -26,6 +28,10 @@ export default class Login extends Component {
 
   handleSubmit = () => {
     const loginResult = ApiLogin(this.state.Username, this.state.Password);
+    if (Response.status == 200) {
+      this.props.navigation.navigate("Staff");
+    }
+    alert("Username or password incorrect");
   };
 
   render() {
@@ -40,29 +46,10 @@ export default class Login extends Component {
           placeholder="Password"
           style={styles.textBox}
           onChangeText={this.handlePasswordChange}
+          secureTextEntry={true}
         ></TextInput>
         <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-          <Text
-            style={[
-              {
-                color: "white",
-                textAlign: "center",
-                textAlignVertical: "center",
-                fontSize: 18,
-              },
-            ]}
-          >
-            Log in
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text
-            style={[
-              { marginTop: 20, textDecorationLine: "underline", color: "gray" },
-            ]}
-          >
-            Create an account
-          </Text>
+          <Text style={styles.text}>Log in</Text>
         </TouchableOpacity>
       </View>
     );
@@ -72,7 +59,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(125, 125, 125, 0.10)",
+    backgroundColor: screenBackgroundColor,
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
@@ -92,6 +79,12 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 5,
     paddingBottom: 5,
-    backgroundColor: "rgba(200, 20, 0, 0.60)",
+    backgroundColor: buttonColor,
+  },
+  text: {
+    color: "white",
+    textAlign: "center",
+    textAlignVertical: "center",
+    fontSize: 18,
   },
 });
