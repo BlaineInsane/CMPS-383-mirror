@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import ApiLogin from "../ApiCalls/ApiLogin";
+import ApiMe from "../ApiCalls/ApiMe";
 
 import { buttonColor, screenBackgroundColor } from "./Main";
 
-//TODO: manage logged in user(cookies?)
-//      create frontend stuff if login returns 400
+//TODO: create frontend stuff if login returns 400
 
 export default class Login extends Component {
   state = {
@@ -27,11 +27,7 @@ export default class Login extends Component {
   };
 
   handleSubmit = () => {
-    const loginResult = ApiLogin(this.state.Username, this.state.Password);
-    if (Response.status == 200) {
-      this.props.navigation.navigate("Staff");
-    }
-    alert("Username or password incorrect");
+    ApiLogin(this.state.Username, this.state.Password);
   };
 
   render() {
