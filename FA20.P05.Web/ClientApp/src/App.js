@@ -1,6 +1,8 @@
 
 
-import React from "react";
+import React, { useState } from "react";
+import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import "./Login.css";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +14,7 @@ export default function App() {
   return (
     <Router>
       <div>
+        
         <nav>
           <ul>
             <li>
@@ -21,10 +24,11 @@ export default function App() {
               <Link to="/publicData">View Public Data</Link>
             </li>
             <li>
-              <Link to="/admin">Admin Login</Link>
+              <Link to="/Login.js">Admin Login</Link>
             </li>
           </ul>
         </nav>
+        
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -32,7 +36,7 @@ export default function App() {
           <Route path="/publicData">
             <PublicData />
           </Route>
-          <Route path="/admin">
+          <Route path="/Login.js">
             <Admins />
           </Route>
           <Route path="/">
@@ -53,6 +57,42 @@ function PublicData() {
 }
 
 function Admins() {
-  return <h2>admins do stuff with users here</h2>;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function validateForm() {
+    return email.length > 0 && password.length > 0;
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+  }
+
+  return (
+    <div className="Login">
+      <form onSubmit={handleSubmit}>
+        <FormGroup controlId="email" bsSize="large">
+          <FormLabel>Email</FormLabel>
+          <FormControl
+            autoFocus
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup controlId="password" bsSize="large">
+          <FormLabel>Password</FormLabel>
+          <FormControl
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            type="password"
+          />
+        </FormGroup>
+        <Button block bsSize="large" disabled={!validateForm()} type="submit">
+          Login
+        </Button>
+      </form>
+    </div>
+  );
 }
 
