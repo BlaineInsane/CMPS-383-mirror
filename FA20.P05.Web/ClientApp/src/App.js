@@ -1,7 +1,7 @@
 
 
 import React, { useState } from "react";
-import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./Login.css";
 import {
   BrowserRouter as Router,
@@ -72,7 +72,7 @@ function Admins() {
     <div className="Login">
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="email" bsSize="large">
-          <FormLabel>Email</FormLabel>
+          <ControlLabel>Email</ControlLabel>
           <FormControl
             autoFocus
             type="email"
@@ -81,7 +81,7 @@ function Admins() {
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
-          <FormLabel>Password</FormLabel>
+          <ControlLabel>Password</ControlLabel>
           <FormControl
             value={password}
             onChange={e => setPassword(e.target.value)}
