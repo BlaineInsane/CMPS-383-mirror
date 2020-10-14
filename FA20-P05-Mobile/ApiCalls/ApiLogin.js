@@ -1,21 +1,27 @@
-import axios from 'axios';
-import { BASE_URL } from '../env.js';
+import axios from "axios";
+import { configuration } from "../BaseUrl";
 
-export function ApiLogin(props) {
+async function ApiLogin(username, password) {
+  const Username = username;
+  const Password = password;
+  const loginUrl = `${configuration.BASE_URL}/api/authentication/login/`;
 
-    const Username = props.Username;
-    const Password = props.Password;
-    const loginUrl = `${BASE_URL}/api/authentication/login/`;
-
-    axios.post(loginUrl, { Username, Password }, {
+  axios
+    .post(
+      loginUrl,
+      { Username, Password },
+      {
         headers: {
-            'content-type': 'application/json',
+          "content-type": "application/json",
         },
+      }
+    )
+    .then(function (response) {
+      console.log(response);
     })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    .catch(function (error) {
+      console.log(error);
+    });
 }
+
+export default ApiLogin;
