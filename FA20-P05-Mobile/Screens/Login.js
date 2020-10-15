@@ -26,8 +26,15 @@ export default class Login extends Component {
     this.setState({ Password: event });
   };
 
-  handleSubmit = () => {
-    ApiLogin(this.state.Username, this.state.Password);
+  handleSubmit = async () => {
+    try {
+      let res = await ApiLogin(this.state.Username, this.state.Password);
+      if (res.status == "200") {
+        this.props.navigation.navigate("Staff");
+      }
+    } catch {
+      alert("please check email and password");
+    }
   };
 
   render() {
