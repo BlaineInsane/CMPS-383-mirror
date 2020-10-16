@@ -1,3 +1,4 @@
+<script src="http://localhost:8097"></script>;
 import * as React from "react";
 import {
   StyleSheet,
@@ -12,6 +13,8 @@ export const screenBackgroundColor = "rgba(125, 125, 125, 0.10)";
 
 export default class Main extends React.Component {
   render() {
+    let user = this.context;
+
     return (
       <View style={styles.container}>
         <Text style={styles.text}>Welcome to our mobile app:</Text>
@@ -50,23 +53,44 @@ export default class Main extends React.Component {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => this.props.navigation.navigate("Login")}
-        >
-          <Text
-            style={[
-              {
-                color: "white",
-                textAlign: "center",
-                textAlignVertical: "center",
-                fontSize: 18,
-              },
-            ]}
+        {/*changes button and it's navigation depending on whether the user is logged in */}
+        {user ? (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate("Staff")}
           >
-            Log in here
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={[
+                {
+                  color: "white",
+                  textAlign: "center",
+                  textAlignVertical: "center",
+                  fontSize: 18,
+                },
+              ]}
+            >
+              Record temps
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => this.props.navigation.navigate("Login")}
+          >
+            <Text
+              style={[
+                {
+                  color: "white",
+                  textAlign: "center",
+                  textAlignVertical: "center",
+                  fontSize: 18,
+                },
+              ]}
+            >
+              Log in here
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }

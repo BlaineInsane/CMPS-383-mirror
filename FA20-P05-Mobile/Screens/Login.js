@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,49 +7,58 @@ import {
   TouchableOpacity,
 } from "react-native";
 import ApiLogin from "../ApiCalls/ApiLogin";
-import ApiMe from "../ApiCalls/ApiMe";
+import { UserContext } from "../UserContext";
 
 import { buttonColor, screenBackgroundColor } from "./Main";
 
 //TODO: create frontend stuff if login returns 400
 
-export default class Login extends Component {
-  state = {
-    Username: "",
-    Password: "",
+function Login({ navigation }) {
+  const [Username, setUsername] = useState("");
+  const [Password, setPassword] = useState("");
+  const { user, setUser } = useContext(UserContext);
+
+  const handleUsernameChange = (event) => {
+    setUsername(event);
+  };
+  const handlePasswordChange = (event) => {
+    setPassword(event);
   };
 
-  handleUsernameChange = (event) => {
-    this.setState({ Username: event });
-  };
-  handlePasswordChange = (event) => {
-    this.setState({ Password: event });
+  const handleSubmit = async () => {
+    try {
+      let res = await ApiLogin(Username, Password);
+      if (res.status == "200") {
+        const theUser = {
+          Username: res.data.username,
+          staffId: res.data.staffId,
+        };
+        setUser(theUser);
+        navigation.navigate("Staff");
+      }
+    } catch {
+      alert("please check email and password");
+    }
   };
 
-  handleSubmit = () => {
-    ApiLogin(this.state.Username, this.state.Password);
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <TextInput
-          placeholder="Username"
-          style={styles.textBox}
-          onChangeText={this.handleUsernameChange}
-        ></TextInput>
-        <TextInput
-          placeholder="Password"
-          style={styles.textBox}
-          onChangeText={this.handlePasswordChange}
-          secureTextEntry={true}
-        ></TextInput>
-        <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-          <Text style={styles.text}>Log in</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      <TextInput
+        placeholder="Username"
+        style={styles.textBox}
+        onChangeText={handleUsernameChange}
+      ></TextInput>
+      <TextInput
+        placeholder="Password"
+        style={styles.textBox}
+        onChangeText={handlePasswordChange}
+        secureTextEntry={true}
+      ></TextInput>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <Text style={styles.text}>Log in</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -84,3 +93,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+
+export default Login;
