@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import { Button } from "react-native-elements";
-import { statusBar, buttonColor } from "./Main";
+import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
 
 export default class PublicData extends React.Component {
   render() {
@@ -20,14 +20,14 @@ export default class PublicData extends React.Component {
           <Text style={styles.text}>Record Temps:</Text>
           <Button
             buttonStyle={styles.button}
-            titleStyle={{ color: "white" }}
+            titleStyle={{ color: "white", fontFamily: "serif" }}
             title="Record"
             type="outline"
             //onPress={() => this.props.navigation.navigate("Main")}
           ></Button>
           <Button
             buttonStyle={styles.button}
-            titleStyle={{ color: "white" }}
+            titleStyle={{ color: "white", fontFamily: "serif" }}
             title="Back to Main"
             type="outline"
             onPress={() => this.props.navigation.navigate("Main")}
@@ -41,7 +41,7 @@ export default class PublicData extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(125, 125, 125, 0.10)",
+    backgroundColor: screenBackgroundColor,
     padding: 20,
     justifyContent: "center",
     alignItems: "center",
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 30,
+    fontFamily: "serif",
   },
 
   box: {

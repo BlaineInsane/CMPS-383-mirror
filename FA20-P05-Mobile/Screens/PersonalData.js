@@ -22,6 +22,7 @@ export default class PublicData extends React.Component {
               fontWeight: "bold",
               fontSize: 20,
               marginTop: 20,
+              fontFamily: "serif",
             }}
           >
             Personal Data:
@@ -37,7 +38,7 @@ export default class PublicData extends React.Component {
             title="Back to Main"
             type="outline"
             buttonStyle={styles.button}
-            titleStyle={{ color: "white" }}
+            titleStyle={{ color: "white", fontFamily: "serif" }}
             onPress={() => this.props.navigation.navigate("Main")}
           ></Button>
         </View>
