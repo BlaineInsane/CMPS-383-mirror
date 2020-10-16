@@ -49,6 +49,23 @@ export default class Main extends React.Component {
             View Personal Data
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonWide}
+          onPress={() => this.props.navigation.navigate("QRGen")}
+        >
+          <Text
+            style={[
+              {
+                color: "white",
+                textAlign: "center",
+                textAlignVertical: "center",
+                fontSize: 18,
+              },
+            ]}
+          >
+            QR Code
+          </Text>
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.button}

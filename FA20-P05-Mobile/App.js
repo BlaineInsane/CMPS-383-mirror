@@ -6,6 +6,7 @@ import Login from "./Screens/Login";
 import PublicData from "./Screens/PublicData";
 import PersonalData from "./Screens/PersonalData";
 import Staff from "./Screens/Staff";
+import QRGen from "./Screens/QRCodeGen";
 
 const headerColor = "rgba(50, 120, 150, 1.0)";
 const Stack = createStackNavigator();
@@ -67,6 +68,18 @@ function App() {
           component={Staff}
           options={{
             title: "Staff",
+            headerStyle: {
+              backgroundColor: headerColor,
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
+          }}
+        />
+        <Stack.Screen
+          name="QRGen"
+          component={QRGen}
+          options={{
+            title: "QR Code Generator",
             headerStyle: {
               backgroundColor: headerColor,
             },
