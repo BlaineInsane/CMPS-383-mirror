@@ -1,17 +1,18 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { headerColor } from "./Screens/Main";
 import Main from "./Screens/Main";
 import Login from "./Screens/Login";
 import PublicData from "./Screens/PublicData";
 import PersonalData from "./Screens/PersonalData";
 import Staff from "./Screens/Staff";
 
-const headerColor = "rgba(50, 120, 150, 1.0)";
 const Stack = createStackNavigator();
 
 function App() {
   return (
+    /*!isSignedIn ? */
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
