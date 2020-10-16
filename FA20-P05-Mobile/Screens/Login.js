@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import ApiLogin from "../ApiCalls/ApiLogin";
-import ApiMe from "../ApiCalls/ApiMe";
+import { UserContext } from "../UserContext";
 
 import { buttonColor, screenBackgroundColor } from "./Main";
 
@@ -16,6 +16,7 @@ import { buttonColor, screenBackgroundColor } from "./Main";
 function Login({ navigation }) {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
+  const { user, setUser } = useContext(UserContext);
 
   const handleUsernameChange = (event) => {
     setUsername(event);
@@ -28,6 +29,11 @@ function Login({ navigation }) {
     try {
       let res = await ApiLogin(Username, Password);
       if (res.status == "200") {
+        const theUser = {
+          Username: res.data.username,
+          staffId: res.data.staffId,
+        };
+        setUser(theUser);
         navigation.navigate("Staff");
       }
     } catch {
