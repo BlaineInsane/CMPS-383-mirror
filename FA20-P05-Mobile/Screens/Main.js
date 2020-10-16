@@ -16,7 +16,7 @@ import {
 import { Button } from "react-native-elements";
 
 export const buttonColor = "rgba(100, 150, 0, .70)";
-export const screenBackgroundColor = "rgba(50, 50, 50, .60)";
+export const screenBackgroundColor = "rgba(50, 50, 50, .50)";
 export const statusBar = "rgba(110, 140, 0, .60)";
 
 function Separator() {
