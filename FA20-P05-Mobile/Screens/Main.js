@@ -8,15 +8,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { Button } from "react-native-elements";
-
 export const buttonColor = "rgba(200, 20, 0, 0.60)";
 export const screenBackgroundColor = "rgba(125, 125, 125, 0.10)";
-export const headerColor = "rgba(50, 120, 150, 1.0)";
-
-function Separator() {
-  return <View style={styles.separator} />;
-}
 
 export default class Main extends React.Component {
   render() {
@@ -24,33 +17,27 @@ export default class Main extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.boxColor}>
-          <Text style={styles.text}>Welcome to our mobile app:</Text>
-        </View>
-        <Separator />
-        <Button
-          title="View Public Data"
-          type="outline"
-          raised
-          titleStyle={{ color: "white" }}
-          buttonStyle={{
-            backgroundColor: buttonColor,
-            borderColor: "black",
-          }}
+        <Text style={styles.text}>Welcome to our mobile app:</Text>
+        <TouchableOpacity
+          style={styles.buttonWide}
           onPress={() => this.props.navigation.navigate("PublicData")}
-        ></Button>
-        <Separator />
-        <Button
-          title="View Personal Data"
-          type="outline"
-          raised
-          titleStyle={{ color: "white" }}
-          buttonStyle={{
-            backgroundColor: buttonColor,
-            borderColor: "black",
-          }}
+        >
+          <Text
+            style={[
+              {
+                color: "white",
+                textAlign: "center",
+                textAlignVertical: "center",
+                fontSize: 18,
+              },
+            ]}
+          >
+            View Public Data
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonWide}
           onPress={() => this.props.navigation.navigate("PersonalData")}
-<<<<<<< Updated upstream
         >
           <Text
             style={[
@@ -104,26 +91,6 @@ export default class Main extends React.Component {
             </Text>
           </TouchableOpacity>
         )}
-=======
-        ></Button>
-        <Separator />
-        <Separator />
-        <Separator />
-        <Separator />
-        <Separator />
-        <Button
-          title="Log In"
-          type="outline"
-          raised
-          titleStyle={{ color: "white" }}
-          buttonStyle={{
-            backgroundColor: buttonColor,
-            outline: buttonColor,
-            borderColor: "black",
-          }}
-          onPress={() => this.props.navigation.navigate("Login")}
-        ></Button>
->>>>>>> Stashed changes
       </View>
     );
   }
@@ -161,20 +128,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  boxColor: {
-    backgroundColor: headerColor,
-    height: 40,
-    width: 300,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  separator: {
-    marginVertical: 10,
-  },
-
   text: {
     fontSize: 18,
-    color: "white",
+    fontWeight: "bold",
   },
 });
