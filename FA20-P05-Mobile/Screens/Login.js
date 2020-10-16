@@ -4,12 +4,13 @@ import {
   View,
   Text,
   TextInput,
+  StatusBar,
   TouchableOpacity,
 } from "react-native";
 import ApiLogin from "../ApiCalls/ApiLogin";
 import { UserContext } from "../UserContext";
 
-import { buttonColor, screenBackgroundColor } from "./Main";
+import { buttonColor, screenBackgroundColor, statusBar } from "./Main";
 
 //TODO: create frontend stuff if login returns 400
 
@@ -43,6 +44,8 @@ function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
+
       <TextInput
         placeholder="Username"
         style={styles.textBox}

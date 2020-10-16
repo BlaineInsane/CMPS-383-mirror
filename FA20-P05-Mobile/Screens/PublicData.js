@@ -4,41 +4,77 @@ import {
   View,
   Text,
   TextInput,
+  StatusBar,
   TouchableOpacity,
 } from "react-native";
+import { Button } from "react-native-elements";
+import { statusBar, buttonColor } from "./Main";
 
 export default class PublicData extends React.Component {
-
   render() {
     return (
       <View style={styles.container}>
-            <Text style={styles.text}>Public Data:</Text>
-            <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Main')}><Text style={[{ color: "white", textAlign: "center", textAlignVertical: 'center', fontSize: 18 }]}>Back to Main</Text></TouchableOpacity>
+        <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
+        <View style={styles.box}>
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: 20,
+              marginTop: 20,
+            }}
+          >
+            Public Data:
+          </Text>
+          <Text style={styles.text}>Placeholder Dummy Data</Text>
+          <Text style={styles.text}>Placeholder Dummy Data</Text>
+          <Text style={styles.text}>Placeholder Dummy Data</Text>
+          <Text style={styles.text}>Placeholder Dummy Data</Text>
+          <Text style={styles.text}>Placeholder Dummy Data</Text>
+          <Text style={styles.text}>Placeholder Dummy Data</Text>
+          <Text style={styles.text}>Placeholder Dummy Data</Text>
+          <Button
+            title="Back to Main"
+            type="outline"
+            buttonStyle={styles.button}
+            titleStyle={{ color: "white" }}
+            onPress={() => this.props.navigation.navigate("Main")}
+          ></Button>
+        </View>
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(125, 125, 125, 0.10)",
+    backgroundColor: "rgba(50, 50, 50, .60)",
     padding: 20,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
 
   button: {
-    height: 40,
-    width: 130,
-    padding: 5,
-    paddingTop: 5,
-    paddingBottom: 5,
-    marginTop: 20,
-    backgroundColor: "rgba(200, 20, 0, 0.60)",
-    justifyContent: "center"
+    marginTop: 150,
+    borderColor: buttonColor,
+    width: 150,
+    alignSelf: "center",
+    borderRadius: 20,
+    borderWidth: 2,
+    backgroundColor: "rgba(100, 170, 0, .50)",
   },
+
   text: {
-      fontSize: 18
-  }
+    fontSize: 18,
+    textAlign: "center",
+    marginTop: 20,
+  },
+
+  box: {
+    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    width: 340,
+    height: 600,
+    marginTop: 20,
+  },
 });
