@@ -1,5 +1,4 @@
-<script src="http://localhost:8097"></script>;
-import * as React from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -12,8 +11,9 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-
+import { UserContext } from "../UserContext";
 import { Button } from "react-native-elements";
+import ApiLogout from "../ApiCalls/ApiLogout";
 
 export const buttonColor = "rgba(100, 150, 0, .70)";
 export const screenBackgroundColor = "rgba(50, 50, 50, .50)";
@@ -23,94 +23,111 @@ function Separator() {
   return <View style={styles.separator} />;
 }
 
-export default class Main extends React.Component {
-  render() {
-    let user = this.context;
+function Main({ navigation }) {
+  const { user, setUser } = useContext(UserContext);
 
-    return (
-      <ScrollView>
-        <View style={styles.container}>
-          <ImageBackground
-            source={require("../assets/tree.jpg")}
-            resizeMode="contain"
+  const handleLogout = async () => {
+    try {
+      let username = user.Username;
+      let staffid = user.staffId;
+
+      await ApiLogout(username, staffid);
+      setUser(null);
+    } catch {
+      // If the server is down and the user can't hit the "Logout" endpoint
+      // this will make the app still function as if they are logged out.
+      // If the user then exits the app and they reopen it when the server is running they
+      // will likely be still be logged in. Probably not a huge problem, but a potentially
+      // weird behavior.
+      setUser(null);
+    }
+  };
+
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../assets/tree.jpg")}
+          resizeMode="contain"
+          style={{
+            width: 420,
+            height: 315,
+            alignSelf: "flex-start",
+            marginBottom: 20,
+          }}
+        >
+          <Text style={styles.welcome}>Welcome to our mobile app:</Text>
+          <View
             style={{
-              width: 420,
-              height: 315,
-              alignSelf: "flex-start",
-              marginBottom: 20,
+              backgroundColor: "rgba(50, 50, 50, .70)",
+              height: 75,
+              justifyContent: "center",
             }}
           >
-            <Text style={styles.welcome}>Welcome to our mobile app:</Text>
-            <View
+            <Text
               style={{
-                backgroundColor: "rgba(50, 50, 50, .70)",
-                height: 75,
+                color: "white",
+                fontSize: 17,
+                fontFamily: "serif",
+                padding: 30,
+                marginRight: 30,
+                textShadowColor: "black",
+                textAlignVertical: "center",
                 justifyContent: "center",
               }}
             >
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 17,
-                  fontFamily: "serif",
-                  padding: 30,
-                  marginRight: 30,
-                  textShadowColor: "black",
-                  textAlignVertical: "center",
-                  justifyContent: "center",
-                }}
-              >
-                This is where we will have some info about our website, and what
-                it aims to accomplish.
-              </Text>
-            </View>
-          </ImageBackground>
-          <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
-          <View style={styles.box}>
-            <Text
-              style={{
-                textAlign: "center",
-                padding: 30,
-                fontSize: 15,
-                fontFamily: "serif",
-              }}
-            >
-              This is where we will explain what public data is, who is
-              recording this data and explain that it is in no way associated
-              with an individual in accordance with HIPAA guidelines.
+              This is where we will have some info about our website, and what
+              it aims to accomplish.
             </Text>
-            <Button
-              title="View Public Data"
-              type="outline"
-              buttonStyle={styles.button}
-              titleStyle={{ color: "white", fontFamily: "serif" }}
-              onPress={() => this.props.navigation.navigate("PublicData")}
-            ></Button>
           </View>
-          <View style={styles.box}>
-            <Text
-              style={{
-                textAlign: "center",
-                padding: 30,
-                fontSize: 15,
-                fontFamily: "serif",
-              }}
-            >
-              This is where we will explain what personal data is, and how it is
-              safely recorded with no association linking student to their
-              personal data in any sort of database.
-            </Text>
-            <Button
-              title="View Personal Data"
-              type="outline"
-              buttonStyle={styles.buttonWide}
-              titleStyle={{ color: "white", fontFamily: "serif" }}
-              onPress={() => this.props.navigation.navigate("PersonalData")}
-            ></Button>
-          </View>
+        </ImageBackground>
+        <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
+        <View style={styles.box}>
+          <Text
+            style={{
+              textAlign: "center",
+              padding: 30,
+              fontSize: 15,
+              fontFamily: "serif",
+            }}
+          >
+            This is where we will explain what public data is, who is recording
+            this data and explain that it is in no way associated with an
+            individual in accordance with HIPAA guidelines.
+          </Text>
+          <Button
+            title="View Public Data"
+            type="outline"
+            buttonStyle={styles.button}
+            titleStyle={{ color: "white", fontFamily: "serif" }}
+            onPress={() => navigation.navigate("PublicData")}
+          ></Button>
+        </View>
+        <View style={styles.box}>
+          <Text
+            style={{
+              textAlign: "center",
+              padding: 30,
+              fontSize: 15,
+              fontFamily: "serif",
+            }}
+          >
+            This is where we will explain what personal data is, and how it is
+            safely recorded with no association linking student to their
+            personal data in any sort of database.
+          </Text>
+          <Button
+            title="View Personal Data"
+            type="outline"
+            buttonStyle={styles.buttonWide}
+            titleStyle={{ color: "white", fontFamily: "serif" }}
+            onPress={() => navigation.navigate("PersonalData")}
+          ></Button>
+        </View>
 
-          {/*changes button and it's navigation depending on whether the user is logged in */}
-          {user ? (
+        {/*changes button and it's navigation depending on whether the user is logged in */}
+        {user !== null ? (
+          <View>
             <View style={styles.box}>
               <Text
                 style={{
@@ -129,13 +146,34 @@ export default class Main extends React.Component {
                 type="outline"
                 buttonStyle={styles.buttonWide}
                 titleStyle={{ color: "white", fontFamily: "serif" }}
-                onPress={() => this.props.navigation.navigate("RecordTemps")}
+                onPress={() => navigation.navigate("RecordTemps")}
               ></Button>
             </View>
-          ) : (
+            <View style={styles.box}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  padding: 30,
+                  fontSize: 15,
+                  fontFamily: "serif",
+                }}
+              >
+                Testing Logout button
+              </Text>
+              <Button
+                title="Logout"
+                type="outline"
+                buttonStyle={styles.buttonWide}
+                titleStyle={{ color: "white", fontFamily: "serif" }}
+                onPress={handleLogout}
+              ></Button>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.box}>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => this.props.navigation.navigate("Login")}
+              onPress={() => navigation.navigate("Login")}
             >
               <Text
                 style={[
@@ -150,11 +188,11 @@ export default class Main extends React.Component {
                 Log in here
               </Text>
             </TouchableOpacity>
-          )}
-        </View>
-      </ScrollView>
-    );
-  }
+          </View>
+        )}
+      </View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -217,3 +255,5 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 });
+
+export default Main;
