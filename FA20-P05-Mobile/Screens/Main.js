@@ -16,7 +16,7 @@ import { isLoadingContext } from "../Context/IsLoadingContext";
 import { Button } from "react-native-elements";
 import ApiLogout from "../ApiCalls/ApiLogout";
 
-export const buttonColor = "rgba(100, 150, 0, .70)";
+export const buttonColor = "rgba(110, 140, 0, 1.0)";
 export const screenBackgroundColor = "rgba(50, 50, 50, .50)";
 export const statusBar = "rgba(110, 140, 0, .60)";
 
@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
     width: 150,
     alignSelf: "center",
     borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: "rgba(100, 170, 0, .50)",
+    borderWidth: 1,
+    backgroundColor: "rgba(110, 170, 0, .50)",
   },
 
   buttonWide: {
@@ -181,8 +181,8 @@ const styles = StyleSheet.create({
     width: 185,
     alignSelf: "center",
     borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: "rgba(100, 170, 0, .50)",
+    borderWidth: 1,
+    backgroundColor: "rgba(110, 170, 0, .50)",
   },
 
   text: {

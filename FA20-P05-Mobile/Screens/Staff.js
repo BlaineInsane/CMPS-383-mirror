@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     width: 200,
     alignSelf: "center",
     borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: "rgba(100, 170, 0, .50)",
+    borderWidth: 1,
+    backgroundColor: "rgba(110, 170, 0, .50)",
   },
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
