@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -6,36 +6,70 @@ import {
   TextInput,
   StatusBar,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 
 import { Button } from "react-native-elements";
+import { ScrollPicker } from "react-native-value-picker";
+import { Separator } from "./Login";
+import { TEMP_DATA } from "../Data/TempData";
+
 import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
 
-export default class PublicData extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
-        <View style={styles.box}>
-          <Text style={styles.text}>Record Temps:</Text>
-          <Button
-            buttonStyle={styles.button}
-            titleStyle={{ color: "white", fontFamily: "serif" }}
-            title="Record"
-            type="outline"
-            //onPress={() => this.props.navigation.navigate("Main")}
-          ></Button>
-          <Button
-            buttonStyle={styles.button}
-            titleStyle={{ color: "white", fontFamily: "serif" }}
-            title="Back to Main"
-            type="outline"
-            onPress={() => this.props.navigation.navigate("Main")}
-          ></Button>
+export default function RecordTemps({ navigation }) {
+  const [pickedValue, setPickedValue] = useState(98.6);
+
+  return (
+    <View style={styles.container}>
+      <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
+      <View style={styles.box}>
+        <Text style={styles.text}>Record Temperatures:</Text>
+        <View
+          style={{
+            height: 160,
+            width: 200,
+            borderColor: "green",
+            borderWidth: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <ScrollPicker
+            currentValue={pickedValue}
+            extraData={pickedValue}
+            list={TEMP_DATA}
+            onItemPress={setPickedValue}
+            labelColor="black"
+            separatorColor="green"
+            selectedColor="blue"
+          />
         </View>
+        <Separator />
+        <Text style={{ fontFamily: "serif" }}>
+          Current Temperature:{" "}
+          <Text style={{ fontWeight: "bold" }}>
+            {" "}
+            {pickedValue}
+            {"\u00b0"} F
+          </Text>
+        </Text>
+        <Button
+          buttonStyle={styles.button}
+          titleStyle={{ color: "white", fontFamily: "serif" }}
+          title="Record"
+          type="outline"
+          //onPress={() => this.props.navigation.navigate("Main")}
+        ></Button>
+        <Button
+          buttonStyle={styles.button}
+          titleStyle={{ color: "white", fontFamily: "serif" }}
+          title="Back to Main"
+          type="outline"
+          onPress={() => navigation.navigate("Main")}
+        ></Button>
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -69,7 +103,8 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
-    height: 250,
+    height: 420,
     marginTop: 20,
+    alignItems: "center",
   },
 });

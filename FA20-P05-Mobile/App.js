@@ -42,7 +42,7 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <isLoadingContext.Provider value={{ isLoading, setIsLoading }}>
-        <Spinner visible={isLoading} textContent={"Loading"} />
+        <Spinner visible={isLoading} />
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen

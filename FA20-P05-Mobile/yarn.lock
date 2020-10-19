@@ -4744,6 +4744,11 @@ react-native-status-bar-height@^2.5.0:
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.5.0.tgz#bc0fb85230603850aab9667ee8111a62954de90c"
   integrity sha512-sYBCPYA/NapBSHkdm/IVL4ID3LLlIuLqINi2FBDyMkc2BU9pfSGOtkz9yfxoK39mYJuTrlTOQ7mManARUsYDSA==
 
+react-native-value-picker@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/react-native-value-picker/-/react-native-value-picker-0.1.4.tgz#019410023418b41fa53a0569d0830fc3fa5a7c14"
+  integrity sha512-jLYp13WX5JpCbmZhWF3UHRktiVDVYIYMEHQRLgXJCYTJVj89jAPGT1CVkFQFl78SKF4CuQoeeRzBbF5UesNrTA==
+
 react-native-web@~0.13.7:
   version "0.13.16"
   resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.13.16.tgz#620466e3db6563d754163785c3d3571bed6608db"

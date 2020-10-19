@@ -7,12 +7,17 @@ import {
   StatusBar,
   TouchableOpacity,
 } from "react-native";
+
+import { Button } from "react-native-elements";
 import ApiLogin from "../ApiCalls/ApiLogin";
 import { UserContext } from "../Context/UserContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 
 import { buttonColor, screenBackgroundColor, statusBar } from "./Main";
 
+export function Separator() {
+  return <View style={styles.separator} />;
+}
 //TODO: create frontend stuff if login returns 400
 
 function Login({ navigation }) {
@@ -42,29 +47,40 @@ function Login({ navigation }) {
         navigation.navigate("Staff");
       }
     } catch {
-      alert("please check email and password");
+      alert("Invalid username and/or password. Please try again.");
       setIsLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
+      <View style={styles.box}>
+        <Separator />
+        <Text style={{ fontSize: 18, fontFamily: "serif" }}>
+          Staff Member Login Screen:
+        </Text>
 
-      <TextInput
-        placeholder="Username"
-        style={styles.textBox}
-        onChangeText={handleUsernameChange}
-      ></TextInput>
-      <TextInput
-        placeholder="Password"
-        style={styles.textBox}
-        onChangeText={handlePasswordChange}
-        secureTextEntry={true}
-      ></TextInput>
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.text}>Log in</Text>
-      </TouchableOpacity>
+        <Separator />
+        <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
+        <TextInput
+          placeholder="Username"
+          style={styles.textBox}
+          onChangeText={handleUsernameChange}
+        ></TextInput>
+        <TextInput
+          placeholder="Password"
+          style={styles.textBox}
+          onChangeText={handlePasswordChange}
+          secureTextEntry={true}
+        ></TextInput>
+        <Button
+          buttonStyle={styles.button}
+          type="outline"
+          title="Log In"
+          titleStyle={{ color: "white", fontFamily: "serif" }}
+          onPress={handleSubmit}
+        ></Button>
+      </View>
     </View>
   );
 }
@@ -94,11 +110,30 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     backgroundColor: buttonColor,
   },
+  box: {
+    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    width: 340,
+    height: 230,
+    marginBottom: 20,
+    alignItems: "center",
+  },
+  button: {
+    marginTop: 0,
+    borderColor: buttonColor,
+    width: 150,
+    alignSelf: "center",
+    borderRadius: 20,
+    borderWidth: 2,
+    backgroundColor: "rgba(100, 170, 0, .50)",
+  },
   text: {
     color: "white",
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 18,
+  },
+  separator: {
+    marginVertical: 10,
   },
 });
 
