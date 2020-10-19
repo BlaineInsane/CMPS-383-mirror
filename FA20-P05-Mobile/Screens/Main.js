@@ -95,7 +95,7 @@ function Main({ navigation }) {
             type="outline"
             buttonStyle={styles.button}
             titleStyle={{ color: "white", fontFamily: "serif" }}
-            onPress={() => navigation.navigate("Test")}
+            onPress={() => navigation.navigate("PublicData")}
           ></Button>
         </View>
         <View style={styles.box}>
