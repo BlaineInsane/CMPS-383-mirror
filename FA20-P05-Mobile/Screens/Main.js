@@ -11,7 +11,8 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../Context/UserContext";
+import { isLoadingContext } from "../Context/IsLoadingContext";
 import { Button } from "react-native-elements";
 import ApiLogout from "../ApiCalls/ApiLogout";
 
@@ -24,6 +25,7 @@ function Separator() {
 }
 
 function Main({ navigation }) {
+  const { setIsLoading } = useContext(isLoadingContext);
   const { user, setUser } = useContext(UserContext);
 
   const handleLogout = async () => {
@@ -31,15 +33,19 @@ function Main({ navigation }) {
       let username = user.Username;
       let staffid = user.staffId;
 
-      await ApiLogout(username, staffid);
+      setIsLoading(true);
+      let res = await ApiLogout(username, staffid);
+
       setUser(null);
+      setIsLoading(false);
     } catch {
       // If the server is down and the user can't hit the "Logout" endpoint
       // this will make the app still function as if they are logged out.
       // If the user then exits the app and they reopen it when the server is running they
       // will likely be still be logged in. Probably not a huge problem, but a potentially
       // weird behavior.
-      setUser(null);
+      //setUser(null);
+      //setIsLoading(false);
     }
   };
 
@@ -124,7 +130,6 @@ function Main({ navigation }) {
             onPress={() => navigation.navigate("PersonalData")}
           ></Button>
         </View>
-
         {/*changes button and it's navigation depending on whether the user is logged in */}
         {user !== null ? (
           <View>

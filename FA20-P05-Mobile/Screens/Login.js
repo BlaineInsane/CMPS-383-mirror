@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import ApiLogin from "../ApiCalls/ApiLogin";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../Context/UserContext";
+import { isLoadingContext } from "../Context/IsLoadingContext";
 
 import { buttonColor, screenBackgroundColor, statusBar } from "./Main";
 
@@ -17,7 +18,8 @@ import { buttonColor, screenBackgroundColor, statusBar } from "./Main";
 function Login({ navigation }) {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
+  const { setIsLoading } = useContext(isLoadingContext);
 
   const handleUsernameChange = (event) => {
     setUsername(event);
@@ -28,6 +30,7 @@ function Login({ navigation }) {
 
   const handleSubmit = async () => {
     try {
+      setIsLoading(true);
       let res = await ApiLogin(Username, Password);
       if (res.status == "200") {
         const theUser = {
@@ -35,10 +38,12 @@ function Login({ navigation }) {
           staffId: res.data.staffId,
         };
         setUser(theUser);
+        setIsLoading(false);
         navigation.navigate("Staff");
       }
     } catch {
       alert("please check email and password");
+      setIsLoading(false);
     }
   };
 
