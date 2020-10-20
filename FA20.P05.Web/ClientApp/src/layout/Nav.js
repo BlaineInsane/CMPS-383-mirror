@@ -1,16 +1,16 @@
 import React from 'react';
-
+import {NavLink} from 'react-router-dom';
 const Nav = () =>(
 <nav>
-    <ul>
+    <ul classname = 'flex space-x-4'>
         <li>
-            <a href ='#'>Home</a>
+            <NavLink exact to ='/'>Home</NavLink>
         </li>
         <li>
-            <a href = '#'>Admin Portal</a>
+            <NavLink exact to = '/AdminPortal'>Admin Portal</NavLink>
         </li>
         <li>
-            <a href = '#'>View Public Data</a>
+            <NavLink exact to = '/ViewPublicData'>View Public Data</NavLink>
         </li>
     </ul>
 </nav>

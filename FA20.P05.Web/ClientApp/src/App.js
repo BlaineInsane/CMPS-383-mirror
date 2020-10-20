@@ -4,11 +4,11 @@ import{
   BrowserRouter as Router,
   Switch,
   Route,
-  link
+  
 } from "react-router-dom";
 
 import{ HomePage, AdminPortal, ViewPublicData} from './pages';
-import{Nav } from './layout';
+import{Footer, Nav} from './layout';
  function App() {
   return( 
 
@@ -16,16 +16,17 @@ import{Nav } from './layout';
   
     <Nav />
     <Switch>
-      <Route path ="./HomePage">
-   <HomePage />
-   </Route>
-   <Route path ="./AdminPortal">
+   <Route exact path ='/AdminPortal'>
    <AdminPortal />
    </Route>
-   <Route path ="./ViewPublicData">
+   <Route exact path ='/ViewPublicData'>
    <ViewPublicData />
    </Route>
+   <Route exact path ='/'>
+   <HomePage />
+   </Route>
    </Switch>
+   <Footer/>
   </Router>
   );
   }
