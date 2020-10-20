@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Layout = (props) =>
-<div>
+const Nav = () =>(
 <nav>
     <ul>
         <li>
@@ -15,10 +14,5 @@ const Layout = (props) =>
         </li>
     </ul>
 </nav>
-
-  
-    {props.children}
-  </div>;
-
-
-export {Layout};
+);
+export default Nav;

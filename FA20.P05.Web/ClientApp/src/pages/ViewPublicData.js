@@ -1,8 +1,8 @@
 import React from 'react';
-
+import { Layout } from '../layout';
 const ViewPublicData = () =>(
-    <div>
+    <Layout>
         Covid data
-    </div>
+    </Layout>
 );
 export default ViewPublicData;
