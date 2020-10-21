@@ -1,11 +1,4 @@
-import React from 'react';
-import Nav from './Nav';
-const Layout = (props) =>(
-<div>
+import Nav from "./Nav";
+import Footer from "./Footer";
 
-    {props.children}
-  </div>
-  );
-
-
-export {Layout, Nav};
+export { Nav, Footer };
