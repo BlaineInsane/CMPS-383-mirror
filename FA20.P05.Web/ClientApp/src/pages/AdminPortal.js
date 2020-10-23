@@ -2,44 +2,52 @@ import React from "react";
 import { useState } from "react";
 import "./styles.css";
 import axios from "axios";
-import { FormGroup, Button, ControlLabel, FormControl } from "react-bootstrap";
-function AdminPortal(e) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import { Form, Button } from "react-bootstrap";
+import ApiLogin from "../ApiCalls/ApiLogin";
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
+function AdminPortal() {
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
 
-  function handleSubmit(event) {
+  const handleEmailChange = (event) => {
+    setemail(event.target.value);
+    console.log(event.target.value);
+  };
+  const handlePasswordChange = (event) => {
+    setpassword(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const handleLogin = async (event) => {
     event.preventDefault();
-  }
+
+    try {
+      let res = await ApiLogin(email, password);
+      if (res.status == "200") {
+        alert("did the login");
+      }
+      console.log(res);
+    } catch {
+      alert("didn't login");
+    }
+  };
 
   return (
-    <div className="Login">
-      <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
-          <FormControl
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
+    <>
+      <Form onSubmit={handleLogin}>
+        <label>
+          Email:
+          <input type="text" onChange={handleEmailChange}></input>
+        </label>
+        <label>
+          Password:
+          <input type="text" onChange={handlePasswordChange}></input>
+        </label>
+        <Button block bsSize="large" type="submit">
           Login
         </Button>
-      </form>
-    </div>
+      </Form>
+    </>
   );
 }
 
