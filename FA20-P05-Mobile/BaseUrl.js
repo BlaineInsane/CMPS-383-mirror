@@ -5,7 +5,7 @@ const configuration = {
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
   // use the url provided by ngrok
   // Will need to update the url each time ngrok is started
-  configuration.BASE_URL = "http://7df3346865e5.ngrok.io";
+  configuration.BASE_URL = "http://408d1b47428d.ngrok.io";
 }
 
 export { configuration };

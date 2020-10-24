@@ -16,13 +16,9 @@ import { isLoadingContext } from "../Context/IsLoadingContext";
 import { Button } from "react-native-elements";
 import ApiLogout from "../ApiCalls/ApiLogout";
 
-export const buttonColor = "rgba(100, 150, 0, .70)";
+export const buttonColor = "rgba(110, 140, 0, 1.0)";
 export const screenBackgroundColor = "rgba(50, 50, 50, .50)";
 export const statusBar = "rgba(110, 140, 0, .60)";
-
-function Separator() {
-  return <View style={styles.separator} />;
-}
 
 function Main({ navigation }) {
   const { setIsLoading } = useContext(isLoadingContext);
@@ -44,8 +40,8 @@ function Main({ navigation }) {
       // If the user then exits the app and they reopen it when the server is running they
       // will likely be still be logged in. Probably not a huge problem, but a potentially
       // weird behavior.
-      //setUser(null);
-      //setIsLoading(false);
+      setUser(null);
+      setIsLoading(false);
     }
   };
 
@@ -82,21 +78,14 @@ function Main({ navigation }) {
                 justifyContent: "center",
               }}
             >
-              This is where we will have some info about our website, and what
-              it aims to accomplish.
+              This is where we will have some info about our mobile application,
+              and what it aims to accomplish.
             </Text>
           </View>
         </ImageBackground>
         <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
         <View style={styles.box}>
-          <Text
-            style={{
-              textAlign: "center",
-              padding: 30,
-              fontSize: 15,
-              fontFamily: "serif",
-            }}
-          >
+          <Text style={styles.boxText}>
             This is where we will explain what public data is, who is recording
             this data and explain that it is in no way associated with an
             individual in accordance with HIPAA guidelines.
@@ -110,14 +99,7 @@ function Main({ navigation }) {
           ></Button>
         </View>
         <View style={styles.box}>
-          <Text
-            style={{
-              textAlign: "center",
-              padding: 30,
-              fontSize: 15,
-              fontFamily: "serif",
-            }}
-          >
+          <Text style={styles.boxText}>
             This is where we will explain what personal data is, and how it is
             safely recorded with no association linking student to their
             personal data in any sort of database.
@@ -134,14 +116,7 @@ function Main({ navigation }) {
         {user !== null ? (
           <View>
             <View style={styles.box}>
-              <Text
-                style={{
-                  textAlign: "center",
-                  padding: 30,
-                  fontSize: 15,
-                  fontFamily: "serif",
-                }}
-              >
+              <Text style={styles.boxText}>
                 "Recording Temperatures" is only viewable/accessible to staff
                 members. Upon clicking this button, they will be navigated to a
                 screen to begin logging student temperatures.
@@ -154,17 +129,8 @@ function Main({ navigation }) {
                 onPress={() => navigation.navigate("RecordTemps")}
               ></Button>
             </View>
-            <View style={styles.box}>
-              <Text
-                style={{
-                  textAlign: "center",
-                  padding: 30,
-                  fontSize: 15,
-                  fontFamily: "serif",
-                }}
-              >
-                Testing Logout button
-              </Text>
+            <View style={styles.logInOutBox}>
+              <Text style={styles.boxText}>Staff Members log out here: </Text>
               <Button
                 title="Logout"
                 type="outline"
@@ -175,24 +141,15 @@ function Main({ navigation }) {
             </View>
           </View>
         ) : (
-          <View style={styles.box}>
-            <TouchableOpacity
-              style={styles.button}
+          <View style={styles.logInOutBox}>
+            <Text style={styles.boxText}>Staff Members can log in here: </Text>
+            <Button
+              buttonStyle={styles.button}
+              title="Log In"
+              type="outline"
+              titleStyle={{ color: "white", fontFamily: "serif" }}
               onPress={() => navigation.navigate("Login")}
-            >
-              <Text
-                style={[
-                  {
-                    color: "white",
-                    textAlign: "center",
-                    textAlignVertical: "center",
-                    fontSize: 18,
-                  },
-                ]}
-              >
-                Log in here
-              </Text>
-            </TouchableOpacity>
+            ></Button>
           </View>
         )}
       </View>
@@ -214,8 +171,8 @@ const styles = StyleSheet.create({
     width: 150,
     alignSelf: "center",
     borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: "rgba(100, 170, 0, .50)",
+    borderWidth: 1,
+    backgroundColor: "rgba(110, 170, 0, .50)",
   },
 
   buttonWide: {
@@ -224,8 +181,8 @@ const styles = StyleSheet.create({
     width: 185,
     alignSelf: "center",
     borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: "rgba(100, 170, 0, .50)",
+    borderWidth: 1,
+    backgroundColor: "rgba(110, 170, 0, .50)",
   },
 
   text: {
@@ -236,6 +193,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     marginTop: 100,
+  },
+
+  boxText: {
+    textAlign: "center",
+    padding: 30,
+    fontSize: 15,
+    fontFamily: "serif",
   },
 
   welcome: {
@@ -252,7 +216,13 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
     height: 210,
+    marginBottom: 20,
+  },
 
+  logInOutBox: {
+    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    width: 340,
+    height: 140,
     marginBottom: 20,
   },
 
