@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -18,6 +18,13 @@ import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
 
 export default function RecordTemps({ navigation }) {
   const [pickedValue, setPickedValue] = useState(98.6);
+
+  // Add modal(pop up box) when screen loads for staff to select the school
+  // they are recording temperatures for.
+
+  useEffect(() => {
+    // POST request to get schools the staff member is employed at
+  });
 
   return (
     <View style={styles.container}>
