@@ -12,7 +12,7 @@ import {
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
 import { Separator } from "./Login";
-import { TEMP_DATA } from "../Data/TempData";
+import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
 
 import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
 
@@ -37,7 +37,7 @@ export default function RecordTemps({ navigation }) {
           <ScrollPicker
             currentValue={pickedValue}
             extraData={pickedValue}
-            list={TEMP_DATA}
+            list={TEMPERATURE_PICKER_NUMBERS}
             onItemPress={setPickedValue}
             labelColor="black"
             separatorColor="green"
