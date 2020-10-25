@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -8,16 +8,17 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-
+import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
 import { Separator } from "./Login";
-import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
 
-import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
+import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
+import { userSchoolsContext } from "../Context/UserSchoolsContext";
 
 export default function RecordTemps({ navigation }) {
   const [pickedValue, setPickedValue] = useState(98.6);
+  const { userSchools } = useContext(userSchoolsContext); // <-- array of school objects
 
   return (
     <View style={styles.container}>
