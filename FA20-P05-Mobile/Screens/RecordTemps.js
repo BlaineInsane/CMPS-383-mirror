@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -8,23 +8,17 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-
+import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
 import { Separator } from "./Login";
-import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
 
-import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
+import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
+import { userSchoolsContext } from "../Context/UserSchoolsContext";
 
 export default function RecordTemps({ navigation }) {
   const [pickedValue, setPickedValue] = useState(98.6);
-
-  // Add modal(pop up box) when screen loads for staff to select the school
-  // they are recording temperatures for.
-
-  useEffect(() => {
-    // POST request to get schools the staff member is employed at
-  });
+  const { userSchools } = useContext(userSchoolsContext); // <-- array of school objects
 
   return (
     <View style={styles.container}>

@@ -10,9 +10,10 @@ import {
 
 import { Button } from "react-native-elements";
 import ApiLogin from "../ApiCalls/ApiLogin";
+import ApiGetUserSchools from "../ApiCalls/ApiGetUserSchools";
 import { UserContext } from "../Context/UserContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
-
+import { userSchoolsContext } from "../Context/UserSchoolsContext";
 import { buttonColor, screenBackgroundColor, statusBar } from "./Main";
 
 export function Separator() {
@@ -25,6 +26,7 @@ function Login({ navigation }) {
   const [Password, setPassword] = useState("");
   const { setUser } = useContext(UserContext);
   const { setIsLoading } = useContext(isLoadingContext);
+  const { setUserSchools } = useContext(userSchoolsContext);
 
   const handleUsernameChange = (event) => {
     setUsername(event);
@@ -43,6 +45,11 @@ function Login({ navigation }) {
           staffId: res.data.staffId,
         };
         setUser(theUser);
+
+        // gets array of schools the user is employed at and puts in userSchoolsContext
+        let schools = await ApiGetUserSchools();
+        setUserSchools(schools.data);
+
         setIsLoading(false);
         navigation.navigate("Staff");
       }
