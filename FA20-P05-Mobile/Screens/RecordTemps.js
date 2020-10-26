@@ -11,6 +11,7 @@ import {
 import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
+import { Picker } from "@react-native-picker/picker";
 import { Separator } from "./Login";
 
 import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
@@ -24,12 +25,39 @@ export default function RecordTemps({ navigation }) {
     <View style={styles.container}>
       <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
       <View style={styles.box}>
+        <Text style={styles.text}>Choose School:</Text>
+        <View
+          style={{
+            borderWidth: 1,
+            borderColor: "black",
+            borderRadius: 20,
+            width: 150,
+          }}
+        >
+          <Picker
+            selectedValue={userSchools}
+            style={{
+              height: 50,
+              width: 150,
+              color: "black",
+            }}
+            onValueChange={(itemValue, itemIndex) => ({
+              userSchools: itemValue,
+            })}
+          >
+            <Picker.Item label="Test One" value="testOne" />
+            <Picker.Item label="Test Two" value="testTwo" />
+            <Picker.Item label="Test Three" value="testThree" />
+          </Picker>
+        </View>
+        <Separator />
         <Text style={styles.text}>Record Temperatures:</Text>
         <View
           style={{
             height: 160,
             width: 200,
-            borderColor: "green",
+            borderRadius: 20,
+            borderColor: "black",
             borderWidth: 1,
             alignItems: "center",
             justifyContent: "center",
@@ -41,7 +69,7 @@ export default function RecordTemps({ navigation }) {
             list={TEMPERATURE_PICKER_NUMBERS}
             onItemPress={setPickedValue}
             labelColor="black"
-            separatorColor="green"
+            separatorColor="black"
             selectedColor="blue"
           />
         </View>
@@ -97,14 +125,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     marginTop: 20,
-    marginBottom: 30,
+    marginBottom: 20,
     fontFamily: "serif",
   },
 
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
-    height: 420,
+    height: 550,
     marginTop: 20,
     alignItems: "center",
   },
