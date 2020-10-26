@@ -34,15 +34,18 @@ function AdminPortal() {
 
   return (
     <>
+      <h1>Admin Login</h1>
       <Form onSubmit={handleLogin}>
         <label>
-          Email:
+          Email:<br></br>
           <input type="text" onChange={handleEmailChange}></input>
         </label>
+        <br></br>
         <label>
-          Password:
+          Password:<br></br>
           <input type="text" onChange={handlePasswordChange}></input>
         </label>
+        <br></br>
         <Button block bsSize="large" type="submit">
           Login
         </Button>
