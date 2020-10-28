@@ -15,6 +15,7 @@ import PublicData from "./Screens/PublicData";
 import PersonalData from "./Screens/PersonalData";
 import Staff from "./Screens/Staff";
 import RecordTemps from "./Screens/RecordTemps";
+import QRCode from "./Screens/QRCode";
 import ApiMe from "./ApiCalls/ApiMe";
 import ApiGetUserSchools from "./ApiCalls/ApiGetUserSchools";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -92,6 +93,13 @@ function App() {
               <Stack.Screen
                 name="RecordTemps"
                 component={RecordTemps}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="QRCode"
+                component={QRCode}
                 options={{
                   headerShown: false,
                 }}
