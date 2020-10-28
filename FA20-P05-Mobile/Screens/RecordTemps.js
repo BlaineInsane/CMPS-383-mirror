@@ -1,13 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  StatusBar,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Text, StatusBar, ScrollView } from "react-native";
 import ApiTemps from "../ApiCalls/ApiTemps";
 import ApiGetUserSchools from "../ApiCalls/ApiGetUserSchools";
 
@@ -26,6 +18,7 @@ export default function RecordTemps({ navigation }) {
   const [pickedValue, setPickedValue] = useState(98.6);
   const [schoolPickedValue, setSchoolPickedValue] = useState([]);
   const { userSchools } = useContext(userSchoolsContext); // <-- array of school objects
+  const { setIsLoading } = useContext(isLoadingContext);
 
   // creates items(school names) to be put in the dropdown box(Picker)
   const PickerList = userSchools.map((school) => {
@@ -40,23 +33,33 @@ export default function RecordTemps({ navigation }) {
 
   const handleTempChange = (event) => {
     setPickedValue(event);
+
     const test = userSchools.map((school) => {
       return school.id;
     });
+
     setId(parseFloat(test));
     setTempKelvin(parseFloat(event));
   };
 
   const handleSubmit = async () => {
     try {
+      setIsLoading(true);
       let res = await ApiTemps(schoolId, temperatureKelvin);
+
       alert("Temperature added! You added: " + temperatureKelvin + "\u00b0 F");
+
       if (res.status == "200") {
         const temp = {
           schoolId: res.data.schoolId,
           tempKelvin: res.data.temperatureKelvin,
         };
+
         setTemp(temp);
+        let temperatures = await ApiGetUserSchools();
+        setUserSchools(schools.data);
+
+        setIsLoading(false);
       }
     } catch {
       alert(
@@ -64,7 +67,9 @@ export default function RecordTemps({ navigation }) {
           temperatureKelvin +
           "\u00b0 F "
       );
+      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   return (
