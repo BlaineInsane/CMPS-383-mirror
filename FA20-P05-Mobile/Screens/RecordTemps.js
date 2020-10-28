@@ -8,14 +8,19 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import ApiTemps from "../ApiCalls/ApiTemps";
+import ApiGetUserSchools from "../ApiCalls/ApiGetUserSchools";
+
 import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
 import { Picker } from "@react-native-picker/picker";
 import { Separator } from "./Login";
 
+import { TempContext } from "../Context/TempContext";
 import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
 import { userSchoolsContext } from "../Context/UserSchoolsContext";
+import { isLoadingContext } from "../Context/IsLoadingContext";
 
 export default function RecordTemps({ navigation }) {
   const [pickedValue, setPickedValue] = useState(98.6);
@@ -28,6 +33,39 @@ export default function RecordTemps({ navigation }) {
       <Picker.Item label={school.name} value={school.name} key={school.id} />
     );
   });
+
+  const [schoolId, setId] = useState();
+  const [temperatureKelvin, setTempKelvin] = useState();
+  const { setTemp } = useContext(TempContext);
+
+  const handleTempChange = (event) => {
+    setPickedValue(event);
+    const test = userSchools.map((school) => {
+      return school.id;
+    });
+    setId(parseFloat(test));
+    setTempKelvin(parseFloat(event));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      let res = await ApiTemps(schoolId, temperatureKelvin);
+      alert("Temperature added! You added: " + temperatureKelvin + "\u00b0 F");
+      if (res.status == "200") {
+        const temp = {
+          schoolId: res.data.schoolId,
+          tempKelvin: res.data.temperatureKelvin,
+        };
+        setTemp(temp);
+      }
+    } catch {
+      alert(
+        "Not quite, please try again. You tried posting: " +
+          temperatureKelvin +
+          "\u00b0 F "
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -72,7 +110,7 @@ export default function RecordTemps({ navigation }) {
             currentValue={pickedValue}
             extraData={pickedValue}
             list={TEMPERATURE_PICKER_NUMBERS}
-            onItemPress={setPickedValue}
+            onItemPress={handleTempChange}
             labelColor="black"
             separatorColor="black"
             selectedColor="blue"
@@ -92,7 +130,7 @@ export default function RecordTemps({ navigation }) {
           titleStyle={{ color: "white", fontFamily: "serif" }}
           title="Record"
           type="outline"
-          //onPress={() => this.props.navigation.navigate("Main")}
+          onPress={handleSubmit}
         ></Button>
         <Button
           buttonStyle={styles.button}
