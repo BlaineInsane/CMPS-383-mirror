@@ -56,9 +56,6 @@ export default function RecordTemps({ navigation }) {
         };
 
         setTemp(temp);
-        let temperatures = await ApiGetUserSchools();
-        setUserSchools(schools.data);
-
         setIsLoading(false);
       }
     } catch {
