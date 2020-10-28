@@ -9,13 +9,13 @@ const Nav = () => (
         </NavLink>
       </li>
       <li>
-        <NavLink exact to="/AdminPortal">
-          Admin Portal
+        <NavLink exact to="/ViewPublicData">
+          View Public Data
         </NavLink>
       </li>
       <li>
-        <NavLink exact to="/ViewPublicData">
-          View Public Data
+        <NavLink exact to="/AdminPortal">
+          Admin Portal
         </NavLink>
       </li>
     </ul>
