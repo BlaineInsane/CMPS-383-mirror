@@ -19,7 +19,15 @@ import { userSchoolsContext } from "../Context/UserSchoolsContext";
 
 export default function RecordTemps({ navigation }) {
   const [pickedValue, setPickedValue] = useState(98.6);
+  const [schoolPickedValue, setSchoolPickedValue] = useState([]);
   const { userSchools } = useContext(userSchoolsContext); // <-- array of school objects
+
+  // creates items(school names) to be put in the dropdown box(Picker)
+  const PickerList = userSchools.map((school) => {
+    return (
+      <Picker.Item label={school.name} value={school.name} key={school.id} />
+    );
+  });
 
   return (
     <View style={styles.container}>
@@ -28,6 +36,7 @@ export default function RecordTemps({ navigation }) {
         <Text style={styles.text}>Choose School:</Text>
         <View
           style={{
+            alignItems: "center",
             borderWidth: 1,
             borderColor: "black",
             borderRadius: 20,
@@ -35,19 +44,15 @@ export default function RecordTemps({ navigation }) {
           }}
         >
           <Picker
-            selectedValue={userSchools}
+            selectedValue={schoolPickedValue}
             style={{
-              height: 50,
+              height: 45,
               width: 150,
               color: "black",
             }}
-            onValueChange={(itemValue, itemIndex) => ({
-              userSchools: itemValue,
-            })}
+            onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
           >
-            <Picker.Item label="Test One" value="testOne" />
-            <Picker.Item label="Test Two" value="testTwo" />
-            <Picker.Item label="Test Three" value="testThree" />
+            {PickerList}
           </Picker>
         </View>
         <Separator />
