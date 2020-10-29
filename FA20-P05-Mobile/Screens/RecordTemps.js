@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
-import { StyleSheet, View, Text, StatusBar, ScrollView } from "react-native";
+import { StyleSheet, View, Text, StatusBar, Alert } from "react-native";
 import ApiTemps from "../ApiCalls/ApiTemps";
-import ApiGetUserSchools from "../ApiCalls/ApiGetUserSchools";
 
 import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
 import { Button } from "react-native-elements";
@@ -9,7 +8,6 @@ import { ScrollPicker } from "react-native-value-picker";
 import { Picker } from "@react-native-picker/picker";
 import { Separator } from "./Login";
 
-import { TempContext } from "../Context/TempContext";
 import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
 import { userSchoolsContext } from "../Context/UserSchoolsContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
@@ -17,6 +15,8 @@ import { isLoadingContext } from "../Context/IsLoadingContext";
 export default function RecordTemps({ navigation }) {
   const [pickedValue, setPickedValue] = useState(98.6);
   const [schoolPickedValue, setSchoolPickedValue] = useState([]);
+  const [schoolId, setId] = useState();
+  const [temperatureKelvin, setTempKelvin] = useState();
   const { userSchools } = useContext(userSchoolsContext); // <-- array of school objects
   const { setIsLoading } = useContext(isLoadingContext);
 
@@ -26,10 +26,6 @@ export default function RecordTemps({ navigation }) {
       <Picker.Item label={school.name} value={school.name} key={school.id} />
     );
   });
-
-  const [schoolId, setId] = useState();
-  const [temperatureKelvin, setTempKelvin] = useState();
-  const { setTemp } = useContext(TempContext);
 
   const handleTempChange = (event) => {
     setPickedValue(event);
@@ -47,26 +43,17 @@ export default function RecordTemps({ navigation }) {
       setIsLoading(true);
       let res = await ApiTemps(schoolId, temperatureKelvin);
 
-      alert("Temperature added! You added: " + temperatureKelvin + "\u00b0 F");
-
-      if (res.status == "200") {
-        const temp = {
-          schoolId: res.data.schoolId,
-          tempKelvin: res.data.temperatureKelvin,
-        };
-
-        setTemp(temp);
+      if (res.status == "201") {
+        Alert.alert(
+          "Success",
+          "Temperature " + temperatureKelvin + "\u00b0 F recorded "
+        );
         setIsLoading(false);
       }
     } catch {
-      alert(
-        "Not quite, please try again. You tried posting: " +
-          temperatureKelvin +
-          "\u00b0 F "
-      );
+      Alert.alert("Error", "Failed to record temperature ");
       setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
