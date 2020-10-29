@@ -112,6 +112,20 @@ function Main({ navigation }) {
             onPress={() => navigation.navigate("PersonalData")}
           ></Button>
         </View>
+        <View style={styles.box}>
+          <Text style={styles.boxText}>
+            This is where a student can navigate to a generated barcode - this
+            should assign their temperature to a random id, while still allowing
+            them to see their personal history.
+          </Text>
+          <Button
+            title="QR Code"
+            type="outline"
+            buttonStyle={styles.buttonWide}
+            titleStyle={{ color: "white", fontFamily: "serif" }}
+            onPress={() => navigation.navigate("QRCode")}
+          ></Button>
+        </View>
         {/*changes button and it's navigation depending on whether the user is logged in */}
         {user !== null ? (
           <View>
