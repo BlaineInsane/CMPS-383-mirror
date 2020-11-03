@@ -111,8 +111,8 @@ namespace FA20.P05.Web
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:43323");
+                    //spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
         }

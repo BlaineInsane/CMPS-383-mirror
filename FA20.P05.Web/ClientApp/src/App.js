@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { HomePage, AdminPortal, ViewPublicData } from "./pages";
-import Footer from "./layout/Footer";
+
 import Nav from "./layout/Nav";
 function App() {
   return (
@@ -19,7 +19,6 @@ function App() {
           <HomePage />
         </Route>
       </Switch>
-      <Footer />
     </Router>
   );
 }
