@@ -124,7 +124,7 @@ export default function RecordTemps({ navigation }) {
         <Button
           buttonStyle={styles.buttonWide}
           titleStyle={{ color: "white", fontFamily: "serif" }}
-          title="Generate QR Code"
+          title="Scan QR Code"
           type="outline"
           onPress={() => navigation.navigate("StaffQRCode")}
         ></Button>
