@@ -11,7 +11,8 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../Context/UserContext";
+import { isLoadingContext } from "../Context/IsLoadingContext";
 import { Button } from "react-native-elements";
 import ApiLogout from "../ApiCalls/ApiLogout";
 
@@ -24,6 +25,7 @@ function Separator() {
 }
 
 function Main({ navigation }) {
+  const { setIsLoading } = useContext(isLoadingContext);
   const { user, setUser } = useContext(UserContext);
 
   const handleLogout = async () => {
@@ -31,15 +33,19 @@ function Main({ navigation }) {
       let username = user.Username;
       let staffid = user.staffId;
 
-      await ApiLogout(username, staffid);
+      setIsLoading(true);
+      let res = await ApiLogout(username, staffid);
+
       setUser(null);
+      setIsLoading(false);
     } catch {
       // If the server is down and the user can't hit the "Logout" endpoint
       // this will make the app still function as if they are logged out.
       // If the user then exits the app and they reopen it when the server is running they
       // will likely be still be logged in. Probably not a huge problem, but a potentially
       // weird behavior.
-      setUser(null);
+      //setUser(null);
+      //setIsLoading(false);
     }
   };
 
@@ -95,31 +101,6 @@ function Main({ navigation }) {
             this data and explain that it is in no way associated with an
             individual in accordance with HIPAA guidelines.
           </Text>
-<<<<<<< HEAD
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonWide}
-          onPress={() => this.props.navigation.navigate("QRGen")}
-        >
-          <Text
-            style={[
-              {
-                color: "white",
-                textAlign: "center",
-                textAlignVertical: "center",
-                fontSize: 18,
-              },
-            ]}
-          >
-            QR Code
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => this.props.navigation.navigate("Login")}
-        >
-=======
           <Button
             title="View Public Data"
             type="outline"
@@ -129,7 +110,6 @@ function Main({ navigation }) {
           ></Button>
         </View>
         <View style={styles.box}>
->>>>>>> 9715fb9d92a0d40e946415bc533ffabda5ae5c94
           <Text
             style={{
               textAlign: "center",
@@ -150,7 +130,6 @@ function Main({ navigation }) {
             onPress={() => navigation.navigate("PersonalData")}
           ></Button>
         </View>
-
         {/*changes button and it's navigation depending on whether the user is logged in */}
         {user !== null ? (
           <View>
