@@ -1,34 +1,66 @@
-import * as React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  StatusBar,
-  TouchableOpacity,
-} from "react-native";
-import { Button } from "react-native-elements";
-import { statusBar, buttonColor } from "./Main";
-import { Separator } from "./Login";
-import QRCode from "react-native-qrcode-svg";
+import React, { Component } from "react";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
+import * as Permissions from "expo-permissions";
+import { BarCodeScanner } from "expo-barcode-scanner";
 
-export default class UserQRCode extends React.Component {
+const DEVICE_WIDTH = Dimensions.get("window").width;
+const DEVICE_HEIGHT = Dimensions.get("window").height;
+
+export default class StaffQRCode extends Component {
+  state = {
+    CameraPermissionGranted: null,
+  };
+  async componentDidMount() {
+    // Ask for camera permission
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({
+      CameraPermissionGranted: status === "granted" ? true : false,
+    });
+  }
+
+  barCodeScanned = ({ data }) => {
+    //Access the Data
+    alert(data);
+  };
+
   render() {
-    return (
-      <View style={styles.container}>
-        <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
-        <View style={styles.box}>
-          <QRCode value="http://awesome.link.qr" size={250} />
-          <Button
-            title="Record Temperatures"
-            type="outline"
-            buttonStyle={styles.button}
-            titleStyle={{ color: "white", fontFamily: "serif" }}
-            onPress={() => this.props.navigation.navigate("RecordTemps")}
-          ></Button>
+    const { CameraPermissionGranted } = this.state;
+    if (CameraPermissionGranted === null) {
+      // Request Permission
+      return (
+        <View style={styles.container}>
+          <Text>Please grant Camera permission</Text>
         </View>
-      </View>
-    );
+      );
+    }
+    if (CameraPermissionGranted === false) {
+      // Permission denied
+      return (
+        <View style={styles.container}>
+          <Text>Camera Permission Denied.</Text>
+        </View>
+      );
+    }
+    if (CameraPermissionGranted === true) {
+      // Got the permission, time to scan
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <BarCodeScanner
+            onBarCodeScanned={this.barCodeScanned}
+            style={{
+              height: DEVICE_HEIGHT / 1.1,
+              width: DEVICE_WIDTH,
+            }}
+          ></BarCodeScanner>
+        </View>
+      );
+    }
   }
 }
 
@@ -43,7 +75,6 @@ const styles = StyleSheet.create({
 
   button: {
     marginTop: 30,
-    borderColor: buttonColor,
     width: 185,
     alignSelf: "center",
     borderRadius: 20,
