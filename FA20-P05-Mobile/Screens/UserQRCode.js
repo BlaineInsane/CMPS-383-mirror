@@ -18,20 +18,7 @@ export default class UserQRCode extends React.Component {
       <View style={styles.container}>
         <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
         <View style={styles.box}>
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: 20,
-              marginTop: 20,
-              fontFamily: "serif",
-            }}
-          >
-            QR Code:{" "}
-          </Text>
-          <QRCode value="http://awesome.link.qr" />
-          <Separator />
-
+          <QRCode value="http://awesome.link.qr" size={250} />
           <Button
             title="Back to Main"
             type="outline"
@@ -55,7 +42,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 150,
+    marginTop: 30,
     borderColor: buttonColor,
     width: 150,
     alignSelf: "center",
@@ -74,6 +61,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
     height: 400,
-    marginTop: 20,
+    padding: 45,
   },
 });

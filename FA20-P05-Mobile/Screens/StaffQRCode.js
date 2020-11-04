@@ -18,17 +18,13 @@ export default class UserQRCode extends React.Component {
       <View style={styles.container}>
         <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
         <View style={styles.box}>
-          <Separator />
-          <Separator />
-          <QRCode value="http://awesome.link.qr" />
-          <Separator />
-
+          <QRCode value="http://awesome.link.qr" size={250} />
           <Button
-            title="Back to Main"
+            title="Record Temperatures"
             type="outline"
             buttonStyle={styles.button}
             titleStyle={{ color: "white", fontFamily: "serif" }}
-            onPress={() => this.props.navigation.navigate("Main")}
+            onPress={() => this.props.navigation.navigate("RecordTemps")}
           ></Button>
         </View>
       </View>
@@ -46,9 +42,9 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 150,
+    marginTop: 30,
     borderColor: buttonColor,
-    width: 150,
+    width: 185,
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
@@ -65,6 +61,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
     height: 400,
-    marginTop: 20,
+    padding: 45,
   },
 });
