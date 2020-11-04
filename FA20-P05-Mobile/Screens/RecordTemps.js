@@ -122,6 +122,16 @@ export default function RecordTemps({ navigation }) {
           onPress={handleSubmit}
         ></Button>
         <Button
+          buttonStyle={styles.buttonWide}
+          titleStyle={{ color: "white", fontFamily: "serif" }}
+          title="Generate QR Code"
+          type="outline"
+          onPress={() => navigation.navigate("StaffQRCode")}
+        ></Button>
+        <Separator />
+        <Separator />
+        <Separator />
+        <Button
           buttonStyle={styles.button}
           titleStyle={{ color: "white", fontFamily: "serif" }}
           title="Back to Main"
@@ -152,6 +162,16 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(110, 170, 0, .50)",
   },
 
+  buttonWide: {
+    marginTop: 20,
+    borderColor: buttonColor,
+    width: 175,
+    alignSelf: "center",
+    borderRadius: 20,
+    borderWidth: 1,
+    backgroundColor: "rgba(110, 170, 0, .50)",
+  },
+
   text: {
     fontSize: 18,
     textAlign: "center",
@@ -164,8 +184,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
-    height: 550,
-    marginTop: 20,
+    height: 670,
     alignItems: "center",
   },
 });
