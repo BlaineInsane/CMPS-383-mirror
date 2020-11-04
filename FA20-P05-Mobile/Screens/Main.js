@@ -123,7 +123,7 @@ function Main({ navigation }) {
             type="outline"
             buttonStyle={styles.buttonWide}
             titleStyle={{ color: "white", fontFamily: "serif" }}
-            onPress={() => navigation.navigate("QRCode")}
+            onPress={() => navigation.navigate("UserQRCode")}
           ></Button>
         </View>
         {/*changes button and it's navigation depending on whether the user is logged in */}
