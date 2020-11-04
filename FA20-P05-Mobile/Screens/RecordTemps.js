@@ -67,14 +67,15 @@ export default function RecordTemps({ navigation }) {
             borderWidth: 1,
             borderColor: "black",
             borderRadius: 20,
-            width: 150,
+            width: 250,
+            backgroundColor: "rgba(225, 225, 225, 1.0)",
           }}
         >
           <Picker
             selectedValue={schoolPickedValue}
             style={{
               height: 45,
-              width: 150,
+              width: 250,
               color: "black",
             }}
             onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
@@ -93,6 +94,7 @@ export default function RecordTemps({ navigation }) {
             borderWidth: 1,
             alignItems: "center",
             justifyContent: "center",
+            backgroundColor: "rgba(225, 225, 225, 1.0)",
           }}
         >
           <ScrollPicker
@@ -101,7 +103,7 @@ export default function RecordTemps({ navigation }) {
             list={TEMPERATURE_PICKER_NUMBERS}
             onItemPress={handleTempChange}
             labelColor="black"
-            separatorColor="black"
+            separatorColor="gray"
             selectedColor="blue"
           />
         </View>
@@ -128,7 +130,6 @@ export default function RecordTemps({ navigation }) {
           type="outline"
           onPress={() => navigation.navigate("StaffQRCode")}
         ></Button>
-        <Separator />
         <Separator />
         <Separator />
         <Button
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
-    height: 670,
+    height: 650,
     alignItems: "center",
   },
 });
