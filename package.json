@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "expo": "^39.0.3",
+    "react-native-qrcode-generator": "^1.2.2"
+  }
+}
