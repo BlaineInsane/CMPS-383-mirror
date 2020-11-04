@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import * as Permissions from "expo-permissions";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { Button } from "react-native-elements";
+import { buttonColor } from "./Main";
 
-const DEVICE_WIDTH = Dimensions.get("window").width;
-const DEVICE_HEIGHT = Dimensions.get("window").height;
+const { width } = Dimensions.get("window");
+const qrSize = width * 1.5;
 
 export default class StaffQRCode extends Component {
   state = {
@@ -54,10 +56,17 @@ export default class StaffQRCode extends Component {
           <BarCodeScanner
             onBarCodeScanned={this.barCodeScanned}
             style={{
-              height: DEVICE_HEIGHT / 1.1,
-              width: DEVICE_WIDTH,
+              height: qrSize,
+              width: qrSize,
             }}
           ></BarCodeScanner>
+          <Button
+            title="Record Temps"
+            type="outline"
+            buttonStyle={styles.button}
+            titleStyle={{ color: "white", fontFamily: "serif" }}
+            onPress={() => this.props.navigation.navigate("RecordTemps")}
+          ></Button>
         </View>
       );
     }
@@ -80,6 +89,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     backgroundColor: "rgba(110, 170, 0, .50)",
+    borderColor: buttonColor,
   },
 
   text: {
