@@ -13,16 +13,11 @@ import Login from "./Screens/Login";
 import PublicData from "./Screens/PublicData";
 import PersonalData from "./Screens/PersonalData";
 import Staff from "./Screens/Staff";
-<<<<<<< HEAD
 import QRGen from "./Screens/QRCodeGen";
-=======
 import RecordTemps from "./Screens/RecordTemps";
 import ApiMe from "./ApiCalls/ApiMe";
-<<<<<<< HEAD
->>>>>>> 9715fb9d92a0d40e946415bc533ffabda5ae5c94
-=======
 import Spinner from "react-native-loading-spinner-overlay";
->>>>>>> 3890c48bba8286a599841ac960e845ae66cdc464
+
 
 const Stack = createStackNavigator();
 
@@ -47,84 +42,6 @@ function App() {
   };
 
   return (
-<<<<<<< HEAD
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{
-            title: "Main Page",
-            headerStyle: {
-              backgroundColor: headerColor,
-            },
-            headerTintColor: "#fff",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            title: "Log In",
-            headerStyle: {
-              backgroundColor: headerColor,
-            },
-            headerTintColor: "#fff",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="PublicData"
-          component={PublicData}
-          options={{
-            title: "Public Data",
-            headerStyle: {
-              backgroundColor: headerColor,
-            },
-            headerTintColor: "#fff",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="PersonalData"
-          component={PersonalData}
-          options={{
-            title: "Personal Data",
-            headerStyle: {
-              backgroundColor: headerColor,
-            },
-            headerTintColor: "#fff",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="Staff"
-          component={Staff}
-          options={{
-            title: "Staff",
-            headerStyle: {
-              backgroundColor: headerColor,
-            },
-            headerTintColor: "#fff",
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="QRGen"
-          component={QRGen}
-          options={{
-            title: "QR Code Generator",
-            headerStyle: {
-              backgroundColor: headerColor,
-            },
-            headerTintColor: "#fff",
-            headerTitleAlign: "center",
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-=======
     <UserContext.Provider value={{ user, setUser }}>
       <isLoadingContext.Provider value={{ isLoading, setIsLoading }}>
         <Spinner visible={isLoading} textContent={"Loading"} />
@@ -176,7 +93,6 @@ function App() {
         </NavigationContainer>
       </isLoadingContext.Provider>
     </UserContext.Provider>
->>>>>>> 9715fb9d92a0d40e946415bc533ffabda5ae5c94
   );
 }
 

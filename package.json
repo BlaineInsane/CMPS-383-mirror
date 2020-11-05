@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.21.0",
     "expo": "^39.0.3",
     "react-native-qrcode-generator": "^1.2.2"
   }
