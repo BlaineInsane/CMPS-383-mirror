@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FA20.P05.Web.Data;
@@ -53,5 +54,38 @@ namespace FA20.P05.Web.Controllers
             //hmm, maybe we need more endpoints later?
             return Created($"/api/temperature-records/{targetValue.Id}", targetValue);
         }
-    }
+
+        // TODO: add filter return value by date
+        [HttpGet("{id}")]
+        public ActionResult<SchoolTempRecordsDto> GetTempsBySchoolId(int id)
+        {
+            // temps of selected school
+            var temps = dataContext
+                .Set<TemperatureRecord>()
+                .Where(x => x.SchoolId == id)
+                .ToList();
+
+            var healthyTemps = 0;
+            var unhealthyTemps = 0;
+            foreach (var tempRecord in temps)
+            {
+                if (tempRecord.TemperatureKelvin < 100.4)
+                {
+                    healthyTemps++;
+                } 
+                else if (tempRecord.TemperatureKelvin >= 100.4)
+                {
+                    unhealthyTemps++;
+                }
+            }
+
+            var schoolTempRecordsDto = new SchoolTempRecordsDto
+            {
+                numHealthyTemps = healthyTemps,
+                numUnhealthyTemps = unhealthyTemps
+            };
+
+            return schoolTempRecordsDto;
+        }
+}
 }
