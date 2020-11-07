@@ -123,7 +123,7 @@ function Main({ navigation }) {
             type="outline"
             buttonStyle={styles.buttonWide}
             titleStyle={{ color: "white", fontFamily: "serif" }}
-            onPress={() => navigation.navigate("QRCode")}
+            onPress={() => navigation.navigate("UserQRCode")}
           ></Button>
         </View>
         {/*changes button and it's navigation depending on whether the user is logged in */}
@@ -228,9 +228,10 @@ const styles = StyleSheet.create({
 
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
-    width: 340,
     height: 210,
     marginBottom: 20,
+    marginRight: 10,
+    marginLeft: 10,
   },
 
   logInOutBox: {
