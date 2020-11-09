@@ -2,7 +2,12 @@ import React, { useState, useContext } from "react";
 import { StyleSheet, View, Text, StatusBar, Alert } from "react-native";
 import ApiTemps from "../ApiCalls/ApiTemps";
 
-import { statusBar, buttonColor, screenBackgroundColor } from "./Main";
+import {
+  statusBar,
+  buttonColor,
+  screenBackgroundColor,
+  buttonOutlineColor,
+} from "./Main";
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
 import { Picker } from "@react-native-picker/picker";
@@ -118,14 +123,14 @@ export default function RecordTemps({ navigation }) {
         </Text>
         <Button
           buttonStyle={styles.button}
-          titleStyle={{ color: "white", fontFamily: "serif" }}
+          titleStyle={styles.buttonText}
           title="Record"
           type="outline"
           onPress={handleSubmit}
         ></Button>
         <Button
           buttonStyle={styles.buttonWide}
-          titleStyle={{ color: "white", fontFamily: "serif" }}
+          titleStyle={styles.buttonText}
           title="Scan QR Code"
           type="outline"
           onPress={() => navigation.navigate("StaffQRCode")}
@@ -134,7 +139,7 @@ export default function RecordTemps({ navigation }) {
         <Separator />
         <Button
           buttonStyle={styles.button}
-          titleStyle={{ color: "white", fontFamily: "serif" }}
+          titleStyle={styles.buttonText}
           title="Back to Main"
           type="outline"
           onPress={() => navigation.navigate("Main")}
@@ -155,22 +160,22 @@ const styles = StyleSheet.create({
 
   button: {
     marginTop: 20,
-    borderColor: buttonColor,
+    borderColor: buttonOutlineColor,
     width: 150,
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: "rgba(110, 170, 0, .50)",
+    backgroundColor: buttonColor,
   },
 
   buttonWide: {
     marginTop: 20,
-    borderColor: buttonColor,
+    borderColor: buttonOutlineColor,
     width: 175,
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: "rgba(110, 170, 0, .50)",
+    backgroundColor: buttonColor,
   },
 
   text: {
@@ -187,5 +192,10 @@ const styles = StyleSheet.create({
     width: 340,
     height: 650,
     alignItems: "center",
+  },
+  buttonText: {
+    fontFamily: "serif",
+    fontSize: 17,
+    color: "white",
   },
 });

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-elements";
-import { statusBar, buttonColor } from "./Main";
+import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
 
 export default class PublicData extends React.Component {
   render() {
@@ -58,12 +58,12 @@ const styles = StyleSheet.create({
 
   button: {
     marginTop: 150,
-    borderColor: buttonColor,
+    borderColor: buttonOutlineColor,
     width: 150,
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: "rgba(110, 170, 0, .50)",
+    backgroundColor: buttonColor,
   },
 
   text: {
