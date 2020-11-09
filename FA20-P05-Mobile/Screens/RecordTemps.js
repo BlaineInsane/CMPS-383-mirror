@@ -18,7 +18,7 @@ import { userSchoolsContext } from "../Context/UserSchoolsContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 
 export default function RecordTemps({ navigation }) {
-  const [pickedValue, setPickedValue] = useState(98.6);
+  const [pickedValue, setPickedValue] = useState();
   const [schoolPickedValue, setSchoolPickedValue] = useState([]);
   const [schoolId, setId] = useState();
   const [temperatureKelvin, setTempKelvin] = useState();
