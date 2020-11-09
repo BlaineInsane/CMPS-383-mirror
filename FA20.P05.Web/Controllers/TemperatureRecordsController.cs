@@ -55,14 +55,16 @@ namespace FA20.P05.Web.Controllers
             return Created($"/api/temperature-records/{targetValue.Id}", targetValue);
         }
 
-        // TODO: add filter return value by date
         [HttpGet("{id}")]
-        public ActionResult<SchoolTempRecordsDto> GetTempsBySchoolId(int id)
+        public ActionResult<SchoolTempRecordsDto> GetTempsBySchoolId(int id, DateTime date)
         {
-            // temps of selected school
+            // returns the number of healthy/unhealthy temperatures of a school on
+            // a selected day.
+
+            // temps of selected school. Match school and day
             var temps = dataContext
                 .Set<TemperatureRecord>()
-                .Where(x => x.SchoolId == id)
+                .Where(x => x.SchoolId == id && x.MeasuredUtc.Day == date.Day)
                 .ToList();
 
             var healthyTemps = 0;
