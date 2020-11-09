@@ -10,29 +10,15 @@ import {
 import { Button } from "react-native-elements";
 import { statusBar, buttonColor } from "./Main";
 import { Separator } from "./Login";
+import QRCode from "react-native-qrcode-svg";
 
-export default class QRCode extends React.Component {
+export default class UserQRCode extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
         <View style={styles.box}>
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: 20,
-              marginTop: 20,
-              fontFamily: "serif",
-            }}
-          >
-            QR Code:{" "}
-          </Text>
-          <Text style={{ textAlign: "center", padding: 30 }}>
-            (erase me, and add generated QR code here!)
-          </Text>
-          <Separator />
-
+          <QRCode value="http://awesome.link.qr" size={250} />
           <Button
             title="Back to Main"
             type="outline"
@@ -56,7 +42,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 150,
+    marginTop: 30,
     borderColor: buttonColor,
     width: 150,
     alignSelf: "center",
@@ -75,6 +61,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
     height: 400,
-    marginTop: 20,
+    padding: 45,
   },
 });
