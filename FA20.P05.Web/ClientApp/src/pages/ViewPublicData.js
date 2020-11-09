@@ -2,20 +2,20 @@ import React from "react";
 import { Form, Button } from "react-bootstrap";
 const ViewPublicData = () => (
   <div>
-    <h1>View Public Data</h1>
-    <form class="PublicData">
-      <label>
-        Day(mm/dd/year) : &nbsp;<input type="text"></input>
+    <h1 style={{ color: 'white' }}>View Public Data</h1>
+    <Form class= "PublicData">
+      <label style={{ color: 'white' }}>
+        Day(mm/dd/year) : <br></br> &nbsp;<input type="text"></input>
       </label>
       <br></br>
-      <label>
-        School : &nbsp;<input type="text"></input>
+      <label style= {{ color: 'white' }}>
+        School : <br></br> &nbsp;<input type="text"></input>
       </label>
-      <br></br>
+      <br></br>  
       <Button block bsSize="large" type="submit">
         Search
       </Button>
-    </form>
+    </Form>
   </div>
 );
 export default ViewPublicData;

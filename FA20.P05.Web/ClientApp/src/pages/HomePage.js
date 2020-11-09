@@ -2,8 +2,9 @@ import React from "react";
 
 const HomePage = () => (
   <div>
-    <h1>Home Page</h1>
-    <p>
+    <h1 style={{ color: 'white' }}>Home Page</h1>
+    <p style={{ color: 'white' }}>
+    <br></br>
       With COVID-19 procedures being adopted throughout the school systems new
       technologies can be deployed to help keep information available to the
       public. Our process does not store any student PII (personally
@@ -27,7 +28,9 @@ const HomePage = () => (
       their fever persists after that 10 minute cooldown then they are sent
       home. Likewise, members of the public will be able to see an overview of
       reported information on a per school basis on a near-real time basis.
-    </p>
+      <br></br>
+      <br></br>
+      </p>
   </div>
 );
 
