@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   View,
   Text,
-  TextInput,
+  FlatList,
   StatusBar,
   TouchableOpacity,
 } from "react-native";
@@ -11,14 +11,17 @@ import { Button } from "react-native-elements";
 import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
 import { Separator } from "./Login";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-
+import { userSchoolsContext } from "../Context/UserSchoolsContext";
 import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
-
-//export default function PublicData ({navigation}) {
 
 export default function PublicData({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [pickedDate, setPickedDate] = useState();
+  const { userSchools } = useContext(userSchoolsContext);
+
+  const idBySchool = userSchools.map((school) => {
+    return school.id;
+  });
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -30,7 +33,8 @@ export default function PublicData({ navigation }) {
 
   const handleConfirm = (date) => {
     console.warn("A date has been picked: ", date);
-    setPickedDate(date);
+    //setPickedDate(date);
+    ApiGetTempsBySchoolId(idBySchool, date);
     hideDatePicker();
   };
 
@@ -48,6 +52,7 @@ export default function PublicData({ navigation }) {
         <Button
           title="Choose Date"
           buttonStyle={styles.button}
+          titleStyle={{ color: "white", fontFamily: "serif" }}
           onPress={showDatePicker}
         />
         <DateTimePickerModal
@@ -55,7 +60,6 @@ export default function PublicData({ navigation }) {
           mode="date"
           onConfirm={handleConfirm}
           onCancel={hideDatePicker}
-          //date={pickedDate}
         />
         <Separator />
         <Text style={{ textAlign: "center" }}>Date selected: </Text>
