@@ -8,7 +8,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-elements";
-import { buttonColor, screenBackgroundColor, statusBar } from "./Main";
+import {
+  buttonColor,
+  buttonOutlineColor,
+  screenBackgroundColor,
+  statusBar,
+} from "./Main";
 import { Separator } from "./Login";
 
 export default class Staff extends React.Component {
@@ -53,12 +58,12 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 0,
-    borderColor: buttonColor,
+    borderColor: buttonOutlineColor,
     width: 200,
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: "rgba(110, 170, 0, .50)",
+    backgroundColor: buttonColor,
   },
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",

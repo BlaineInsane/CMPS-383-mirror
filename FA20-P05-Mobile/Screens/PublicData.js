@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -8,43 +8,93 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-elements";
-import { statusBar, buttonColor } from "./Main";
+import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
+import { Separator } from "./Login";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Picker } from "@react-native-picker/picker";
 
-export default class PublicData extends React.Component {
-  render() {
+import { isLoadingContext } from "../Context/IsLoadingContext";
+import { activeSchoolsContext } from "../Context/ActiveSchoolsContext";
+
+import ApiGetAllActiveSchools from "../ApiCalls/ApiGetAllActiveSchools";
+import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
+
+export default function PublicData({ navigation }) {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [pickedDate, setPickedDate] = useState();
+  const [schoolPickedValue, setSchoolPickedValue] = useState([]);
+  const { isLoading, setIsLoading } = useContext(isLoadingContext);
+  const { activeSchools } = useContext(activeSchoolsContext);
+
+  const PickerList = activeSchools.map((school) => {
     return (
-      <View style={styles.container}>
-        <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
-        <View style={styles.box}>
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: 20,
-              marginTop: 20,
-              fontFamily: "serif",
-            }}
-          >
-            Public Data:
-          </Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Button
-            title="Back to Main"
-            type="outline"
-            buttonStyle={styles.button}
-            titleStyle={{ color: "white", fontFamily: "serif" }}
-            onPress={() => this.props.navigation.navigate("Main")}
-          ></Button>
-        </View>
-      </View>
+      <Picker.Item label={school.name} value={school.name} key={school.id} />
     );
-  }
+  });
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
+    setPickedDate(date);
+    hideDatePicker();
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <View
+        style={{
+          alignSelf: "center",
+          height: 600,
+          width: 325,
+          borderColor: "black",
+          borderWidth: 1,
+        }}
+      >
+        <Picker
+          selectedValue={schoolPickedValue}
+          style={{
+            height: 45,
+            width: 250,
+            color: "black",
+          }}
+          onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
+        >
+          {PickerList}
+        </Picker>
+        <Button
+          title="Choose Date"
+          buttonStyle={styles.button}
+          onPress={showDatePicker}
+        />
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          //date={pickedDate}
+        />
+        <Separator />
+        <Text style={{ textAlign: "center" }}>Date selected: </Text>
+      </View>
+      <View>
+        <Separator />
+        <Button
+          title="Back to Main"
+          type="outline"
+          buttonStyle={styles.button}
+          titleStyle={{ color: "white", fontFamily: "serif" }}
+          onPress={() => this.props.navigation.navigate("Main")}
+        ></Button>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -57,13 +107,13 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 150,
-    borderColor: buttonColor,
+    marginTop: 20,
+    borderColor: buttonOutlineColor,
     width: 150,
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: "rgba(110, 170, 0, .50)",
+    backgroundColor: buttonColor,
   },
 
   text: {

@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import * as Permissions from "expo-permissions";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { Button } from "react-native-elements";
-import { buttonColor } from "./Main";
+import { buttonColor, buttonOutlineColor } from "./Main";
 
 const { width } = Dimensions.get("window");
 const qrSize = width * 1.5;
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: "rgba(110, 170, 0, .50)",
-    borderColor: buttonColor,
+    backgroundColor: buttonColor,
+    borderColor: buttonOutlineColor,
   },
 
   text: {

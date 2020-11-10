@@ -14,7 +14,12 @@ import ApiGetUserSchools from "../ApiCalls/ApiGetUserSchools";
 import { UserContext } from "../Context/UserContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 import { userSchoolsContext } from "../Context/UserSchoolsContext";
-import { buttonColor, screenBackgroundColor, statusBar } from "./Main";
+import {
+  buttonColor,
+  buttonOutlineColor,
+  screenBackgroundColor,
+  statusBar,
+} from "./Main";
 
 export function Separator() {
   return <View style={styles.separator} />;
@@ -51,7 +56,7 @@ function Login({ navigation }) {
         setUserSchools(schools.data);
 
         setIsLoading(false);
-        navigation.navigate("Staff");
+        navigation.navigate("Main");
       }
     } catch {
       alert("Invalid username and/or password. Please try again.");
@@ -126,12 +131,12 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 0,
-    borderColor: buttonColor,
+    borderColor: buttonOutlineColor,
     width: 150,
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: "rgba(110, 170, 0, .50)",
+    backgroundColor: buttonColor,
   },
   text: {
     color: "white",

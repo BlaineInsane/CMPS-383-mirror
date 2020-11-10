@@ -16,7 +16,8 @@ import { isLoadingContext } from "../Context/IsLoadingContext";
 import { Button } from "react-native-elements";
 import ApiLogout from "../ApiCalls/ApiLogout";
 
-export const buttonColor = "rgba(110, 140, 0, 1.0)";
+export const buttonOutlineColor = "rgba(100, 130, 0, 1.0)";
+export const buttonColor = "rgba(142, 175, 95, 1.0)";
 export const screenBackgroundColor = "rgba(50, 50, 50, .50)";
 export const statusBar = "rgba(110, 140, 0, .60)";
 
@@ -65,6 +66,7 @@ function Main({ navigation }) {
               height: 75,
               justifyContent: "center",
             }}
+            cd
           >
             <Text
               style={{
@@ -148,7 +150,7 @@ function Main({ navigation }) {
               <Button
                 title="Logout"
                 type="outline"
-                buttonStyle={styles.buttonWide}
+                buttonStyle={styles.button}
                 titleStyle={{ color: "white", fontFamily: "serif" }}
                 onPress={handleLogout}
               ></Button>
@@ -181,22 +183,22 @@ const styles = StyleSheet.create({
 
   button: {
     marginTop: 0,
-    borderColor: buttonColor,
+    borderColor: buttonOutlineColor,
     width: 150,
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: "rgba(110, 170, 0, .50)",
+    backgroundColor: buttonColor,
   },
 
   buttonWide: {
     marginTop: 0,
-    borderColor: buttonColor,
+    borderColor: buttonOutlineColor,
     width: 185,
     alignSelf: "center",
     borderRadius: 20,
     borderWidth: 1,
-    backgroundColor: "rgba(110, 170, 0, .50)",
+    backgroundColor: buttonColor,
   },
 
   text: {
@@ -236,13 +238,20 @@ const styles = StyleSheet.create({
 
   logInOutBox: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
-    width: 340,
     height: 140,
     marginBottom: 20,
+    marginRight: 10,
+    marginLeft: 10,
   },
 
   separator: {
     marginVertical: 10,
+  },
+
+  buttonText: {
+    fontFamily: "serif",
+    fontSize: 18,
+    color: "white",
   },
 });
 
