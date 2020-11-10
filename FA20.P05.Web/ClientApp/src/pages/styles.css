@@ -1,14 +1,17 @@
 
 h1 {
   text-align: center;
+  font-size: 300%;
+  margin-top: 200px;
+
 }
 
 form {
   background-color: rgba(50, 50, 50, .85);
   text-align: center;
-  font-size: 20px;
+  font-size: 25px;
   width: 20%;
-  height: 260px;
+  height: 300px;
   margin-left: 38%;
   margin-top: 35px;
   padding: 15px;
@@ -48,8 +51,8 @@ footer {
 body {
   background-image: url("/tree.jpg");
   background-size: fill;
+  background-size: 200%;
   background-position: left;
-  background: cover;
   background-repeat: no-repeat;
 }
 * {
@@ -149,6 +152,7 @@ input[type="submit"]:hover {
   .col {
     width: 100%;
     margin-top: 0;
+    margin-bottom:0;
   }
   /* hide the vertical line */
   .vl {
@@ -162,10 +166,13 @@ input[type="submit"]:hover {
 }
 p {
   text-align: center;
-  width: 50%;
-  margin-left: 25%;
-  font-size: medium;
-  background-color: rgba(50, 50, 50, .80);
+  width: 60%;
+  height: 450px;
+  margin-left: 20%;
+  font-size: 150%;
+  margin-top: 25px;
+  padding-top: 5px;
+  background-color: rgba(50, 50, 50, .90);
   
 }
 form.PublicData {
