@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -11,16 +11,25 @@ import { Button } from "react-native-elements";
 import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
 import { Separator } from "./Login";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { userSchoolsContext } from "../Context/UserSchoolsContext";
+import { Picker } from "@react-native-picker/picker";
+
+import { isLoadingContext } from "../Context/IsLoadingContext";
+import { activeSchoolsContext } from "../Context/ActiveSchoolsContext";
+
+import ApiGetAllActiveSchools from "../ApiCalls/ApiGetAllActiveSchools";
 import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
 
 export default function PublicData({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [pickedDate, setPickedDate] = useState();
-  const { userSchools } = useContext(userSchoolsContext);
+  const [schoolPickedValue, setSchoolPickedValue] = useState([]);
+  const { isLoading, setIsLoading } = useContext(isLoadingContext);
+  const { activeSchools } = useContext(activeSchoolsContext);
 
-  const idBySchool = userSchools.map((school) => {
-    return school.id;
+  const PickerList = activeSchools.map((school) => {
+    return (
+      <Picker.Item label={school.name} value={school.name} key={school.id} />
+    );
   });
 
   const showDatePicker = () => {
@@ -49,6 +58,17 @@ export default function PublicData({ navigation }) {
           borderWidth: 1,
         }}
       >
+        <Picker
+          selectedValue={schoolPickedValue}
+          style={{
+            height: 45,
+            width: 250,
+            color: "black",
+          }}
+          onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
+        >
+          {PickerList}
+        </Picker>
         <Button
           title="Choose Date"
           buttonStyle={styles.button}
