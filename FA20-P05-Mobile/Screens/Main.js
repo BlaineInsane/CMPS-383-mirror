@@ -11,7 +11,6 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import { Separator } from "./Login";
 import { UserContext } from "../Context/UserContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 import { Button } from "react-native-elements";
@@ -21,6 +20,10 @@ export const buttonOutlineColor = "rgba(100, 130, 0, 1.0)";
 export const buttonColor = "rgba(142, 175, 95, 1.0)";
 export const screenBackgroundColor = "rgba(50, 50, 50, .50)";
 export const statusBar = "rgba(110, 140, 0, .60)";
+
+function Separator() {
+  return <View style={styles.separator} />;
+}
 
 function Main({ navigation }) {
   const { setIsLoading } = useContext(isLoadingContext);
