@@ -29,6 +29,9 @@ import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
 export default function PublicData({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [schoolPickedValue, setSchoolPickedValue] = useState([]);
+  const [datePicked, setDatePicked] = useState("");
+  const [healthyTemps, setHealthyTemps] = useState("");
+  const [unhealthyTemps, setUnhealthyTemps] = useState("");
   const { setIsLoading } = useContext(isLoadingContext);
   const { activeSchools } = useContext(activeSchoolsContext);
 
@@ -53,10 +56,13 @@ export default function PublicData({ navigation }) {
     if (moment(date).isAfter(moment(Date.now()), "day")) {
       Alert.alert("Error", "Please select a non-future date.");
     } else {
+      // set selected date to display.
+      setDatePicked(moment(date).format("MMM Do YYYY"));
       try {
         let res = await ApiGetTempsBySchoolId(schoolPickedValue, date);
         if (res.status == "200") {
-          // show data somehow.
+          setHealthyTemps(res.data.numHealthyTemps);
+          setUnhealthyTemps(res.data.numUnhealthyTemps);
         }
       } catch {} // <--- Should definitely put stuff in here in case res.status is not 200
     }
@@ -117,7 +123,15 @@ export default function PublicData({ navigation }) {
           onCancel={hideDatePicker}
         />
         <Separator />
-        <Text style={{ textAlign: "center" }}>Date selected: </Text>
+        <Text style={{ textAlign: "center" }}>Date selected: {datePicked}</Text>
+        <Separator />
+        <Text style={{ textAlign: "center" }}>
+          Healthy temperatures: {healthyTemps}
+        </Text>
+        <Separator />
+        <Text style={{ textAlign: "center" }}>
+          Unhealthy temperatures: {unhealthyTemps}
+        </Text>
       </View>
       <View>
         <Separator />
