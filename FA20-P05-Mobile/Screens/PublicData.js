@@ -11,7 +11,12 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 import moment from "moment";
-import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
+import {
+  statusBar,
+  buttonColor,
+  buttonOutlineColor,
+  screenBackgroundColor,
+} from "./Main";
 import { Separator } from "./Login";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-picker/picker";
@@ -61,7 +66,7 @@ export default function PublicData({ navigation }) {
   };
 
   return (
-    <View style={{ padding: 20 }}>
+    <View style={{ padding: 20, backgroundColor: screenBackgroundColor }}>
       <View
         style={{
           alignSelf: "center",
@@ -69,6 +74,7 @@ export default function PublicData({ navigation }) {
           width: 325,
           borderColor: "black",
           borderWidth: 1,
+          backgroundColor: "rgba(200, 200, 200, 1.0)",
         }}
       >
         <Separator />
