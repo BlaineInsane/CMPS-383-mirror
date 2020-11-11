@@ -72,18 +72,19 @@ export default function PublicData({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: screenBackgroundColor }}>
-      <Separator />
+    <View style={styles.container}>
       <View
         style={{
           alignSelf: "center",
-          height: 600,
+          height: 400,
           width: 325,
           borderColor: "black",
           borderWidth: 1,
           backgroundColor: "rgba(200, 200, 200, 1.0)",
+          justifyContent: "center",
         }}
       >
+        <Text style={styles.tempText}>Select School and Date:</Text>
         <Separator />
         <View
           style={{
@@ -123,15 +124,32 @@ export default function PublicData({ navigation }) {
           onCancel={hideDatePicker}
         />
         <Separator />
-        <Text style={{ textAlign: "center" }}>Date selected: {datePicked}</Text>
-        <Separator />
-        <Text style={{ textAlign: "center" }}>
-          Healthy temperatures: {healthyTemps}
+        <Text style={{ textAlign: "center", fontFamily: "serif" }}>
+          Date selected:{" "}
+          <Text style={{ fontFamily: "serif", fontWeight: "bold" }}>
+            {datePicked}
+          </Text>
         </Text>
         <Separator />
-        <Text style={{ textAlign: "center" }}>
-          Unhealthy temperatures: {unhealthyTemps}
-        </Text>
+        <View
+          style={{
+            backgroundColor: "rgba(225, 225, 225, 1.0)",
+            width: 300,
+            height: 100,
+            alignSelf: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text style={styles.tempText}>
+            Healthy temperatures:{" "}
+            <Text style={{ color: buttonOutlineColor }}>{healthyTemps}</Text>
+          </Text>
+          <Separator />
+          <Text style={styles.tempText}>
+            Unhealthy temperatures:{" "}
+            <Text style={{ color: "#A40606" }}>{unhealthyTemps}</Text>
+          </Text>
+        </View>
       </View>
       <View>
         <Separator />
@@ -150,9 +168,7 @@ export default function PublicData({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(50, 50, 50, .60)",
-    padding: 20,
-    alignItems: "center",
+    backgroundColor: screenBackgroundColor,
     justifyContent: "center",
   },
 
@@ -175,7 +191,13 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
-    height: 600,
+    height: 300,
     marginTop: 20,
+  },
+
+  tempText: {
+    fontSize: 19,
+    fontFamily: "serif",
+    textAlign: "center",
   },
 });
