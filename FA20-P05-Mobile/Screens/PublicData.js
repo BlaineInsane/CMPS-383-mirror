@@ -42,7 +42,6 @@ export default function PublicData({ navigation }) {
 
   const handleConfirm = (date) => {
     console.warn("A date has been picked: ", date);
-    //setPickedDate(date);
     ApiGetTempsBySchoolId(schoolPickedValue, date);
     hideDatePicker();
   };
@@ -70,7 +69,7 @@ export default function PublicData({ navigation }) {
           }}
         >
           <Picker
-            electedValue={schoolPickedValue}
+            SelectedValue={schoolPickedValue}
             style={{
               height: 45,
               width: 250,
