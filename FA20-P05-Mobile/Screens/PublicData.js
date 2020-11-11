@@ -7,6 +7,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Alert,
+  PointPropType,
 } from "react-native";
 import { Button } from "react-native-elements";
 import moment from "moment";
@@ -70,17 +71,31 @@ export default function PublicData({ navigation }) {
           borderWidth: 1,
         }}
       >
-        <Picker
-          selectedValue={schoolPickedValue}
+        <Separator />
+        <View
           style={{
-            height: 45,
+            borderRadius: 20,
+            borderWidth: 1,
             width: 250,
-            color: "black",
+            alignSelf: "center",
           }}
-          onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
         >
-          {PickerList}
-        </Picker>
+          <Picker
+            selectedValue={schoolPickedValue}
+            style={{
+              height: 45,
+              width: 250,
+              color: "black",
+              alignSelf: "center",
+              borderRadius: 20,
+              borderWidth: 1,
+              borderColor: "black",
+            }}
+            onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
+          >
+            {PickerList}
+          </Picker>
+        </View>
         <Button
           title="Choose Date"
           buttonStyle={styles.button}
