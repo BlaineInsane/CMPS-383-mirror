@@ -69,7 +69,7 @@ export default function PublicData({ navigation }) {
           }}
         >
           <Picker
-            SelectedValue={schoolPickedValue}
+            selectedValue={schoolPickedValue}
             style={{
               height: 45,
               width: 250,
