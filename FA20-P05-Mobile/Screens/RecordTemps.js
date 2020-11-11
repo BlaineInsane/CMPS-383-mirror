@@ -46,14 +46,29 @@ export default function RecordTemps({ navigation }) {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      let res = await ApiTemps(schoolId, temperatureKelvin);
-
-      if (res.status == "201") {
-        Alert.alert(
-          "Success",
-          "Temperature " + temperatureKelvin + "\u00b0 F recorded "
-        );
+      // checks if a temperature has been selected.
+      if (isNaN(temperatureKelvin)) {
         setIsLoading(false);
+        Alert.alert("Error", "Please select a temperature.");
+      } else {
+        let res = await ApiTemps(schoolId, temperatureKelvin);
+
+        if (res.status == "201") {
+          let temperatureMessage = "";
+          if (temperatureKelvin >= 100.4) {
+            temperatureMessage = "\nThis is an unhealthy temperature.";
+          } else {
+            temperatureMessage = "\nThis is a healthy temperature.";
+          }
+          Alert.alert(
+            "Success",
+            "Temperature " +
+              temperatureKelvin +
+              "\u00b0 F recorded." +
+              temperatureMessage
+          );
+          setIsLoading(false);
+        }
       }
     } catch {
       Alert.alert("Error", "Failed to record temperature ");
@@ -128,6 +143,7 @@ export default function RecordTemps({ navigation }) {
           type="outline"
           onPress={handleSubmit}
         ></Button>
+        {/*
         <Button
           buttonStyle={styles.buttonWide}
           titleStyle={styles.buttonText}
@@ -135,7 +151,7 @@ export default function RecordTemps({ navigation }) {
           type="outline"
           onPress={() => navigation.navigate("StaffQRCode")}
         ></Button>
-        <Separator />
+        */}
         <Separator />
         <Button
           buttonStyle={styles.button}
