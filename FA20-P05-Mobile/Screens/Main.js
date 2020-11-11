@@ -59,7 +59,7 @@ function Main({ navigation }) {
             marginBottom: 20,
           }}
         >
-          <Text style={styles.welcome}>Welcome to our mobile app:</Text>
+          <Text style={styles.welcome}>HealthShare</Text>
           <View
             style={{
               backgroundColor: "rgba(50, 50, 50, .70)",
@@ -80,17 +80,17 @@ function Main({ navigation }) {
                 justifyContent: "center",
               }}
             >
-              This is where we will have some info about our mobile application,
-              and what it aims to accomplish.
+              Creating trust by being transparent with school health statistics.
+              Don't worry, we do not store any personally identifiable
+              information about students.
             </Text>
           </View>
         </ImageBackground>
         <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
         <View style={styles.box}>
           <Text style={styles.boxText}>
-            This is where we will explain what public data is, who is recording
-            this data and explain that it is in no way associated with an
-            individual in accordance with HIPAA guidelines.
+            View the number of students that were sent home due to high
+            temperature readings.
           </Text>
           <Button
             title="View Public Data"
@@ -100,6 +100,9 @@ function Main({ navigation }) {
             onPress={() => navigation.navigate("PublicData")}
           ></Button>
         </View>
+
+        {/*                  CODE FOR PERSONAL DATA BUTTON              */}
+        {/*
         <View style={styles.box}>
           <Text style={styles.boxText}>
             This is where we will explain what personal data is, and how it is
@@ -114,7 +117,11 @@ function Main({ navigation }) {
             onPress={() => navigation.navigate("PersonalData")}
           ></Button>
         </View>
-        <View style={styles.box}>
+        */}
+
+        {/*                   CODE FOR QR CODE BUTTON                   */}
+
+        {/*<View style={styles.box}>         
           <Text style={styles.boxText}>
             This is where a student can navigate to a generated barcode - this
             should assign their temperature to a random id, while still allowing
@@ -127,15 +134,15 @@ function Main({ navigation }) {
             titleStyle={{ color: "white", fontFamily: "serif" }}
             onPress={() => navigation.navigate("UserQRCode")}
           ></Button>
-        </View>
+        </View>*/}
+
         {/*changes button and it's navigation depending on whether the user is logged in */}
         {user !== null ? (
-          <View>
+          <>
             <View style={styles.box}>
               <Text style={styles.boxText}>
-                "Recording Temperatures" is only viewable/accessible to staff
-                members. Upon clicking this button, they will be navigated to a
-                screen to begin logging student temperatures.
+                Record student temperatures at the school you are currently
+                working at.
               </Text>
               <Button
                 title="Record Temperatures"
@@ -146,7 +153,6 @@ function Main({ navigation }) {
               ></Button>
             </View>
             <View style={styles.logInOutBox}>
-              <Text style={styles.boxText}>Staff Members log out here: </Text>
               <Button
                 title="Logout"
                 type="outline"
@@ -155,10 +161,10 @@ function Main({ navigation }) {
                 onPress={handleLogout}
               ></Button>
             </View>
-          </View>
+          </>
         ) : (
           <View style={styles.logInOutBox}>
-            <Text style={styles.boxText}>Staff Members can log in here: </Text>
+            <Text style={styles.boxText}>Staff Member log in</Text>
             <Button
               buttonStyle={styles.button}
               title="Log In"
@@ -230,7 +236,7 @@ const styles = StyleSheet.create({
 
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
-    height: 210,
+    height: 150,
     marginBottom: 20,
     marginRight: 10,
     marginLeft: 10,

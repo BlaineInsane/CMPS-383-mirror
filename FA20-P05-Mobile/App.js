@@ -2,14 +2,12 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { headerColor, buttonColor } from "./Screens/Main";
 import { UserContext } from "./Context/UserContext";
 import { isLoadingContext } from "./Context/IsLoadingContext";
 import { userSchoolsContext } from "./Context/UserSchoolsContext";
 import { activeSchoolsContext } from "./Context/ActiveSchoolsContext";
 import { useEffect } from "react";
-import { StatusBar } from "react-native";
-import statusBar from "./Screens/Main";
+import { Alert } from "react-native";
 import Main from "./Screens/Main";
 import Login from "./Screens/Login";
 import PublicData from "./Screens/PublicData";
@@ -58,7 +56,7 @@ function App() {
       }
     } catch {
       setIsLoading(false);
-      alert("Error", "Could not contact server. Please reopen the app.");
+      Alert.alert("Error", "Could not contact server. Please restart the app.");
     }
   };
 

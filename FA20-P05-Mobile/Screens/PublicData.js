@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   View,
@@ -6,8 +6,10 @@ import {
   FlatList,
   StatusBar,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Button } from "react-native-elements";
+import moment from "moment";
 import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
 import { Separator } from "./Login";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -16,19 +18,17 @@ import { Picker } from "@react-native-picker/picker";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 import { activeSchoolsContext } from "../Context/ActiveSchoolsContext";
 
-import ApiGetAllActiveSchools from "../ApiCalls/ApiGetAllActiveSchools";
 import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
 
 export default function PublicData({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [pickedDate, setPickedDate] = useState();
   const [schoolPickedValue, setSchoolPickedValue] = useState([]);
-  const { isLoading, setIsLoading } = useContext(isLoadingContext);
+  const { setIsLoading } = useContext(isLoadingContext);
   const { activeSchools } = useContext(activeSchoolsContext);
 
   const PickerList = activeSchools.map((school) => {
     return (
-      <Picker.Item label={school.name} value={school.name} key={school.id} />
+      <Picker.Item label={school.name} value={school.id} key={school.id} />
     );
   });
 
@@ -40,11 +40,23 @@ export default function PublicData({ navigation }) {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
-    //setPickedDate(date);
-    ApiGetTempsBySchoolId(idBySchool, date);
+  const handleConfirm = async (date) => {
+    setIsLoading(true);
+
+    // checks to make sure the user didn't select a date from the future(dang time travelers)
+    if (moment(date).isAfter(moment(Date.now()), "day")) {
+      Alert.alert("Error", "Please select a non-future date.");
+    } else {
+      try {
+        let res = await ApiGetTempsBySchoolId(schoolPickedValue, date);
+        if (res.status == "200") {
+          // show data somehow.
+        }
+      } catch {} // <--- Should definitely put stuff in here in case res.status is not 200
+    }
+
     hideDatePicker();
+    setIsLoading(false);
   };
 
   return (
@@ -91,7 +103,7 @@ export default function PublicData({ navigation }) {
           type="outline"
           buttonStyle={styles.button}
           titleStyle={{ color: "white", fontFamily: "serif" }}
-          onPress={() => this.props.navigation.navigate("Main")}
+          onPress={() => navigation.navigate("Main")}
         ></Button>
       </View>
     </View>
