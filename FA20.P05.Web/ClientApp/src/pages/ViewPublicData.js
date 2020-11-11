@@ -19,9 +19,9 @@ const ViewPublicData = () => (
       <br></br>
       <br></br>
       <br></br>
-      <Button backgroundColor = "blue" width = "50%" block bsSize="large" type="submit">
+      {/* <Button block bsSize="large" type="submit">
         View All
-      </Button>
+        </Button>*/}
     </Form>
   </div>
 );
