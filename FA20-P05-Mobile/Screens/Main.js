@@ -11,11 +11,13 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../Context/UserContext";
+import { isLoadingContext } from "../Context/IsLoadingContext";
 import { Button } from "react-native-elements";
 import ApiLogout from "../ApiCalls/ApiLogout";
 
-export const buttonColor = "rgba(100, 150, 0, .70)";
+export const buttonOutlineColor = "rgba(100, 130, 0, 1.0)";
+export const buttonColor = "rgba(142, 175, 95, 1.0)";
 export const screenBackgroundColor = "rgba(50, 50, 50, .50)";
 export const statusBar = "rgba(110, 140, 0, .60)";
 
@@ -24,6 +26,7 @@ function Separator() {
 }
 
 function Main({ navigation }) {
+  const { setIsLoading } = useContext(isLoadingContext);
   const { user, setUser } = useContext(UserContext);
 
   const handleLogout = async () => {
@@ -31,8 +34,11 @@ function Main({ navigation }) {
       let username = user.Username;
       let staffid = user.staffId;
 
-      await ApiLogout(username, staffid);
+      setIsLoading(true);
+      let res = await ApiLogout(username, staffid);
+
       setUser(null);
+      setIsLoading(false);
     } catch {
       // If the server is down and the user can't hit the "Logout" endpoint
       // this will make the app still function as if they are logged out.
@@ -40,78 +46,68 @@ function Main({ navigation }) {
       // will likely be still be logged in. Probably not a huge problem, but a potentially
       // weird behavior.
       setUser(null);
+      setIsLoading(false);
     }
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <ImageBackground
-          source={require("../assets/tree.jpg")}
-          resizeMode="contain"
+    <ScrollView style={{ backgroundColor: screenBackgroundColor }}>
+      <ImageBackground
+        source={require("../assets/tree.jpg")}
+        resizeMode="contain"
+        style={{
+          width: 420,
+          height: 315,
+          alignSelf: "flex-start",
+          marginBottom: 20,
+        }}
+      >
+        <Text style={styles.welcome}>HealthShare</Text>
+        <View
           style={{
-            width: 420,
-            height: 315,
-            alignSelf: "flex-start",
-            marginBottom: 20,
+            backgroundColor: "rgba(50, 50, 50, .70)",
+            height: 95,
+            justifyContent: "center",
+            padding: 5,
           }}
         >
-          <Text style={styles.welcome}>Welcome to our mobile app:</Text>
-          <View
+          <Text
             style={{
-              backgroundColor: "rgba(50, 50, 50, .70)",
-              height: 75,
+              color: "white",
+              fontSize: 17,
+              fontFamily: "serif",
+              padding: 30,
+              marginRight: 30,
+              textShadowColor: "black",
+              textAlignVertical: "center",
               justifyContent: "center",
             }}
           >
-            <Text
-              style={{
-                color: "white",
-                fontSize: 17,
-                fontFamily: "serif",
-                padding: 30,
-                marginRight: 30,
-                textShadowColor: "black",
-                textAlignVertical: "center",
-                justifyContent: "center",
-              }}
-            >
-              This is where we will have some info about our website, and what
-              it aims to accomplish.
-            </Text>
-          </View>
-        </ImageBackground>
-        <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
-        <View style={styles.box}>
-          <Text
-            style={{
-              textAlign: "center",
-              padding: 30,
-              fontSize: 15,
-              fontFamily: "serif",
-            }}
-          >
-            This is where we will explain what public data is, who is recording
-            this data and explain that it is in no way associated with an
-            individual in accordance with HIPAA guidelines.
+            Creating trust by being transparent with school health statistics.
+            Don't worry, we do not store any personally identifiable information
+            about students.
           </Text>
-          <Button
-            title="View Public Data"
-            type="outline"
-            buttonStyle={styles.button}
-            titleStyle={{ color: "white", fontFamily: "serif" }}
-            onPress={() => navigation.navigate("PublicData")}
-          ></Button>
         </View>
+      </ImageBackground>
+      <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
+      <View style={styles.box}>
+        <Text style={styles.boxText}>
+          View the number of students that were sent home due to high
+          temperature readings.
+        </Text>
+        <Button
+          title="View Public Data"
+          type="outline"
+          buttonStyle={styles.button}
+          titleStyle={{ color: "white", fontFamily: "serif" }}
+          onPress={() => navigation.navigate("PublicData")}
+        ></Button>
+      </View>
+
+      {/*                  CODE FOR PERSONAL DATA BUTTON              */}
+      {/*
         <View style={styles.box}>
-          <Text
-            style={{
-              textAlign: "center",
-              padding: 30,
-              fontSize: 15,
-              fontFamily: "serif",
-            }}
-          >
+          <Text style={styles.boxText}>
             This is where we will explain what personal data is, and how it is
             safely recorded with no association linking student to their
             personal data in any sort of database.
@@ -124,73 +120,64 @@ function Main({ navigation }) {
             onPress={() => navigation.navigate("PersonalData")}
           ></Button>
         </View>
+        */}
 
-        {/*changes button and it's navigation depending on whether the user is logged in */}
-        {user !== null ? (
-          <View>
-            <View style={styles.box}>
-              <Text
-                style={{
-                  textAlign: "center",
-                  padding: 30,
-                  fontSize: 15,
-                  fontFamily: "serif",
-                }}
-              >
-                "Recording Temperatures" is only viewable/accessible to staff
-                members. Upon clicking this button, they will be navigated to a
-                screen to begin logging student temperatures.
-              </Text>
-              <Button
-                title="Record Temperatures"
-                type="outline"
-                buttonStyle={styles.buttonWide}
-                titleStyle={{ color: "white", fontFamily: "serif" }}
-                onPress={() => navigation.navigate("RecordTemps")}
-              ></Button>
-            </View>
-            <View style={styles.box}>
-              <Text
-                style={{
-                  textAlign: "center",
-                  padding: 30,
-                  fontSize: 15,
-                  fontFamily: "serif",
-                }}
-              >
-                Testing Logout button
-              </Text>
-              <Button
-                title="Logout"
-                type="outline"
-                buttonStyle={styles.buttonWide}
-                titleStyle={{ color: "white", fontFamily: "serif" }}
-                onPress={handleLogout}
-              ></Button>
-            </View>
-          </View>
-        ) : (
+      {/*                   CODE FOR QR CODE BUTTON                   */}
+
+      {/*<View style={styles.box}>         
+          <Text style={styles.boxText}>
+            This is where a student can navigate to a generated barcode - this
+            should assign their temperature to a random id, while still allowing
+            them to see their personal history.
+          </Text>
+          <Button
+            title="QR Code"
+            type="outline"
+            buttonStyle={styles.buttonWide}
+            titleStyle={{ color: "white", fontFamily: "serif" }}
+            onPress={() => navigation.navigate("UserQRCode")}
+          ></Button>
+        </View>*/}
+
+      {/*changes button and it's navigation depending on whether the user is logged in */}
+      {user !== null ? (
+        <>
           <View style={styles.box}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate("Login")}
-            >
-              <Text
-                style={[
-                  {
-                    color: "white",
-                    textAlign: "center",
-                    textAlignVertical: "center",
-                    fontSize: 18,
-                  },
-                ]}
-              >
-                Log in here
-              </Text>
-            </TouchableOpacity>
+            <Text style={styles.boxText}>
+              Record student temperatures at the school you are currently
+              working at.
+            </Text>
+            <Button
+              title="Record Temperatures"
+              type="outline"
+              buttonStyle={styles.buttonWide}
+              titleStyle={{ color: "white", fontFamily: "serif" }}
+              onPress={() => navigation.navigate("RecordTemps")}
+            ></Button>
           </View>
-        )}
-      </View>
+          <View style={styles.logInOutBox}>
+            <Separator />
+            <Button
+              title="Logout"
+              type="outline"
+              buttonStyle={styles.button}
+              titleStyle={{ color: "white", fontFamily: "serif" }}
+              onPress={handleLogout}
+            ></Button>
+          </View>
+        </>
+      ) : (
+        <View style={styles.logInOutBox}>
+          <Text style={styles.boxText}>Staff Member log in</Text>
+          <Button
+            buttonStyle={styles.button}
+            title="Log In"
+            type="outline"
+            titleStyle={{ color: "white", fontFamily: "serif" }}
+            onPress={() => navigation.navigate("Login")}
+          ></Button>
+        </View>
+      )}
     </ScrollView>
   );
 }
@@ -204,23 +191,23 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 0,
-    borderColor: buttonColor,
+    borderColor: buttonOutlineColor,
     width: 150,
     alignSelf: "center",
     borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: "rgba(100, 170, 0, .50)",
+    borderWidth: 1,
+    backgroundColor: buttonColor,
+    marginBottom: 20,
   },
 
   buttonWide: {
     marginTop: 0,
-    borderColor: buttonColor,
+    borderColor: buttonOutlineColor,
     width: 185,
     alignSelf: "center",
     borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: "rgba(100, 170, 0, .50)",
+    borderWidth: 1,
+    backgroundColor: buttonColor,
   },
 
   text: {
@@ -231,6 +218,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     alignItems: "center",
     marginTop: 100,
+  },
+
+  boxText: {
+    textAlign: "center",
+    padding: 20,
+    fontSize: 15,
+    fontFamily: "serif",
   },
 
   welcome: {
@@ -245,14 +239,33 @@ const styles = StyleSheet.create({
 
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
-    width: 340,
-    height: 210,
-
+    height: 150,
+    width: 335,
     marginBottom: 20,
+    marginRight: 10,
+    marginLeft: 10,
+    alignSelf: "center",
+  },
+
+  logInOutBox: {
+    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    height: 120,
+    width: 335,
+    marginBottom: 20,
+    marginRight: 10,
+    marginLeft: 10,
+    justifyContent: "center",
+    alignSelf: "center",
   },
 
   separator: {
     marginVertical: 10,
+  },
+
+  buttonText: {
+    fontFamily: "serif",
+    fontSize: 18,
+    color: "white",
   },
 });
 

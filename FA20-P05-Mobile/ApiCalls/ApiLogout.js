@@ -6,9 +6,7 @@ function ApiLogout(username, staffid) {
   const staffId = staffid;
   const logoutUrl = `${configuration.BASE_URL}/api/authentication/logout/`;
 
-  //console.log(Username, staffId);
-
-  axios.post(
+  return axios.post(
     logoutUrl,
     { Username, staffId },
     {

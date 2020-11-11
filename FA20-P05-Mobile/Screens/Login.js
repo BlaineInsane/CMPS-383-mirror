@@ -7,17 +7,31 @@ import {
   StatusBar,
   TouchableOpacity,
 } from "react-native";
+
+import { Button } from "react-native-elements";
 import ApiLogin from "../ApiCalls/ApiLogin";
-import { UserContext } from "../UserContext";
+import ApiGetUserSchools from "../ApiCalls/ApiGetUserSchools";
+import { UserContext } from "../Context/UserContext";
+import { isLoadingContext } from "../Context/IsLoadingContext";
+import { userSchoolsContext } from "../Context/UserSchoolsContext";
+import {
+  buttonColor,
+  buttonOutlineColor,
+  screenBackgroundColor,
+  statusBar,
+} from "./Main";
 
-import { buttonColor, screenBackgroundColor, statusBar } from "./Main";
-
+export function Separator() {
+  return <View style={styles.separator} />;
+}
 //TODO: create frontend stuff if login returns 400
 
 function Login({ navigation }) {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
+  const { setIsLoading } = useContext(isLoadingContext);
+  const { setUserSchools } = useContext(userSchoolsContext);
 
   const handleUsernameChange = (event) => {
     setUsername(event);
@@ -28,6 +42,7 @@ function Login({ navigation }) {
 
   const handleSubmit = async () => {
     try {
+      setIsLoading(true);
       let res = await ApiLogin(Username, Password);
       if (res.status == "200") {
         const theUser = {
@@ -35,31 +50,49 @@ function Login({ navigation }) {
           staffId: res.data.staffId,
         };
         setUser(theUser);
-        navigation.navigate("Staff");
+
+        // gets array of schools the user is employed at and puts in userSchoolsContext
+        let schools = await ApiGetUserSchools();
+        setUserSchools(schools.data);
+
+        setIsLoading(false);
+        navigation.navigate("Main");
       }
     } catch {
-      alert("please check email and password");
+      alert("Invalid username and/or password. Please try again.");
+      setIsLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
-      <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
+      <View style={styles.box}>
+        <Separator />
+        <Text style={{ fontSize: 18, fontFamily: "serif" }}>
+          Staff Member Login Screen:
+        </Text>
 
-      <TextInput
-        placeholder="Username"
-        style={styles.textBox}
-        onChangeText={handleUsernameChange}
-      ></TextInput>
-      <TextInput
-        placeholder="Password"
-        style={styles.textBox}
-        onChangeText={handlePasswordChange}
-        secureTextEntry={true}
-      ></TextInput>
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.text}>Log in</Text>
-      </TouchableOpacity>
+        <Separator />
+        <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
+        <TextInput
+          placeholder="Username"
+          style={styles.textBox}
+          onChangeText={handleUsernameChange}
+        ></TextInput>
+        <TextInput
+          placeholder="Password"
+          style={styles.textBox}
+          onChangeText={handlePasswordChange}
+          secureTextEntry={true}
+        ></TextInput>
+        <Button
+          buttonStyle={styles.button}
+          type="outline"
+          title="Log In"
+          titleStyle={{ color: "white", fontFamily: "serif" }}
+          onPress={handleSubmit}
+        ></Button>
+      </View>
     </View>
   );
 }
@@ -81,12 +114,21 @@ const styles = StyleSheet.create({
     borderBottomColor: "rgba(125, 125, 125, 0.60)",
     borderBottomWidth: 1,
   },
+
+  box: {
+    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    width: 340,
+    height: 230,
+    marginBottom: 20,
+    alignItems: "center",
+  },
   button: {
-    height: 35,
-    width: 100,
-    padding: 20,
-    paddingTop: 5,
-    paddingBottom: 5,
+    marginTop: 0,
+    borderColor: buttonOutlineColor,
+    width: 150,
+    alignSelf: "center",
+    borderRadius: 20,
+    borderWidth: 1,
     backgroundColor: buttonColor,
   },
   text: {
@@ -94,6 +136,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     fontSize: 18,
+  },
+  separator: {
+    marginVertical: 10,
   },
 });
 
