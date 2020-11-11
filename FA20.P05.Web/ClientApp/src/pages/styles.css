@@ -1,6 +1,6 @@
 h1 {
   text-align: center;
-  font-size: 300%;
+  font-size: 250%;
   margin-top: 30px;
 }
 
@@ -12,8 +12,8 @@ form {
   height: 275px;
   margin-left: 38%;
   margin-top: 5px;
-  padding: 15px;
-  padding-left: 20px;
+  padding: 5px;
+  padding-left: 10px;
 }
 
 ul {
@@ -52,10 +52,11 @@ footer {
 
 body {
   background-image: url("/tree.jpg");
-  background-size: fill;
-  background-size: 200%;
   background-position: left;
   background-repeat: no-repeat;
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 * {
@@ -173,11 +174,12 @@ input[type="submit"]:hover {
 
 p {
   text-align: center;
-  width: 60%;
-  height: 600px;
-  margin-left: 20%;
-  font-size: 150%;
-  margin-top: 10px;
-  padding: 25px;
+  width: 900px;
+  height: 400px;
+  margin-left: 15%;
+  font-size: 20px;
+  margin-top: 5px;
+  padding: 15px;
+  padding-left: 20px;
   background-color: rgba(50, 50, 50, 0.9);
 }

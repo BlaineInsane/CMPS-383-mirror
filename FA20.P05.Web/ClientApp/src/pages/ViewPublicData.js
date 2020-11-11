@@ -15,18 +15,14 @@ const ViewPublicData = () => (
       <Button block bsSize="large" type="submit">
         Search
       </Button>
-    </Form>
-    <div
-      align="center"
-      style={{
-        backgroundColor: "blue",
-        width: "23%",
-      }}
-    >
-      <Button block bsSize="large" type="submit">
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <Button backgroundColor = "blue" width = "50%" block bsSize="large" type="submit">
         View All
       </Button>
-    </div>
+    </Form>
   </div>
 );
 export default ViewPublicData;
