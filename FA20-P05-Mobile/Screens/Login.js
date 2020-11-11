@@ -114,14 +114,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "rgba(125, 125, 125, 0.60)",
     borderBottomWidth: 1,
   },
-  button: {
-    height: 35,
-    width: 100,
-    padding: 20,
-    paddingTop: 5,
-    paddingBottom: 5,
-    backgroundColor: buttonColor,
-  },
+
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,

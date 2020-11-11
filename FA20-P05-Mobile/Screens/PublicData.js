@@ -1,14 +1,22 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   View,
   Text,
-  TextInput,
+  FlatList,
   StatusBar,
   TouchableOpacity,
+  Alert,
+  PointPropType,
 } from "react-native";
 import { Button } from "react-native-elements";
-import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
+import moment from "moment";
+import {
+  statusBar,
+  buttonColor,
+  buttonOutlineColor,
+  screenBackgroundColor,
+} from "./Main";
 import { Separator } from "./Login";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-picker/picker";
@@ -16,19 +24,17 @@ import { Picker } from "@react-native-picker/picker";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 import { activeSchoolsContext } from "../Context/ActiveSchoolsContext";
 
-import ApiGetAllActiveSchools from "../ApiCalls/ApiGetAllActiveSchools";
 import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
 
 export default function PublicData({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [pickedDate, setPickedDate] = useState();
   const [schoolPickedValue, setSchoolPickedValue] = useState([]);
-  const { isLoading, setIsLoading } = useContext(isLoadingContext);
+  const { setIsLoading } = useContext(isLoadingContext);
   const { activeSchools } = useContext(activeSchoolsContext);
 
   const PickerList = activeSchools.map((school) => {
     return (
-      <Picker.Item label={school.name} value={school.name} key={school.id} />
+      <Picker.Item label={school.name} value={school.id} key={school.id} />
     );
   });
 
@@ -40,14 +46,28 @@ export default function PublicData({ navigation }) {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
-    setPickedDate(date);
+  const handleConfirm = async (date) => {
+    setIsLoading(true);
+
+    // checks to make sure the user didn't select a date from the future(dang time travelers)
+    if (moment(date).isAfter(moment(Date.now()), "day")) {
+      Alert.alert("Error", "Please select a non-future date.");
+    } else {
+      try {
+        let res = await ApiGetTempsBySchoolId(schoolPickedValue, date);
+        if (res.status == "200") {
+          // show data somehow.
+        }
+      } catch {} // <--- Should definitely put stuff in here in case res.status is not 200
+    }
+
     hideDatePicker();
+    setIsLoading(false);
   };
 
   return (
-    <View style={{ padding: 20 }}>
+    <View style={{ flex: 1, backgroundColor: screenBackgroundColor }}>
+      <Separator />
       <View
         style={{
           alignSelf: "center",
@@ -55,22 +75,39 @@ export default function PublicData({ navigation }) {
           width: 325,
           borderColor: "black",
           borderWidth: 1,
+          backgroundColor: "rgba(200, 200, 200, 1.0)",
         }}
       >
-        <Picker
-          selectedValue={schoolPickedValue}
+        <Separator />
+        <View
           style={{
-            height: 45,
+            borderRadius: 20,
+            borderWidth: 1,
             width: 250,
-            color: "black",
+            alignSelf: "center",
+            backgroundColor: "rgba(225, 225, 225, 1.0)",
           }}
-          onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
         >
-          {PickerList}
-        </Picker>
+          <Picker
+            selectedValue={schoolPickedValue}
+            style={{
+              height: 45,
+              width: 250,
+              color: "black",
+              alignSelf: "center",
+              borderRadius: 20,
+              borderWidth: 1,
+              borderColor: "black",
+            }}
+            onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
+          >
+            {PickerList}
+          </Picker>
+        </View>
         <Button
           title="Choose Date"
           buttonStyle={styles.button}
+          titleStyle={{ color: "white", fontFamily: "serif" }}
           onPress={showDatePicker}
         />
         <DateTimePickerModal
@@ -78,7 +115,6 @@ export default function PublicData({ navigation }) {
           mode="date"
           onConfirm={handleConfirm}
           onCancel={hideDatePicker}
-          //date={pickedDate}
         />
         <Separator />
         <Text style={{ textAlign: "center" }}>Date selected: </Text>
@@ -90,7 +126,7 @@ export default function PublicData({ navigation }) {
           type="outline"
           buttonStyle={styles.button}
           titleStyle={{ color: "white", fontFamily: "serif" }}
-          onPress={() => this.props.navigation.navigate("Main")}
+          onPress={() => navigation.navigate("Main")}
         ></Button>
       </View>
     </View>

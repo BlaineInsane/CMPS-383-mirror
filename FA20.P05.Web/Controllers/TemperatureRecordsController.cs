@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FA20.P05.Web.Data;
@@ -55,7 +54,7 @@ namespace FA20.P05.Web.Controllers
             return Created($"/api/temperature-records/{targetValue.Id}", targetValue);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}/{date}")]
         public ActionResult<SchoolTempRecordsDto> GetTempsBySchoolId(int id, DateTime date)
         {
             // returns the number of healthy/unhealthy temperatures of a school on

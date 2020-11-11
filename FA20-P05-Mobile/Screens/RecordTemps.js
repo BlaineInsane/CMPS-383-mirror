@@ -35,11 +35,11 @@ export default function RecordTemps({ navigation }) {
   const handleTempChange = (event) => {
     setPickedValue(event);
 
-    const test = userSchools.map((school) => {
+    const idBySchool = userSchools.map((school) => {
       return school.id;
     });
 
-    setId(parseFloat(test));
+    setId(parseFloat(idBySchool));
     setTempKelvin(parseFloat(event));
   };
 
