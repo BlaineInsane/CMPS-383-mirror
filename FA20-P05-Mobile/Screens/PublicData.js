@@ -6,6 +6,7 @@ import {
   FlatList,
   StatusBar,
   TouchableOpacity,
+  PointPropType,
 } from "react-native";
 import { Button } from "react-native-elements";
 import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
@@ -21,14 +22,13 @@ import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
 
 export default function PublicData({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [pickedDate, setPickedDate] = useState();
   const [schoolPickedValue, setSchoolPickedValue] = useState([]);
   const { isLoading, setIsLoading } = useContext(isLoadingContext);
   const { activeSchools } = useContext(activeSchoolsContext);
 
   const PickerList = activeSchools.map((school) => {
     return (
-      <Picker.Item label={school.name} value={school.name} key={school.id} />
+      <Picker.Item label={school.name} value={school.id} key={school.id} />
     );
   });
 
@@ -43,9 +43,11 @@ export default function PublicData({ navigation }) {
   const handleConfirm = (date) => {
     console.warn("A date has been picked: ", date);
     //setPickedDate(date);
-    ApiGetTempsBySchoolId(idBySchool, date);
+    ApiGetTempsBySchoolId(schoolPickedValue, date);
     hideDatePicker();
   };
+
+  console.log(schoolPickedValue);
 
   return (
     <View style={{ padding: 20 }}>
@@ -58,17 +60,31 @@ export default function PublicData({ navigation }) {
           borderWidth: 1,
         }}
       >
-        <Picker
-          selectedValue={schoolPickedValue}
+        <Separator />
+        <View
           style={{
-            height: 45,
+            borderRadius: 20,
+            borderWidth: 1,
             width: 250,
-            color: "black",
+            alignSelf: "center",
           }}
-          onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
         >
-          {PickerList}
-        </Picker>
+          <Picker
+            electedValue={schoolPickedValue}
+            style={{
+              height: 45,
+              width: 250,
+              color: "black",
+              alignSelf: "center",
+              borderRadius: 20,
+              borderWidth: 1,
+              borderColor: "black",
+            }}
+            onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
+          >
+            {PickerList}
+          </Picker>
+        </View>
         <Button
           title="Choose Date"
           buttonStyle={styles.button}
@@ -91,7 +107,7 @@ export default function PublicData({ navigation }) {
           type="outline"
           buttonStyle={styles.button}
           titleStyle={{ color: "white", fontFamily: "serif" }}
-          onPress={() => this.props.navigation.navigate("Main")}
+          onPress={() => navigation.navigate("Main")}
         ></Button>
       </View>
     </View>
