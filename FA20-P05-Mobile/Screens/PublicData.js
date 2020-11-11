@@ -85,6 +85,7 @@ export default function PublicData({ navigation }) {
             borderWidth: 1,
             width: 250,
             alignSelf: "center",
+            backgroundColor: "rgba(225, 225, 225, 1.0)",
           }}
         >
           <Picker
