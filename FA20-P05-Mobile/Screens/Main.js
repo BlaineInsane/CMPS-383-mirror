@@ -247,11 +247,12 @@ const styles = StyleSheet.create({
   logInOutBox: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     height: 120,
-    width: 330,
+    width: 335,
     marginBottom: 20,
     marginRight: 10,
     marginLeft: 10,
     justifyContent: "center",
+    alignSelf: "center",
   },
 
   separator: {
