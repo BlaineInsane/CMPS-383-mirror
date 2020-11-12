@@ -53,5 +53,40 @@ namespace FA20.P05.Web.Controllers
             //hmm, maybe we need more endpoints later?
             return Created($"/api/temperature-records/{targetValue.Id}", targetValue);
         }
-    }
+
+        [HttpGet("{id}/{date}")]
+        public ActionResult<SchoolTempRecordsDto> GetTempsBySchoolId(int id, DateTime date)
+        {
+            // returns the number of healthy/unhealthy temperatures of a school on
+            // a selected day.
+
+            // temps of selected school. Match school and day
+            var temps = dataContext
+                .Set<TemperatureRecord>()
+                .Where(x => x.SchoolId == id && x.MeasuredUtc.Day == date.Day)
+                .ToList();
+
+            var healthyTemps = 0;
+            var unhealthyTemps = 0;
+            foreach (var tempRecord in temps)
+            {
+                if (tempRecord.TemperatureKelvin < 100.4)
+                {
+                    healthyTemps++;
+                } 
+                else if (tempRecord.TemperatureKelvin >= 100.4)
+                {
+                    unhealthyTemps++;
+                }
+            }
+
+            var schoolTempRecordsDto = new SchoolTempRecordsDto
+            {
+                numHealthyTemps = healthyTemps,
+                numUnhealthyTemps = unhealthyTemps
+            };
+
+            return schoolTempRecordsDto;
+        }
+}
 }
