@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Button } from "react-bootstrap";
 const ViewPublicData = () => (
   <div>
-    <h1 style={{ color: "white" }}>View Public Data</h1>
+    <h1>View Public Data</h1>
     <Form class="PublicData">
       <label style={{ color: "white" }} for="start">
         {" "}
