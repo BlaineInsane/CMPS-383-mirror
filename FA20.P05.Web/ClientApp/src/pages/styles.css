@@ -184,4 +184,5 @@ p {
 select {
   width: 200px;
   height: 40px;
+  margin-top: 15px;
 }
