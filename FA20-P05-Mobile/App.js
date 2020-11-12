@@ -13,6 +13,7 @@ import Login from "./Screens/Login";
 import PublicData from "./Screens/PublicData";
 import PersonalData from "./Screens/PersonalData";
 import Staff from "./Screens/Staff";
+import QRGen from "./Screens/QRCodeGen";
 import RecordTemps from "./Screens/RecordTemps";
 import UserQRCode from "./Screens/UserQRCode";
 import StaffQRCode from "./Screens/StaffQRCode";
@@ -20,6 +21,7 @@ import ApiMe from "./ApiCalls/ApiMe";
 import ApiGetUserSchools from "./ApiCalls/ApiGetUserSchools";
 import Spinner from "react-native-loading-spinner-overlay";
 import ApiGetAllActiveSchools from "./ApiCalls/ApiGetAllActiveSchools";
+
 
 const Stack = createStackNavigator();
 
