@@ -43,7 +43,7 @@ function AdminPortal() {
           <br></br>
           <label style={{ color: "white" }}>
             Password:<br></br>
-            <input type="text" onChange={handlePasswordChange}></input>
+            <input type="password" onChange={handlePasswordChange}></input>
           </label>
           <br></br>
           <Button block bsSize="large" type="submit">
