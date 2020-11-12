@@ -4,13 +4,23 @@ const ViewPublicData = () => (
   <div>
     <h1 style={{ color: "white" }}>View Public Data</h1>
     <Form class="PublicData">
-      <label style={{ color: "white" }}>
-        Day(mm/dd/year) : <br></br> &nbsp;<input type="text"></input>
+      <label style={{ color: "white" }} for="start">
+        {" "}
+        Date:
+      </label>{" "}
+      <br></br>
+      <input type="date" id="start" name="trip-start" />
+      <br></br>
+      <label style={{ color: "white" }} for="school">
+        Choose a School:
       </label>
       <br></br>
-      <label style={{ color: "white" }}>
-        School : <br></br> &nbsp;<input type="text"></input>
-      </label>
+      <select name="school" id="cars">
+        <option value="school1">School1</option>
+        <option value="school2">School2</option>
+        <option value="school3">School3</option>
+        <option value="school4">School4</option>
+      </select>
       <br></br>
       <Button block bsSize="large" type="submit">
         Search
