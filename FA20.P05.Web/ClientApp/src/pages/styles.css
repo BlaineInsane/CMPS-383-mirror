@@ -8,7 +8,7 @@ form {
   background-color: rgba(50, 50, 50, 0.85);
   text-align: center;
   font-size: 25px;
-  width: 225px;
+  width: 250px;
   height: 275px;
   margin-left: 38%;
   margin-top: 5px;
@@ -180,4 +180,8 @@ p {
   padding: 15px;
   padding-left: 20px;
   background-color: rgba(50, 50, 50, 0.9);
+}
+select {
+  width: 200px;
+  height: 40px;
 }
