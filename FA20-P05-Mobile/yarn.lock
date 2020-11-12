@@ -4924,12 +4924,15 @@ pump@^3.0.0:
     end-of-stream "^1.1.0"
     once "^1.3.1"
 
+<<<<<<< HEAD
 <<<<<<< .merge_file_vRNTUf
 qr.js@0.0.0, qr.js@^0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
   integrity sha1-ys6GOG9ZoNuAUPqQ2baw6IoeNk8=
 =======
+=======
+>>>>>>> 34a69b409558a70c2dd16de9303cd95c43a4e983
 qrcode@^1.3.2:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-1.4.4.tgz#f0c43568a7e7510a55efc3b88d9602f71963ea83"
@@ -4942,7 +4945,10 @@ qrcode@^1.3.2:
     isarray "^2.0.1"
     pngjs "^3.3.0"
     yargs "^13.2.4"
+<<<<<<< HEAD
 >>>>>>> .merge_file_XE6Qls
+=======
+>>>>>>> 34a69b409558a70c2dd16de9303cd95c43a4e983
 
 qs@^6.5.0:
   version "6.9.4"
@@ -5056,9 +5062,12 @@ react-native-loading-spinner-overlay@^2.0.0:
   dependencies:
     prop-types "^15.6.2"
 
+<<<<<<< HEAD
 <<<<<<< .merge_file_vRNTUf
 >>>>>>> 3890c48bba8286a599841ac960e845ae66cdc464
 =======
+=======
+>>>>>>> 34a69b409558a70c2dd16de9303cd95c43a4e983
 react-native-modal-datetime-picker@^9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-9.0.0.tgz#43da27d777337d5ad5045b1538d3d5b5b197a968"
@@ -5066,7 +5075,10 @@ react-native-modal-datetime-picker@^9.0.0:
   dependencies:
     prop-types "^15.7.2"
 
+<<<<<<< HEAD
 >>>>>>> .merge_file_XE6Qls
+=======
+>>>>>>> 34a69b409558a70c2dd16de9303cd95c43a4e983
 react-native-paper@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.2.0.tgz#534c0f9dbeecfd73d20f1f7b1ef3df32aa2ca4b0"
