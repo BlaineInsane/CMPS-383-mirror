@@ -5,9 +5,12 @@ using System.Linq.Expressions;
 using FA20.P05.Web.Data;
 using FA20.P05.Web.Features.Authentication;
 using FA20.P05.Web.Features.Schools;
+using FA20.P05.Web.Features.SchoolStaffMembers;
 using FA20.P05.Web.Features.Shared;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FA20.P05.Web.Controllers
 {
@@ -17,10 +20,12 @@ namespace FA20.P05.Web.Controllers
     {
         // we use dependency injection to grab an instance of DataContext
         private readonly DataContext dataContext;
+        private readonly UserManager<User> userManager;
 
-        public SchoolsController(DataContext dataContext)
+        public SchoolsController(DataContext dataContext, UserManager<User> userManager)
         {
             this.dataContext = dataContext;
+            this.userManager = userManager;
         }
 
         private static Expression<Func<School, SchoolDto>> MapToDto()
@@ -56,6 +61,35 @@ namespace FA20.P05.Web.Controllers
                 .Where(x => x.Active)
                 .Select(MapToDto());
         }
+
+        // returns all schools where the user is employed
+        [HttpGet("userEmployed")]
+        [Authorize]
+        public IEnumerable<SchoolDto> GetUserEmployed()
+        {
+            var currentUser = userManager.GetUserAsync(User);
+            var listOfSchools = dataContext
+                .Set<SchoolStaff>()
+                .Include(x => x.School)
+                .Where(x => x.StaffId == currentUser.Result.StaffId)
+                .Select(x => x.School)
+                .ToList();
+
+            var listOfSchoolsDto = new List<SchoolDto>();
+            foreach (var school in listOfSchools)
+            {
+                listOfSchoolsDto.Add(new SchoolDto
+                {
+                    Name = school.Name,
+                    Active = school.Active,
+                    SchoolPopulation = school.SchoolPopulation,
+                    Id = school.Id
+                });
+            }
+
+            return listOfSchoolsDto;
+        }
+
 
         [HttpGet("{id}")]
         public ActionResult<SchoolDto> GetById(int id)
