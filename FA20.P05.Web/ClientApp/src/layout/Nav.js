@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 const Nav = () => (
   <nav>
-    <ul classname="flex space-x-4">
+    <ul className="flex space-x-4">
       <li>
         <NavLink exact to="/">
           Home

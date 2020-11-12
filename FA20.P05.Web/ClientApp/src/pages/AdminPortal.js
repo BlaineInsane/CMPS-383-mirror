@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import "./styles.css";
-import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import ApiLogin from "../ApiCalls/ApiLogin";
 
@@ -23,7 +22,7 @@ function AdminPortal() {
 
     try {
       let res = await ApiLogin(email, password);
-      if (res.status == "200") {
+      if (res.status === "200") {
         alert("did the login");
       }
       console.log(res);
@@ -35,14 +34,14 @@ function AdminPortal() {
   return (
     <>
       <div>
-        <h1 style={{ color: 'white' }}>Admin Login</h1>
+        <h1 style={{ color: "white" }}>Admin Login</h1>
         <Form onSubmit={handleLogin}>
-          <label style={{ color: 'white' }}>
+          <label style={{ color: "white" }}>
             Email:<br></br>
             <input type="text" onChange={handleEmailChange}></input>
           </label>
           <br></br>
-          <label style={{ color: 'white' }}>
+          <label style={{ color: "white" }}>
             Password:<br></br>
             <input type="text" onChange={handlePasswordChange}></input>
           </label>
