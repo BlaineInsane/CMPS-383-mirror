@@ -1,69 +1,185 @@
-import * as React from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   View,
   Text,
-  TextInput,
+  FlatList,
   StatusBar,
   TouchableOpacity,
+  Alert,
+  PointPropType,
 } from "react-native";
 import { Button } from "react-native-elements";
-import { statusBar, buttonColor } from "./Main";
+import moment from "moment";
+import {
+  statusBar,
+  buttonColor,
+  buttonOutlineColor,
+  screenBackgroundColor,
+} from "./Main";
+import { Separator } from "./Login";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Picker } from "@react-native-picker/picker";
 
-export default class PublicData extends React.Component {
-  render() {
+import { isLoadingContext } from "../Context/IsLoadingContext";
+import { activeSchoolsContext } from "../Context/ActiveSchoolsContext";
+
+import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
+
+export default function PublicData({ navigation }) {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [schoolPickedValue, setSchoolPickedValue] = useState([]);
+  const [datePicked, setDatePicked] = useState("");
+  const [healthyTemps, setHealthyTemps] = useState("");
+  const [unhealthyTemps, setUnhealthyTemps] = useState("");
+  const { setIsLoading } = useContext(isLoadingContext);
+  const { activeSchools } = useContext(activeSchoolsContext);
+
+  const PickerList = activeSchools.map((school) => {
     return (
-      <View style={styles.container}>
-        <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
-        <View style={styles.box}>
-          <Text
+      <Picker.Item label={school.name} value={school.id} key={school.id} />
+    );
+  });
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = async (date) => {
+    setIsLoading(true);
+
+    // checks to make sure the user didn't select a date from the future(dang time travelers)
+    if (moment(date).isAfter(moment(Date.now()), "day")) {
+      Alert.alert("Error", "Please select a non-future date.");
+    } else {
+      // set selected date to display.
+      setDatePicked(moment(date).format("MMM Do YYYY"));
+      try {
+        let res = await ApiGetTempsBySchoolId(schoolPickedValue, date);
+        if (res.status == "200") {
+          setHealthyTemps(res.data.numHealthyTemps);
+          setUnhealthyTemps(res.data.numUnhealthyTemps);
+        }
+      } catch {} // <--- Should definitely put stuff in here in case res.status is not 200
+    }
+
+    hideDatePicker();
+    setIsLoading(false);
+  };
+
+  return (
+    <View style={styles.container}>
+      <View
+        style={{
+          alignSelf: "center",
+          height: 400,
+          width: 325,
+          borderColor: "black",
+          borderWidth: 1,
+          backgroundColor: "rgba(200, 200, 200, 1.0)",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={styles.tempText}>Select School and Date:</Text>
+        <Separator />
+        <View
+          style={{
+            borderRadius: 20,
+            borderWidth: 1,
+            width: 250,
+            alignSelf: "center",
+            backgroundColor: "rgba(225, 225, 225, 1.0)",
+          }}
+        >
+          <Picker
+            selectedValue={schoolPickedValue}
             style={{
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: 20,
-              marginTop: 20,
-              fontFamily: "serif",
+              height: 45,
+              width: 250,
+              color: "black",
+              alignSelf: "center",
+              borderRadius: 20,
+              borderWidth: 1,
+              borderColor: "black",
             }}
+            onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
           >
-            Public Data:
+            {PickerList}
+          </Picker>
+        </View>
+        <Button
+          title="Choose Date"
+          buttonStyle={styles.button}
+          titleStyle={{ color: "white", fontFamily: "serif" }}
+          onPress={showDatePicker}
+        />
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+        />
+        <Separator />
+        <Text style={{ textAlign: "center", fontFamily: "serif" }}>
+          Date selected:{" "}
+          <Text style={{ fontFamily: "serif", fontWeight: "bold" }}>
+            {datePicked}
           </Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Button
-            title="Back to Main"
-            type="outline"
-            buttonStyle={styles.button}
-            titleStyle={{ color: "white", fontFamily: "serif" }}
-            onPress={() => this.props.navigation.navigate("Main")}
-          ></Button>
+        </Text>
+        <Separator />
+        <View
+          style={{
+            backgroundColor: "rgba(225, 225, 225, 1.0)",
+            width: 300,
+            height: 100,
+            alignSelf: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text style={styles.tempText}>
+            Healthy temperatures:{" "}
+            <Text style={{ color: buttonOutlineColor }}>{healthyTemps}</Text>
+          </Text>
+          <Separator />
+          <Text style={styles.tempText}>
+            Unhealthy temperatures:{" "}
+            <Text style={{ color: "#A40606" }}>{unhealthyTemps}</Text>
+          </Text>
         </View>
       </View>
-    );
-  }
+      <View>
+        <Separator />
+        <Button
+          title="Back to Main"
+          type="outline"
+          buttonStyle={styles.button}
+          titleStyle={{ color: "white", fontFamily: "serif" }}
+          onPress={() => navigation.navigate("Main")}
+        ></Button>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgba(50, 50, 50, .60)",
-    padding: 20,
-    alignItems: "center",
+    backgroundColor: screenBackgroundColor,
     justifyContent: "center",
   },
 
   button: {
-    marginTop: 150,
-    borderColor: buttonColor,
+    marginTop: 20,
+    borderColor: buttonOutlineColor,
     width: 150,
     alignSelf: "center",
     borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: "rgba(100, 170, 0, .50)",
+    borderWidth: 1,
+    backgroundColor: buttonColor,
   },
 
   text: {
@@ -75,7 +191,13 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
-    height: 600,
+    height: 300,
     marginTop: 20,
+  },
+
+  tempText: {
+    fontSize: 19,
+    fontFamily: "serif",
+    textAlign: "center",
   },
 });

@@ -9,31 +9,16 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
+import { Separator } from "./Login";
+import QRCode from "react-native-qrcode-svg";
 
-export default class PublicData extends React.Component {
+export default class UserQRCode extends React.Component {
   render() {
     return (
       <View style={styles.container}>
         <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
         <View style={styles.box}>
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: "bold",
-              fontSize: 20,
-              marginTop: 20,
-              fontFamily: "serif",
-            }}
-          >
-            Personal Data:
-          </Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
-          <Text style={styles.text}>Placeholder Dummy Data</Text>
+          <QRCode value="http://awesome.link.qr" size={250} />
           <Button
             title="Back to Main"
             type="outline"
@@ -57,7 +42,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginTop: 150,
+    marginTop: 30,
     borderColor: buttonOutlineColor,
     width: 150,
     alignSelf: "center",
@@ -75,7 +60,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
-    height: 600,
-    marginTop: 20,
+    height: 400,
+    padding: 45,
   },
 });
