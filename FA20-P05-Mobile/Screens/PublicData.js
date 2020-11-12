@@ -16,8 +16,8 @@ import {
   buttonColor,
   buttonOutlineColor,
   screenBackgroundColor,
-} from "./Main";
-import { Separator } from "./Login";
+} from "../Styles/Colors";
+import { Separator } from "../Components/Separator";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-picker/picker";
 

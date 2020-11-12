@@ -14,16 +14,14 @@ import ApiGetUserSchools from "../ApiCalls/ApiGetUserSchools";
 import { UserContext } from "../Context/UserContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 import { userSchoolsContext } from "../Context/UserSchoolsContext";
+import { Separator } from "../Components/Separator";
 import {
   buttonColor,
   buttonOutlineColor,
   screenBackgroundColor,
   statusBar,
-} from "./Main";
+} from "../Styles/Colors";
 
-export function Separator() {
-  return <View style={styles.separator} />;
-}
 //TODO: create frontend stuff if login returns 400
 
 function Login({ navigation }) {
@@ -89,7 +87,7 @@ function Login({ navigation }) {
           buttonStyle={styles.button}
           type="outline"
           title="Log In"
-          titleStyle={{ color: "white", fontFamily: "serif" }}
+          titleStyle={{ color: "white", fontFamily: "serif" }} //add back button later
           onPress={handleSubmit}
         ></Button>
       </View>

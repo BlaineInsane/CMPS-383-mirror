@@ -1,17 +1,16 @@
 import React, { useState, useContext } from "react";
 import { StyleSheet, View, Text, StatusBar, Alert } from "react-native";
 import ApiTemps from "../ApiCalls/ApiTemps";
-
 import {
   statusBar,
   buttonColor,
   screenBackgroundColor,
   buttonOutlineColor,
-} from "./Main";
+} from "../Styles/Colors";
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
 import { Picker } from "@react-native-picker/picker";
-import { Separator } from "./Login";
+import { Separator } from "../Components/Separator";
 
 import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
 import { userSchoolsContext } from "../Context/UserSchoolsContext";

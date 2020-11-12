@@ -15,15 +15,13 @@ import { UserContext } from "../Context/UserContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 import { Button } from "react-native-elements";
 import ApiLogout from "../ApiCalls/ApiLogout";
-
-export const buttonOutlineColor = "rgba(100, 130, 0, 1.0)";
-export const buttonColor = "rgba(142, 175, 95, 1.0)";
-export const screenBackgroundColor = "rgba(50, 50, 50, .50)";
-export const statusBar = "rgba(110, 140, 0, .60)";
-
-function Separator() {
-  return <View style={styles.separator} />;
-}
+import { Separator } from "../Components/Separator";
+import {
+  buttonOutlineColor,
+  buttonColor,
+  screenBackgroundColor,
+  statusBar,
+} from "../Styles/Colors";
 
 function Main({ navigation }) {
   const { setIsLoading } = useContext(isLoadingContext);
@@ -256,10 +254,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     justifyContent: "center",
     alignSelf: "center",
-  },
-
-  separator: {
-    marginVertical: 10,
   },
 
   buttonText: {

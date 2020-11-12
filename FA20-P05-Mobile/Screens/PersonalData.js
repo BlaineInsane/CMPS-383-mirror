@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-elements";
-import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
+import { statusBar, buttonColor, buttonOutlineColor } from "../Styles/Colors";
 
 export default class PublicData extends React.Component {
   render() {
