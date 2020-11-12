@@ -6,6 +6,7 @@ import {
   buttonColor,
   screenBackgroundColor,
   buttonOutlineColor,
+  boxColor,
 } from "../Styles/Colors";
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
@@ -142,22 +143,12 @@ export default function RecordTemps({ navigation }) {
           type="outline"
           onPress={handleSubmit}
         ></Button>
-        {/*
         <Button
           buttonStyle={styles.buttonWide}
           titleStyle={styles.buttonText}
           title="Scan QR Code"
           type="outline"
           onPress={() => navigation.navigate("StaffQRCode")}
-        ></Button>
-        */}
-        <Separator />
-        <Button
-          buttonStyle={styles.button}
-          titleStyle={styles.buttonText}
-          title="Back to Main"
-          type="outline"
-          onPress={() => navigation.navigate("Main")}
         ></Button>
       </View>
     </View>
@@ -203,9 +194,9 @@ const styles = StyleSheet.create({
   },
 
   box: {
-    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    backgroundColor: boxColor,
     width: 340,
-    height: 650,
+    height: 575,
     alignItems: "center",
   },
   buttonText: {

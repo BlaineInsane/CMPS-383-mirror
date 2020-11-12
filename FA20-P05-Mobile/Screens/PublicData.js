@@ -151,16 +151,7 @@ export default function PublicData({ navigation }) {
           </Text>
         </View>
       </View>
-      <View>
-        <Separator />
-        <Button
-          title="Back to Main"
-          type="outline"
-          buttonStyle={styles.button}
-          titleStyle={{ color: "white", fontFamily: "serif" }}
-          onPress={() => navigation.navigate("Main")}
-        ></Button>
-      </View>
+      <View></View>
     </View>
   );
 }

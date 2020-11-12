@@ -93,13 +93,6 @@ function Login({ navigation }) {
           onPress={handleSubmit}
         ></Button>
         <Separator />
-        <Button
-          buttonStyle={styles.button}
-          type="outline"
-          title="Back to Main"
-          titleStyle={{ color: "white", fontFamily: "serif" }} //add back button later
-          onPress={() => navigation.navigate("Main")}
-        ></Button>
       </View>
     </View>
   );
@@ -126,7 +119,7 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: "rgba(200, 200, 200, 1.0)",
     width: 340,
-    height: 290,
+    height: 250,
     marginBottom: 20,
     alignItems: "center",
   },

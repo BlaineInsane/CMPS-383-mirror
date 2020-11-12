@@ -98,7 +98,7 @@ function Main({ navigation }) {
           type="outline"
           buttonStyle={styles.button}
           titleStyle={{ color: "white", fontFamily: "serif" }}
-          onPress={() => navigation.navigate("PublicData")}
+          onPress={() => navigation.navigate("Public Data")}
         ></Button>
       </View>
 
@@ -150,7 +150,7 @@ function Main({ navigation }) {
               type="outline"
               buttonStyle={styles.buttonWide}
               titleStyle={{ color: "white", fontFamily: "serif" }}
-              onPress={() => navigation.navigate("RecordTemps")}
+              onPress={() => navigation.navigate("Record Temperatures")}
             ></Button>
           </View>
           <View style={styles.logInOutBox}>

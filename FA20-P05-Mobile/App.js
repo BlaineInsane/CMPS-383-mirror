@@ -8,6 +8,7 @@ import { userSchoolsContext } from "./Context/UserSchoolsContext";
 import { activeSchoolsContext } from "./Context/ActiveSchoolsContext";
 import { useEffect } from "react";
 import { Alert } from "react-native";
+import { buttonColor } from "./Styles/Colors";
 import Main from "./Screens/Main";
 import Login from "./Screens/Login";
 import PublicData from "./Screens/PublicData";
@@ -81,49 +82,105 @@ function App() {
                   name="Login"
                   component={Login}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: buttonColor,
+                    },
                   }}
                 />
                 <Stack.Screen
-                  name="PublicData"
+                  name="Public Data"
                   component={PublicData}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: buttonColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="PersonalData"
                   component={PersonalData}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: buttonColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="Staff"
                   component={Staff}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: buttonColor,
+                    },
                   }}
                 />
                 <Stack.Screen
-                  name="RecordTemps"
+                  name="Record Temperatures"
                   component={RecordTemps}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: buttonColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="UserQRCode"
                   component={UserQRCode}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: buttonColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="StaffQRCode"
                   component={StaffQRCode}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: buttonColor,
+                    },
                   }}
                 />
               </Stack.Navigator>
