@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   StatusBar,
+  Image,
   TouchableOpacity,
 } from "react-native";
 
@@ -20,6 +21,7 @@ import {
   buttonOutlineColor,
   screenBackgroundColor,
   statusBar,
+  boxColor,
 } from "../Styles/Colors";
 
 //TODO: create frontend stuff if login returns 400
@@ -64,10 +66,24 @@ function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <View>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 25,
+            fontFamily: "serif",
+            fontWeight: "bold",
+          }}
+        >
+          HealthShare
+        </Text>
+        <Separator />
+        <Separator />
+      </View>
       <View style={styles.box}>
         <Separator />
         <Text style={{ fontSize: 18, fontFamily: "serif" }}>
-          Staff Member Login Screen:
+          Staff Member Login
         </Text>
 
         <Separator />
@@ -112,16 +128,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginBottom: 15,
     paddingHorizontal: 10,
-    borderBottomColor: "rgba(125, 125, 125, 0.60)",
-    borderBottomWidth: 1,
+    borderColor: "rgba(125, 125, 125, 0.50)",
+    borderWidth: 1,
+    borderRadius: 20,
   },
 
   box: {
-    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    backgroundColor: boxColor,
     width: 340,
     height: 250,
     marginBottom: 20,
     alignItems: "center",
+    //borderRadius: 20,
+    elevation: 10,
   },
   button: {
     marginTop: 0,

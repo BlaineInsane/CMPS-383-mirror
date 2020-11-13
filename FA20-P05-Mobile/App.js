@@ -8,7 +8,7 @@ import { userSchoolsContext } from "./Context/UserSchoolsContext";
 import { activeSchoolsContext } from "./Context/ActiveSchoolsContext";
 import { useEffect } from "react";
 import { Alert } from "react-native";
-import { buttonColor } from "./Styles/Colors";
+import { headerColor } from "./Styles/Colors";
 import Main from "./Screens/Main";
 import Login from "./Screens/Login";
 import PublicData from "./Screens/PublicData";
@@ -22,7 +22,6 @@ import ApiMe from "./ApiCalls/ApiMe";
 import ApiGetUserSchools from "./ApiCalls/ApiGetUserSchools";
 import Spinner from "react-native-loading-spinner-overlay";
 import ApiGetAllActiveSchools from "./ApiCalls/ApiGetAllActiveSchools";
-
 
 const Stack = createStackNavigator();
 
@@ -77,13 +76,25 @@ function App() {
                   name="Main"
                   component={Main}
                   options={{
-                    headerShown: false,
+                    headerTitle: "Welcome to HealthShare!",
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      color: "white",
+                      fontFamily: "serif",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: headerColor,
+                      borderWidth: 1,
+                      borderBottomColor: "black",
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="Login"
                   component={Login}
                   options={{
+                    headerTitle: "Log In",
                     headerTintColor: "white",
                     headerTitleStyle: {
                       fontFamily: "serif",
@@ -91,14 +102,15 @@ function App() {
                     },
                     headerTitleAlign: "center",
                     headerStyle: {
-                      backgroundColor: buttonColor,
+                      backgroundColor: headerColor,
                     },
                   }}
                 />
                 <Stack.Screen
-                  name="Public Data"
+                  name="PublicData"
                   component={PublicData}
                   options={{
+                    headerTitle: "Public Data",
                     headerTintColor: "white",
                     headerTitleStyle: {
                       fontFamily: "serif",
@@ -106,7 +118,7 @@ function App() {
                     },
                     headerTitleAlign: "center",
                     headerStyle: {
-                      backgroundColor: buttonColor,
+                      backgroundColor: headerColor,
                     },
                   }}
                 />
@@ -121,7 +133,7 @@ function App() {
                     },
                     headerTitleAlign: "center",
                     headerStyle: {
-                      backgroundColor: buttonColor,
+                      backgroundColor: headerColor,
                     },
                   }}
                 />
@@ -136,14 +148,15 @@ function App() {
                     },
                     headerTitleAlign: "center",
                     headerStyle: {
-                      backgroundColor: buttonColor,
+                      backgroundColor: headerColor,
                     },
                   }}
                 />
                 <Stack.Screen
-                  name="Record Temperatures"
+                  name="RecordTemps"
                   component={RecordTemps}
                   options={{
+                    headerTitle: "Record Temperatures",
                     headerTintColor: "white",
                     headerTitleStyle: {
                       fontFamily: "serif",
@@ -151,7 +164,7 @@ function App() {
                     },
                     headerTitleAlign: "center",
                     headerStyle: {
-                      backgroundColor: buttonColor,
+                      backgroundColor: headerColor,
                     },
                   }}
                 />
@@ -166,7 +179,7 @@ function App() {
                     },
                     headerTitleAlign: "center",
                     headerStyle: {
-                      backgroundColor: buttonColor,
+                      backgroundColor: headerColor,
                     },
                   }}
                 />
@@ -181,7 +194,7 @@ function App() {
                     },
                     headerTitleAlign: "center",
                     headerStyle: {
-                      backgroundColor: buttonColor,
+                      backgroundColor: headerColor,
                     },
                   }}
                 />

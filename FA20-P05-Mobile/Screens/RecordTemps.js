@@ -7,6 +7,7 @@ import {
   screenBackgroundColor,
   buttonOutlineColor,
   boxColor,
+  pickerColor,
 } from "../Styles/Colors";
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
@@ -80,7 +81,8 @@ export default function RecordTemps({ navigation }) {
     <View style={styles.container}>
       <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
       <View style={styles.box}>
-        <Text style={styles.text}>Choose School:</Text>
+        <Text style={styles.text}>Select School</Text>
+        <Separator />
         <View
           style={{
             alignItems: "center",
@@ -88,7 +90,7 @@ export default function RecordTemps({ navigation }) {
             borderColor: "black",
             borderRadius: 20,
             width: 250,
-            backgroundColor: "rgba(225, 225, 225, 1.0)",
+            backgroundColor: pickerColor,
           }}
         >
           <Picker
@@ -103,8 +105,9 @@ export default function RecordTemps({ navigation }) {
             {PickerList}
           </Picker>
         </View>
+
+        <Text style={styles.text}>Record Temperature</Text>
         <Separator />
-        <Text style={styles.text}>Record Temperatures:</Text>
         <View
           style={{
             height: 160,
@@ -114,7 +117,7 @@ export default function RecordTemps({ navigation }) {
             borderWidth: 1,
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "rgba(225, 225, 225, 1.0)",
+            backgroundColor: pickerColor,
           }}
         >
           <ScrollPicker
@@ -143,13 +146,14 @@ export default function RecordTemps({ navigation }) {
           type="outline"
           onPress={handleSubmit}
         ></Button>
+        {/*
         <Button
           buttonStyle={styles.buttonWide}
           titleStyle={styles.buttonText}
           title="Scan QR Code"
           type="outline"
           onPress={() => navigation.navigate("StaffQRCode")}
-        ></Button>
+        ></Button>*/}
       </View>
     </View>
   );
@@ -159,7 +163,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: screenBackgroundColor,
-    padding: 20,
+    padding: 10,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -185,19 +189,20 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 18,
+    fontSize: 20,
     textAlign: "center",
-    fontWeight: "bold",
-    marginTop: 20,
-    marginBottom: 20,
     fontFamily: "serif",
+    marginTop: 20,
+    color: "black",
   },
 
   box: {
     backgroundColor: boxColor,
     width: 340,
-    height: 575,
+    height: 500,
     alignItems: "center",
+    justifyContent: "center",
+    elevation: 15,
   },
   buttonText: {
     fontFamily: "serif",

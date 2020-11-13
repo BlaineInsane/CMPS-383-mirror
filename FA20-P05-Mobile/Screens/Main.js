@@ -21,6 +21,7 @@ import {
   buttonColor,
   screenBackgroundColor,
   statusBar,
+  boxColor,
 } from "../Styles/Colors";
 
 function Main({ navigation }) {
@@ -98,7 +99,7 @@ function Main({ navigation }) {
           type="outline"
           buttonStyle={styles.button}
           titleStyle={{ color: "white", fontFamily: "serif" }}
-          onPress={() => navigation.navigate("Public Data")}
+          onPress={() => navigation.navigate("PublicData")}
         ></Button>
       </View>
 
@@ -150,7 +151,7 @@ function Main({ navigation }) {
               type="outline"
               buttonStyle={styles.buttonWide}
               titleStyle={{ color: "white", fontFamily: "serif" }}
-              onPress={() => navigation.navigate("Record Temperatures")}
+              onPress={() => navigation.navigate("RecordTemps")}
             ></Button>
           </View>
           <View style={styles.logInOutBox}>
@@ -166,7 +167,7 @@ function Main({ navigation }) {
         </>
       ) : (
         <View style={styles.logInOutBox}>
-          <Text style={styles.boxText}>Staff Member log in</Text>
+          <Text style={styles.boxText}>Staff Member Login</Text>
           <Button
             buttonStyle={styles.button}
             title="Log In"
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
   boxText: {
     textAlign: "center",
     padding: 20,
-    fontSize: 15,
+    fontSize: 17,
     fontFamily: "serif",
   },
 
@@ -236,17 +237,19 @@ const styles = StyleSheet.create({
   },
 
   box: {
-    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    backgroundColor: boxColor,
     height: 150,
     width: 335,
     marginBottom: 20,
     marginRight: 10,
     marginLeft: 10,
     alignSelf: "center",
+    elevation: 10,
+    justifyContent: "center",
   },
 
   logInOutBox: {
-    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    backgroundColor: boxColor,
     height: 120,
     width: 335,
     marginBottom: 20,
@@ -254,6 +257,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     justifyContent: "center",
     alignSelf: "center",
+    elevation: 15,
   },
 
   buttonText: {
