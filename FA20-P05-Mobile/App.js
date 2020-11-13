@@ -7,7 +7,7 @@ import { isLoadingContext } from "./Context/IsLoadingContext";
 import { userSchoolsContext } from "./Context/UserSchoolsContext";
 import { activeSchoolsContext } from "./Context/ActiveSchoolsContext";
 import { useEffect } from "react";
-import { Alert } from "react-native";
+import { Alert, Image, Text } from "react-native";
 import { headerColor } from "./Styles/Colors";
 import Main from "./Screens/Main";
 import Login from "./Screens/Login";
@@ -76,13 +76,31 @@ function App() {
                   name="Main"
                   component={Main}
                   options={{
-                    headerTitle: "Welcome to HealthShare!",
-                    headerTintColor: "white",
-                    headerTitleStyle: {
-                      color: "white",
-                      fontFamily: "serif",
-                    },
+                    title: (
+                      <Text
+                        style={{
+                          color: "white",
+                          fontFamily: "serif",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        HealthShare
+                        <Image
+                          source={require("./assets/logo_new.png")}
+                          resizeMode="center"
+                          style={{
+                            width: 40,
+                            height: 40,
+                            justifyContent: "center",
+                          }}
+                        ></Image>
+                      </Text>
+                    ),
                     headerTitleAlign: "center",
+                    headerTitleStyle: {
+                      justifyContent: "center",
+                      flex: 1,
+                    },
                     headerStyle: {
                       backgroundColor: headerColor,
                       borderWidth: 1,

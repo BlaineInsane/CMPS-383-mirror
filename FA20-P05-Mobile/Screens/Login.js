@@ -76,6 +76,11 @@ function Login({ navigation }) {
           }}
         >
           HealthShare
+          <Image
+            source={require("../assets/logo_new.png")}
+            resizeMode="center"
+            style={{ width: 40, height: 40 }}
+          ></Image>
         </Text>
         <Separator />
         <Separator />
@@ -139,7 +144,7 @@ const styles = StyleSheet.create({
     height: 250,
     marginBottom: 20,
     alignItems: "center",
-    //borderRadius: 20,
+    borderRadius: 20,
     elevation: 10,
   },
   button: {
