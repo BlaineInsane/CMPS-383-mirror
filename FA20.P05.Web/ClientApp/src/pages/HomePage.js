@@ -2,7 +2,7 @@ import React from "react";
 
 const HomePage = () => (
   <div>
-    <h1 style={{ color: "white" }}>Home Page</h1>
+    <h1>Home Page</h1>
     <p style={{ color: "white", margin: "auto" }}>
       With COVID-19 procedures being adopted throughout the school systems new
       technologies can be deployed to help keep information available to the
