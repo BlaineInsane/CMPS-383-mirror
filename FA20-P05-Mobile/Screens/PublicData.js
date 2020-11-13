@@ -1,18 +1,8 @@
-import React, { useState, useContext } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  FlatList,
-  StatusBar,
-  TouchableOpacity,
-  Alert,
-  PointPropType,
-} from "react-native";
+import React, { useState, useContext, useEffect } from "react";
+import { StyleSheet, View, Text, Alert } from "react-native";
 import { Button } from "react-native-elements";
 import moment from "moment";
 import {
-  statusBar,
   buttonColor,
   buttonOutlineColor,
   screenBackgroundColor,
@@ -25,10 +15,14 @@ import { isLoadingContext } from "../Context/IsLoadingContext";
 import { activeSchoolsContext } from "../Context/ActiveSchoolsContext";
 
 import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function PublicData({ navigation }) {
+const lastPickedSchoolKey = "lastPickedSchoolKey";
+
+export default function PublicData() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [schoolPickedValue, setSchoolPickedValue] = useState([]);
+  const [schoolPickedValue, setSchoolPickedValue] = useState();
+  const [lastPickedSchool, setLastPickedSchool] = useState();
   const [datePicked, setDatePicked] = useState("");
   const [healthyTemps, setHealthyTemps] = useState("");
   const [unhealthyTemps, setUnhealthyTemps] = useState("");
@@ -40,6 +34,45 @@ export default function PublicData({ navigation }) {
       <Picker.Item label={school.name} value={school.id} key={school.id} />
     );
   });
+
+  useEffect(() => {
+    getLastPickedSchool();
+
+    // set to the current day
+    setDatePicked(moment().format("MMM Do YYYY"));
+  }, []);
+
+  useEffect(() => {
+    // clear out the temperature stats
+    setHealthyTemps("");
+    setUnhealthyTemps("");
+
+    // save the school with asyncStorage
+    saveLastPickedSchool();
+  }, [schoolPickedValue]);
+
+  const saveLastPickedSchool = async () => {
+    try {
+      await AsyncStorage.setItem(
+        lastPickedSchoolKey,
+        schoolPickedValue.toString()
+      );
+    } catch {
+      // Didn't save data. No biggie
+    }
+  };
+
+  const getLastPickedSchool = async () => {
+    try {
+      let x = await AsyncStorage.getItem(lastPickedSchoolKey);
+      if (x !== null) {
+        setLastPickedSchool(parseInt(x));
+        setSchoolPickedValue(x);
+      }
+    } catch {
+      // Didn't get data. No biggie
+    }
+  };
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
