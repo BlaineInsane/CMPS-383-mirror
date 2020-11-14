@@ -63,19 +63,19 @@ export default function PublicData({ navigation }) {
     setIsLoading(true);
 
     // checks to make sure the user didn't select a date from the future(dang time travelers)
-    //if (moment(date).isAfter(moment(Date.now()), "day")) {
-    //   Alert.alert("Error", "Please select a non-future date.");
-    // } else {
-    // set selected date to display.
-    setDatePicked(moment(date).format("MMM Do YYYY"));
-    try {
-      let res = await ApiGetTempsBySchoolId(schoolId, date);
-      if (res.status == "200") {
-        setHealthyTemps(res.data.numHealthyTemps);
-        setUnhealthyTemps(res.data.numUnhealthyTemps);
-      }
-    } catch {} // <--- Should definitely put stuff in here in case res.status is not 200
-    // }
+    if (moment(date).isAfter(moment(Date.now()), "day")) {
+      Alert.alert("Error", "Please select a non-future date.");
+    } else {
+      // set selected date to display.
+      setDatePicked(moment(date).format("MMM Do YYYY"));
+      try {
+        let res = await ApiGetTempsBySchoolId(schoolId, date);
+        if (res.status == "200") {
+          setHealthyTemps(res.data.numHealthyTemps);
+          setUnhealthyTemps(res.data.numUnhealthyTemps);
+        }
+      } catch {} // <--- Should definitely put stuff in here in case res.status is not 200
+    }
 
     hideDatePicker();
     setIsLoading(false);
