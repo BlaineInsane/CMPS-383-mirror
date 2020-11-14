@@ -18,10 +18,10 @@ import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
 import { userSchoolsContext } from "../Context/UserSchoolsContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 
-export default function RecordTemps({ navigation }) {
+export default function RecordTemps() {
   const [pickedValue, setPickedValue] = useState();
-  const [schoolPickedValue, setSchoolPickedValue] = useState([]);
   const [schoolId, setId] = useState();
+  const [schoolPickedValue, setSchoolPickedValue] = useState();
   const [temperatureKelvin, setTempKelvin] = useState();
   const { userSchools } = useContext(userSchoolsContext); // <-- array of school objects
   const { setIsLoading } = useContext(isLoadingContext);
@@ -29,18 +29,20 @@ export default function RecordTemps({ navigation }) {
   // creates items(school names) to be put in the dropdown box(Picker)
   const PickerList = userSchools.map((school) => {
     return (
-      <Picker.Item label={school.name} value={school.name} key={school.id} />
+      <Picker.Item label={school.name} value={school.id} key={school.id} />
     );
+  });
+
+  const idBySchool = userSchools.map((school) => {
+    return school.id;
   });
 
   const handleTempChange = (event) => {
     setPickedValue(event);
 
-    const idBySchool = userSchools.map((school) => {
-      return school.id;
-    });
-
-    setId(parseFloat(idBySchool));
+    setId(
+      schoolPickedValue != null ? schoolPickedValue : parseFloat(idBySchool)
+    );
     setTempKelvin(parseFloat(event));
   };
 
