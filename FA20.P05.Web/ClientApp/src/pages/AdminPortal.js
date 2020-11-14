@@ -34,16 +34,16 @@ function AdminPortal() {
   return (
     <>
       <div>
-        <h1 style={{ color: "white" }}>Admin Login</h1>
+        <h1>Admin Login</h1>
         <Form onSubmit={handleLogin}>
           <label style={{ color: "white" }}>
-            Email:<br></br>
+            Username:<br></br>
             <input type="text" onChange={handleEmailChange}></input>
           </label>
           <br></br>
           <label style={{ color: "white" }}>
             Password:<br></br>
-            <input type="text" onChange={handlePasswordChange}></input>
+            <input type="password" onChange={handlePasswordChange}></input>
           </label>
           <br></br>
           <Button block bsSize="large" type="submit">
