@@ -16,8 +16,10 @@ import {
   buttonColor,
   buttonOutlineColor,
   screenBackgroundColor,
-} from "./Main";
-import { Separator } from "./Login";
+  boxColor,
+  goodTemp,
+} from "../Styles/Colors";
+import { Separator } from "../Components/Separator";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from "@react-native-picker/picker";
 
@@ -28,7 +30,8 @@ import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
 
 export default function PublicData({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [schoolPickedValue, setSchoolPickedValue] = useState([]);
+  const [schoolId, setId] = useState();
+  const [schoolPickedValue, setSchoolPickedValue] = useState();
   const [datePicked, setDatePicked] = useState("");
   const [healthyTemps, setHealthyTemps] = useState("");
   const [unhealthyTemps, setUnhealthyTemps] = useState("");
@@ -41,8 +44,15 @@ export default function PublicData({ navigation }) {
     );
   });
 
+  const idBySchool = activeSchools.map((school) => {
+    return school.id;
+  });
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
+    setId(
+      schoolPickedValue != null ? schoolPickedValue : parseFloat(idBySchool)
+    );
   };
 
   const hideDatePicker = () => {
@@ -59,7 +69,7 @@ export default function PublicData({ navigation }) {
       // set selected date to display.
       setDatePicked(moment(date).format("MMM Do YYYY"));
       try {
-        let res = await ApiGetTempsBySchoolId(schoolPickedValue, date);
+        let res = await ApiGetTempsBySchoolId(schoolId, date);
         if (res.status == "200") {
           setHealthyTemps(res.data.numHealthyTemps);
           setUnhealthyTemps(res.data.numUnhealthyTemps);
@@ -73,18 +83,8 @@ export default function PublicData({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          alignSelf: "center",
-          height: 400,
-          width: 325,
-          borderColor: "black",
-          borderWidth: 1,
-          backgroundColor: "rgba(200, 200, 200, 1.0)",
-          justifyContent: "center",
-        }}
-      >
-        <Text style={styles.tempText}>Select School and Date:</Text>
+      <View style={styles.box}>
+        <Text style={styles.text}>Select School</Text>
         <Separator />
         <View
           style={{
@@ -92,7 +92,7 @@ export default function PublicData({ navigation }) {
             borderWidth: 1,
             width: 250,
             alignSelf: "center",
-            backgroundColor: "rgba(225, 225, 225, 1.0)",
+            backgroundColor: "rgba(240, 240, 240, 1.0)",
           }}
         >
           <Picker
@@ -111,6 +111,8 @@ export default function PublicData({ navigation }) {
             {PickerList}
           </Picker>
         </View>
+        <Separator />
+        <Text style={styles.text}>-- AND --</Text>
         <Button
           title="Choose Date"
           buttonStyle={styles.button}
@@ -133,16 +135,18 @@ export default function PublicData({ navigation }) {
         <Separator />
         <View
           style={{
-            backgroundColor: "rgba(225, 225, 225, 1.0)",
+            backgroundColor: "rgba(240, 240, 240, 1.0)",
             width: 300,
             height: 100,
             alignSelf: "center",
             justifyContent: "center",
+            elevation: 10,
+            borderRadius: 20,
           }}
         >
           <Text style={styles.tempText}>
             Healthy temperatures:{" "}
-            <Text style={{ color: buttonOutlineColor }}>{healthyTemps}</Text>
+            <Text style={{ color: goodTemp }}>{healthyTemps}</Text>
           </Text>
           <Separator />
           <Text style={styles.tempText}>
@@ -151,16 +155,7 @@ export default function PublicData({ navigation }) {
           </Text>
         </View>
       </View>
-      <View>
-        <Separator />
-        <Button
-          title="Back to Main"
-          type="outline"
-          buttonStyle={styles.button}
-          titleStyle={{ color: "white", fontFamily: "serif" }}
-          onPress={() => navigation.navigate("Main")}
-        ></Button>
-      </View>
+      <View></View>
     </View>
   );
 }
@@ -183,21 +178,25 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 18,
+    fontSize: 20,
+    fontFamily: "serif",
     textAlign: "center",
-    marginTop: 20,
   },
 
   box: {
-    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    backgroundColor: boxColor,
     width: 340,
-    height: 300,
+    height: 400,
     marginTop: 20,
+    elevation: 15,
+    alignSelf: "center",
+    justifyContent: "center",
   },
 
   tempText: {
-    fontSize: 19,
+    fontSize: 18,
     fontFamily: "serif",
-    textAlign: "center",
+    textAlign: "right",
+    marginRight: 40,
   },
 });

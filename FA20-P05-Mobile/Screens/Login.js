@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   StatusBar,
+  Image,
   TouchableOpacity,
 } from "react-native";
 
@@ -14,16 +15,15 @@ import ApiGetUserSchools from "../ApiCalls/ApiGetUserSchools";
 import { UserContext } from "../Context/UserContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 import { userSchoolsContext } from "../Context/UserSchoolsContext";
+import { Separator } from "../Components/Separator";
 import {
   buttonColor,
   buttonOutlineColor,
   screenBackgroundColor,
   statusBar,
-} from "./Main";
+  boxColor,
+} from "../Styles/Colors";
 
-export function Separator() {
-  return <View style={styles.separator} />;
-}
 //TODO: create frontend stuff if login returns 400
 
 function Login({ navigation }) {
@@ -66,10 +66,29 @@ function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <View>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 25,
+            fontFamily: "serif",
+            fontWeight: "bold",
+          }}
+        >
+          HealthShare
+          <Image
+            source={require("../assets/logo_new.png")}
+            resizeMode="center"
+            style={{ width: 40, height: 40 }}
+          ></Image>
+        </Text>
+        <Separator />
+        <Separator />
+      </View>
       <View style={styles.box}>
         <Separator />
         <Text style={{ fontSize: 18, fontFamily: "serif" }}>
-          Staff Member Login Screen:
+          Staff Member Login
         </Text>
 
         <Separator />
@@ -77,11 +96,13 @@ function Login({ navigation }) {
         <TextInput
           placeholder="Username"
           style={styles.textBox}
+          autoCapitalize={"none"}
           onChangeText={handleUsernameChange}
         ></TextInput>
         <TextInput
           placeholder="Password"
           style={styles.textBox}
+          autoCapitalize={"none"}
           onChangeText={handlePasswordChange}
           secureTextEntry={true}
         ></TextInput>
@@ -89,9 +110,10 @@ function Login({ navigation }) {
           buttonStyle={styles.button}
           type="outline"
           title="Log In"
-          titleStyle={{ color: "white", fontFamily: "serif" }}
+          titleStyle={{ color: "white", fontFamily: "serif" }} //add back button later
           onPress={handleSubmit}
         ></Button>
+        <Separator />
       </View>
     </View>
   );
@@ -111,16 +133,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginBottom: 15,
     paddingHorizontal: 10,
-    borderBottomColor: "rgba(125, 125, 125, 0.60)",
-    borderBottomWidth: 1,
+    borderColor: "rgba(125, 125, 125, 0.50)",
+    borderWidth: 1,
+    borderRadius: 20,
   },
 
   box: {
-    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    backgroundColor: boxColor,
     width: 340,
-    height: 230,
+    height: 250,
     marginBottom: 20,
     alignItems: "center",
+    borderRadius: 20,
+    elevation: 10,
   },
   button: {
     marginTop: 0,

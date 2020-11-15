@@ -10,11 +10,9 @@ function AdminPortal() {
 
   const handleEmailChange = (event) => {
     setemail(event.target.value);
-    console.log(event.target.value);
   };
   const handlePasswordChange = (event) => {
     setpassword(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleLogin = async (event) => {
@@ -22,7 +20,7 @@ function AdminPortal() {
 
     try {
       let res = await ApiLogin(email, password);
-      if (res.status === "200") {
+      if (res.status == "200") {
         alert("did the login");
       }
       console.log(res);
@@ -33,23 +31,35 @@ function AdminPortal() {
 
   return (
     <>
-      <div>
-        <h1>Admin Login</h1>
-        <Form onSubmit={handleLogin}>
-          <label style={{ color: "white" }}>
-            Username:<br></br>
-            <input type="text" onChange={handleEmailChange}></input>
-          </label>
-          <br></br>
-          <label style={{ color: "white" }}>
-            Password:<br></br>
-            <input type="password" onChange={handlePasswordChange}></input>
-          </label>
-          <br></br>
-          <Button block bsSize="large" type="submit">
-            Login
-          </Button>
-        </Form>
+      <div class="bg">
+        <div class="out">
+          <div class="mid">
+            <div class="in">
+              <div class="backadmin">
+                <h1>Admin Login</h1>
+              </div>
+              <Form onSubmit={handleLogin}>
+                <br></br>
+                <label style={{ color: "white" }}>
+                  Username:<br></br>
+                  <input type="text" onChange={handleEmailChange}></input>
+                </label>
+                <br></br>
+                <label style={{ color: "white" }}>
+                  Password:<br></br>
+                  <input
+                    type="password"
+                    onChange={handlePasswordChange}
+                  ></input>
+                </label>
+                <br></br>
+                <Button block bsSize="large" type="submit">
+                  Login
+                </Button>
+              </Form>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

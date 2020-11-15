@@ -7,7 +7,8 @@ import { isLoadingContext } from "./Context/IsLoadingContext";
 import { userSchoolsContext } from "./Context/UserSchoolsContext";
 import { activeSchoolsContext } from "./Context/ActiveSchoolsContext";
 import { useEffect } from "react";
-import { Alert } from "react-native";
+import { Alert, Image, Text } from "react-native";
+import { headerColor } from "./Styles/Colors";
 import Main from "./Screens/Main";
 import Login from "./Screens/Login";
 import PublicData from "./Screens/PublicData";
@@ -21,7 +22,6 @@ import ApiMe from "./ApiCalls/ApiMe";
 import ApiGetUserSchools from "./ApiCalls/ApiGetUserSchools";
 import Spinner from "react-native-loading-spinner-overlay";
 import ApiGetAllActiveSchools from "./ApiCalls/ApiGetAllActiveSchools";
-
 
 const Stack = createStackNavigator();
 
@@ -76,56 +76,144 @@ function App() {
                   name="Main"
                   component={Main}
                   options={{
-                    headerShown: false,
+                    title: (
+                      <Text
+                        style={{
+                          color: "white",
+                          fontFamily: "serif",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        HealthShare
+                        <Image
+                          source={require("./assets/logo_new.png")}
+                          resizeMode="center"
+                          style={{
+                            width: 40,
+                            height: 40,
+                            justifyContent: "center",
+                          }}
+                        ></Image>
+                      </Text>
+                    ),
+                    headerTitleAlign: "center",
+                    headerTitleStyle: {
+                      justifyContent: "center",
+                      flex: 1,
+                    },
+                    headerStyle: {
+                      backgroundColor: headerColor,
+                      borderWidth: 1,
+                      borderBottomColor: "black",
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="Login"
                   component={Login}
                   options={{
-                    headerShown: false,
+                    headerTitle: "Log In",
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: headerColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="PublicData"
                   component={PublicData}
                   options={{
-                    headerShown: false,
+                    headerTitle: "Public Data",
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: headerColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="PersonalData"
                   component={PersonalData}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: headerColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="Staff"
                   component={Staff}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: headerColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="RecordTemps"
                   component={RecordTemps}
                   options={{
-                    headerShown: false,
+                    headerTitle: "Record Temperatures",
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: headerColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="UserQRCode"
                   component={UserQRCode}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: headerColor,
+                    },
                   }}
                 />
                 <Stack.Screen
                   name="StaffQRCode"
                   component={StaffQRCode}
                   options={{
-                    headerShown: false,
+                    headerTintColor: "white",
+                    headerTitleStyle: {
+                      fontFamily: "serif",
+                      color: "white",
+                    },
+                    headerTitleAlign: "center",
+                    headerStyle: {
+                      backgroundColor: headerColor,
+                    },
                   }}
                 />
               </Stack.Navigator>
