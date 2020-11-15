@@ -1,26 +1,21 @@
 h1 {
+  font-size: 225%;
   text-align: center;
-  font-size: 270%;
-  margin-top: 30px;
-  width: 350px;
-
-  height: 50px;
   color: rgb(238, 228, 228);
-  margin-left: 36%;
-  font-weight: bolder;
+}
+h2 {
+  color: rgb(238, 228, 228);
+  text-align: center;
 }
 
 form {
-  background-color: rgba(50, 50, 50, 0.85);
+  background-color: rgba(50, 50, 50, 0.8);
   text-align: center;
+  margin-right: auto;
+  margin-left: auto;
   font-size: 25px;
-  width: 250px;
-  height: 275px;
-  margin-left: 40%;
-  margin-top: 5px;
-  padding-top: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
+  width: 350px;
+  height: 320px;
 }
 
 ul {
@@ -28,15 +23,39 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: rgb(35, 80, 35);
+  background-color: rgba(65, 105, 55, 1);
 }
 
 li {
   float: left;
+  font-size: 23px;
 }
 
 .label {
   padding-top: 50px;
+}
+
+.backhome {
+  background-color: rgba(65, 105, 55, 0.85);
+  width: 950px;
+  height: 45px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.backpublic {
+  background-color: rgba(65, 105, 55, 0.85);
+  height: 45px;
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.backadmin {
+  background-color: rgba(65, 105, 55, 0.85);
+  height: 45px;
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 li a {
@@ -56,13 +75,21 @@ footer {
   background-color: rgb(35, 80, 35);
 }
 
-body {
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
   background-image: url("/tree.jpg");
-  background-position: left;
+  height: 100%;
+  background-position: center;
   background-repeat: no-repeat;
-  position: fixed;
-  min-width: 100%;
-  min-height: 100%;
+  background-size: cover;
+  position: absolute;
+  right: 0px;
+  left: 0px;
 }
 
 * {
@@ -145,6 +172,27 @@ input[type="submit"]:hover {
   padding: 8px 10px;
 }
 
+.out {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.mid {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.in {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 75px;
+  /*whatever width you want*/
+}
+
 /* hide some text on medium and large screens */
 .hide-md-lg {
   display: none;
@@ -179,15 +227,15 @@ input[type="submit"]:hover {
 
 p {
   text-align: center;
-  width: 820px;
-  height: 460px;
+  width: 950px;
+  height: 400px;
   margin-left: 15%;
   font-size: 20px;
   margin-top: 5px;
   padding: 20px;
   padding-top: 25px;
   padding-bottom: 25px;
-  background-color: rgba(50, 50, 50, 0.9);
+  background-color: rgba(50, 50, 50, 0.8);
 }
 select {
   width: 200px;
