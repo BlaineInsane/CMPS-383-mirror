@@ -10,11 +10,9 @@ function AdminPortal() {
 
   const handleEmailChange = (event) => {
     setemail(event.target.value);
-    console.log(event.target.value);
   };
   const handlePasswordChange = (event) => {
     setpassword(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleLogin = async (event) => {
