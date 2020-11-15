@@ -20,7 +20,7 @@ function AdminPortal() {
 
     try {
       let res = await ApiLogin(email, password);
-      if (res.status === "200") {
+      if (res.status == "200") {
         alert("did the login");
       }
       console.log(res);
