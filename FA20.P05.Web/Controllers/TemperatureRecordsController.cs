@@ -60,14 +60,12 @@ namespace FA20.P05.Web.Controllers
             // returns the number of healthy/unhealthy temperatures of a school on
             // a selected day.
 
-            TimeZoneInfo centralTime = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
-
-            // temps of selected school. Match school and day
+            // temps of selected school. Match school and day(convert local time to Utc)
             var temps = dataContext
                 .Set<TemperatureRecord>()
-                .Where(x => x.SchoolId == id && (TimeZoneInfo.ConvertTimeFromUtc(x.MeasuredUtc.DateTime, centralTime).Day) == date.Day)
+                .Where(x => x.SchoolId == id && x.MeasuredUtc.DayOfYear == TimeZoneInfo.ConvertTimeToUtc(date).DayOfYear)
                 .ToList();
-
+            
             var healthyTemps = 0;
             var unhealthyTemps = 0;
             foreach (var tempRecord in temps)
