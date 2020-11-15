@@ -1,26 +1,27 @@
 import React, { useState, useContext } from "react";
 import { StyleSheet, View, Text, StatusBar, Alert } from "react-native";
 import ApiTemps from "../ApiCalls/ApiTemps";
-
 import {
   statusBar,
   buttonColor,
   screenBackgroundColor,
   buttonOutlineColor,
-} from "./Main";
+  boxColor,
+  pickerColor,
+} from "../Styles/Colors";
 import { Button } from "react-native-elements";
 import { ScrollPicker } from "react-native-value-picker";
 import { Picker } from "@react-native-picker/picker";
-import { Separator } from "./Login";
+import { Separator } from "../Components/Separator";
 
 import { TEMPERATURE_PICKER_NUMBERS } from "../Data/ValuePickerTemps";
 import { userSchoolsContext } from "../Context/UserSchoolsContext";
 import { isLoadingContext } from "../Context/IsLoadingContext";
 
-export default function RecordTemps({ navigation }) {
+export default function RecordTemps() {
   const [pickedValue, setPickedValue] = useState();
-  const [schoolPickedValue, setSchoolPickedValue] = useState([]);
   const [schoolId, setId] = useState();
+  const [schoolPickedValue, setSchoolPickedValue] = useState();
   const [temperatureKelvin, setTempKelvin] = useState();
   const { userSchools } = useContext(userSchoolsContext); // <-- array of school objects
   const { setIsLoading } = useContext(isLoadingContext);
@@ -28,18 +29,20 @@ export default function RecordTemps({ navigation }) {
   // creates items(school names) to be put in the dropdown box(Picker)
   const PickerList = userSchools.map((school) => {
     return (
-      <Picker.Item label={school.name} value={school.name} key={school.id} />
+      <Picker.Item label={school.name} value={school.id} key={school.id} />
     );
+  });
+
+  const idBySchool = userSchools.map((school) => {
+    return school.id;
   });
 
   const handleTempChange = (event) => {
     setPickedValue(event);
 
-    const idBySchool = userSchools.map((school) => {
-      return school.id;
-    });
-
-    setId(parseFloat(idBySchool));
+    setId(
+      schoolPickedValue != null ? schoolPickedValue : parseFloat(idBySchool)
+    );
     setTempKelvin(parseFloat(event));
   };
 
@@ -80,7 +83,8 @@ export default function RecordTemps({ navigation }) {
     <View style={styles.container}>
       <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
       <View style={styles.box}>
-        <Text style={styles.text}>Choose School:</Text>
+        <Text style={styles.text}>Select School</Text>
+        <Separator />
         <View
           style={{
             alignItems: "center",
@@ -88,7 +92,7 @@ export default function RecordTemps({ navigation }) {
             borderColor: "black",
             borderRadius: 20,
             width: 250,
-            backgroundColor: "rgba(225, 225, 225, 1.0)",
+            backgroundColor: pickerColor,
           }}
         >
           <Picker
@@ -103,8 +107,9 @@ export default function RecordTemps({ navigation }) {
             {PickerList}
           </Picker>
         </View>
+
+        <Text style={styles.text}>Record Temperature</Text>
         <Separator />
-        <Text style={styles.text}>Record Temperatures:</Text>
         <View
           style={{
             height: 160,
@@ -114,7 +119,7 @@ export default function RecordTemps({ navigation }) {
             borderWidth: 1,
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "rgba(225, 225, 225, 1.0)",
+            backgroundColor: pickerColor,
           }}
         >
           <ScrollPicker
@@ -150,16 +155,7 @@ export default function RecordTemps({ navigation }) {
           title="Scan QR Code"
           type="outline"
           onPress={() => navigation.navigate("StaffQRCode")}
-        ></Button>
-        */}
-        <Separator />
-        <Button
-          buttonStyle={styles.button}
-          titleStyle={styles.buttonText}
-          title="Back to Main"
-          type="outline"
-          onPress={() => navigation.navigate("Main")}
-        ></Button>
+        ></Button>*/}
       </View>
     </View>
   );
@@ -169,7 +165,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: screenBackgroundColor,
-    padding: 20,
+    padding: 10,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -195,19 +191,20 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 18,
+    fontSize: 20,
     textAlign: "center",
-    fontWeight: "bold",
-    marginTop: 20,
-    marginBottom: 20,
     fontFamily: "serif",
+    marginTop: 20,
+    color: "black",
   },
 
   box: {
-    backgroundColor: "rgba(200, 200, 200, 1.0)",
+    backgroundColor: boxColor,
     width: 340,
-    height: 650,
+    height: 500,
     alignItems: "center",
+    justifyContent: "center",
+    elevation: 15,
   },
   buttonText: {
     fontFamily: "serif",

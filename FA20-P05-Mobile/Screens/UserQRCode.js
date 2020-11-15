@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-elements";
-import { statusBar, buttonColor, buttonOutlineColor } from "./Main";
-import { Separator } from "./Login";
+import { statusBar, buttonColor, buttonOutlineColor } from "../Styles/Colors";
+import { Separator } from "../Components/Separator";
 import QRCode from "react-native-qrcode-svg";
 
 export default class UserQRCode extends React.Component {

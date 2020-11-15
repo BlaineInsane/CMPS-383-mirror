@@ -13,8 +13,8 @@ import {
   buttonOutlineColor,
   screenBackgroundColor,
   statusBar,
-} from "./Main";
-import { Separator } from "./Login";
+} from "../Styles/Colors";
+import { Separator } from "../Components/Separator";
 
 export default class Staff extends React.Component {
   render() {
