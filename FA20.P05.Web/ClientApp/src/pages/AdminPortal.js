@@ -31,11 +31,11 @@ function AdminPortal() {
 
   return (
     <>
-      <div class="bg">
-        <div class="out">
-          <div class="mid">
-            <div class="in">
-              <div class="backadmin">
+      <div className="bg">
+        <div className="out">
+          <div className="mid">
+            <div className="in">
+              <div className="backadmin">
                 <h1>Admin Login</h1>
               </div>
               <Form onSubmit={handleLogin}>

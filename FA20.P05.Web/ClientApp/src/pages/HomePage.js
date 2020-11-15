@@ -2,11 +2,11 @@ import React from "react";
 
 const HomePage = () => (
   <body>
-    <div class="bg">
-      <div class="out">
-        <div class="mid">
-          <div class="in">
-            <div class="backhome">
+    <div className="bg">
+      <div className="out">
+        <div className="mid">
+          <div className="in">
+            <div className="backhome">
               <h1>HealthShare</h1>
             </div>
             <p

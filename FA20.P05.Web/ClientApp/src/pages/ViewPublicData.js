@@ -1,11 +1,11 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 const ViewPublicData = () => (
-  <div class="bg">
-    <div class="out">
-      <div class="mid">
-        <div class="in">
-          <div class="backpublic">
+  <div className="bg">
+    <div className="out">
+      <div className="mid">
+        <div className="in">
+          <div className="backpublic">
             <h1>View Public Data</h1>
           </div>
           <Form>
