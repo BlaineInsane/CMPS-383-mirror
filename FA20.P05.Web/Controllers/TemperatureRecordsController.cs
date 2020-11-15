@@ -60,12 +60,12 @@ namespace FA20.P05.Web.Controllers
             // returns the number of healthy/unhealthy temperatures of a school on
             // a selected day.
 
-            // temps of selected school. Match school and day
+            // temps of selected school. Match school and day(convert local time to Utc)
             var temps = dataContext
                 .Set<TemperatureRecord>()
-                .Where(x => x.SchoolId == id && x.MeasuredUtc.Day == date.Day)
+                .Where(x => x.SchoolId == id && x.MeasuredUtc.DayOfYear == TimeZoneInfo.ConvertTimeToUtc(date).DayOfYear)
                 .ToList();
-
+            
             var healthyTemps = 0;
             var unhealthyTemps = 0;
             foreach (var tempRecord in temps)
