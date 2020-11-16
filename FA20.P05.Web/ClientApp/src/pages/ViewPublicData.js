@@ -11,7 +11,7 @@ export default function ViewPublicData() {
   const [schoolId, setId] = useState();
   const [healthyTemps, setHealthyTemps] = useState("");
   const [unhealthyTemps, setUnhealthyTemps] = useState("");
-  const [schoolPickedValue, setSchoolPickedValue] = useState();
+  const [schoolPickedValue, setSchoolPickedValue] = useState("");
 
   const SchoolDropBoxList = activeSchools.map((school) => {
     return (
@@ -25,29 +25,30 @@ export default function ViewPublicData() {
     return school.id;
   });
 
-  const handleSchoolId = () => {
+  const handleDateChange = (date) => {
+    setDatePicked(date);
+  };
+
+  const handleSchoolChange = (event) => {
+    setSchoolPickedValue(event);
     setId(
       schoolPickedValue != null ? schoolPickedValue : parseFloat(idBySchool)
     );
   };
 
-  const handleDateChange = (date) => {
-    if (moment(date).isAfter(moment(Date.now()), "day")) {
-      alert("Error", "Please select a non-future date.");
-    } else {
-      setDatePicked(date);
-    }
-  };
-
-  const handleConfirm = async () => {
+  const handleConfirm = async (event) => {
+    event.preventDefault();
     try {
       let res = await ApiGetTempsBySchoolId(schoolId, datePicked);
       if (res.status === 200) {
         setHealthyTemps(res.data.numHealthyTemps);
         setUnhealthyTemps(res.data.numUnhealthyTemps);
+
         console.log(res.status);
-        alert("hiya buddy");
+        console.log(datePicked);
+        console.log(schoolId);
       }
+      console.log(res.status);
     } catch {}
   };
 
@@ -77,7 +78,11 @@ export default function ViewPublicData() {
                 Choose a School:
               </label>
               <br></br>
-              <select name="school" id="cars" onChange={handleSchoolId}>
+              <select
+                name="school"
+                value={schoolPickedValue}
+                onChange={handleSchoolChange}
+              >
                 {SchoolDropBoxList}
               </select>
               <br></br>
@@ -86,8 +91,14 @@ export default function ViewPublicData() {
               </Button>
               <br></br>
               <br></br>
+              <label style={{ color: "white" }}>
+                Unhealthy Temperatures: {unhealthyTemps}
+              </label>
               <br></br>
               <br></br>
+              <label style={{ color: "white" }}>
+                Healthy Temperatures: {healthyTemps}
+              </label>
               {/* <Button block bsSize="large" type="submit">
         View All
         </Button>*/}
