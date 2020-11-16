@@ -12,7 +12,7 @@ export default function ViewPublicData() {
   const [datePicked, setDatePicked] = useState(new Date());
   const [healthyTemps, setHealthyTemps] = useState("");
   const [unhealthyTemps, setUnhealthyTemps] = useState("");
-  const [schoolPickedValue, setSchoolPickedValue] = useState("");
+  const [schoolPickedValue, setSchoolPickedValue] = useState();
 
   const SchoolDropBoxList = activeSchools.map((school) => {
     return (
@@ -38,9 +38,9 @@ export default function ViewPublicData() {
       try {
         // if school hasn't been selected set default value
         let schoolId =
-          typeof schoolPickedValue === "string"
-            ? schoolPickedValue
-            : activeSchools[0].id;
+          typeof schoolPickedValue !== "string"
+            ? activeSchools[0].id
+            : schoolPickedValue;
 
         let res = await ApiGetTempsBySchoolId(schoolId, datePicked);
         if (res.status === 200) {
