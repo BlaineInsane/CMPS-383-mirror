@@ -74,7 +74,9 @@ export default function PublicData({ navigation }) {
           setHealthyTemps(res.data.numHealthyTemps);
           setUnhealthyTemps(res.data.numUnhealthyTemps);
         }
-      } catch {} // <--- Should definitely put stuff in here in case res.status is not 200
+      } catch {
+        Alert.alert("Error", "Unable to reach server. Please try again.");
+      }
     }
 
     hideDatePicker();
