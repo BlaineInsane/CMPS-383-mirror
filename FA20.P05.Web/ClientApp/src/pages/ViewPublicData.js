@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
 
 import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
 import { activeSchoolsContext } from "../Context/ActiveSchoolsContext";
@@ -22,39 +21,21 @@ export default function ViewPublicData() {
     );
   });
 
-  const idBySchool = activeSchools.map((school) => {
-    return school.id;
-  });
-
-  const handleDateChange = (data, value) => {
-    data.preventDefault();
-
-    //setDatePicked(date);
-    console.log(data);
-    console.log(value);
-  };
-
   const handleSchoolChange = (event) => {
     event.preventDefault();
-
     setSchoolPickedValue(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleConfirm = async (event) => {
     event.preventDefault();
-    setSchoolPickedValue(
-      schoolPickedValue != null ? schoolPickedValue : parseInt(idBySchool)
-    );
 
     try {
-      let res = await ApiGetTempsBySchoolId(
-        parseInt(schoolPickedValue),
-        datePicked
-      );
-      if (res.status === 200) {
-        console.log(res.status);
+      let schoolId = Number.isInteger(schoolPickedValue)
+        ? schoolPickedValue
+        : activeSchools[0].id;
 
+      let res = await ApiGetTempsBySchoolId(schoolId, datePicked);
+      if (res.status === 200) {
         setHealthyTemps(res.data.numHealthyTemps);
         setUnhealthyTemps(res.data.numUnhealthyTemps);
       }
@@ -85,14 +66,6 @@ export default function ViewPublicData() {
                   console.log(datePicked);
                 }}
               />
-              {/*
-              <input
-                type="date"
-                name="trip-start"
-                value={datePicked}
-                onChange={handleDateChange}
-              />
-              */}
               <br></br>
               <label style={{ color: "white" }} htmlFor="school">
                 Choose a School:
