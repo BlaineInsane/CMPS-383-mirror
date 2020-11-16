@@ -48,7 +48,7 @@ export default function ViewPublicData() {
           setUnhealthyTemps(res.data.numUnhealthyTemps);
         }
       } catch {
-        // didn't get data
+        alert("Failed to contact server. Please try again.");
       }
     }
   };
