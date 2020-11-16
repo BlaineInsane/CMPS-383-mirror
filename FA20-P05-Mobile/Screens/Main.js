@@ -61,7 +61,7 @@ function Main({ navigation }) {
           marginBottom: 20,
         }}
       >
-        <Text style={styles.welcome}>HealthShare</Text>
+        <Text style={styles.welcome}></Text>
         <View
           style={{
             backgroundColor: "rgba(50, 50, 50, .70)",
@@ -153,6 +153,7 @@ function Main({ navigation }) {
               titleStyle={{ color: "white", fontFamily: "serif" }}
               onPress={() => navigation.navigate("RecordTemps")}
             ></Button>
+            <Separator />
           </View>
           <View style={styles.logInOutBox}>
             <Separator />
