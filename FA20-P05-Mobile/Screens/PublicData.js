@@ -106,7 +106,11 @@ export default function PublicData({ navigation }) {
               borderWidth: 1,
               borderColor: "black",
             }}
-            onValueChange={(itemValue) => setSchoolPickedValue(itemValue)}
+            onValueChange={(itemValue) => {
+              setSchoolPickedValue(itemValue);
+              // reset date
+              setDatePicked("");
+            }}
           >
             {PickerList}
           </Picker>
