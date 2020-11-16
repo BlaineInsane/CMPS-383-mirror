@@ -88,23 +88,23 @@ function Main({ navigation }) {
           </Text>
         </View>
       </ImageBackground>
-      <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
-      <View style={styles.box}>
-        <Text style={styles.boxText}>
-          View the number of students that were sent home due to high
-          temperature readings.
-        </Text>
-        <Button
-          title="View Public Data"
-          type="outline"
-          buttonStyle={styles.button}
-          titleStyle={{ color: "white", fontFamily: "serif" }}
-          onPress={() => navigation.navigate("PublicData")}
-        ></Button>
-      </View>
+      <View style={{ padding: 5 }}>
+        <View style={styles.box}>
+          <Text style={styles.boxText}>
+            View the number of students that were sent home due to high
+            temperature readings.
+          </Text>
+          <Button
+            title="View Public Data"
+            type="outline"
+            buttonStyle={styles.button}
+            titleStyle={{ color: "white", fontFamily: "serif" }}
+            onPress={() => navigation.navigate("PublicData")}
+          ></Button>
+        </View>
 
-      {/*                  CODE FOR PERSONAL DATA BUTTON              */}
-      {/*
+        {/*                  CODE FOR PERSONAL DATA BUTTON              */}
+        {/*
         <View style={styles.box}>
           <Text style={styles.boxText}>
             This is where we will explain what personal data is, and how it is
@@ -121,9 +121,9 @@ function Main({ navigation }) {
         </View>
         */}
 
-      {/*                   CODE FOR QR CODE BUTTON                   */}
+        {/*                   CODE FOR QR CODE BUTTON                   */}
 
-      {/*<View style={styles.box}>         
+        {/*<View style={styles.box}>         
           <Text style={styles.boxText}>
             This is where a student can navigate to a generated barcode - this
             should assign their temperature to a random id, while still allowing
@@ -138,46 +138,47 @@ function Main({ navigation }) {
           ></Button>
         </View>*/}
 
-      {/*changes button and it's navigation depending on whether the user is logged in */}
-      {user !== null ? (
-        <>
-          <View style={styles.box}>
-            <Text style={styles.boxText}>
-              Record student temperatures at the school you are currently
-              working at.
-            </Text>
-            <Button
-              title="Record Temperatures"
-              type="outline"
-              buttonStyle={styles.buttonWide}
-              titleStyle={{ color: "white", fontFamily: "serif" }}
-              onPress={() => navigation.navigate("RecordTemps")}
-            ></Button>
-            <Separator />
-          </View>
+        {/*changes button and it's navigation depending on whether the user is logged in */}
+        {user !== null ? (
+          <>
+            <View style={styles.box}>
+              <Text style={styles.boxText}>
+                Record student temperatures at the school you are currently
+                working at.
+              </Text>
+              <Button
+                title="Record Temperatures"
+                type="outline"
+                buttonStyle={styles.buttonWide}
+                titleStyle={{ color: "white", fontFamily: "serif" }}
+                onPress={() => navigation.navigate("RecordTemps")}
+              ></Button>
+              <Separator />
+            </View>
+            <View style={styles.logInOutBox}>
+              <Separator />
+              <Button
+                title="Logout"
+                type="outline"
+                buttonStyle={styles.button}
+                titleStyle={{ color: "white", fontFamily: "serif" }}
+                onPress={handleLogout}
+              ></Button>
+            </View>
+          </>
+        ) : (
           <View style={styles.logInOutBox}>
-            <Separator />
+            <Text style={styles.boxText}>Staff Member Login</Text>
             <Button
-              title="Logout"
-              type="outline"
               buttonStyle={styles.button}
+              title="Log In"
+              type="outline"
               titleStyle={{ color: "white", fontFamily: "serif" }}
-              onPress={handleLogout}
+              onPress={() => navigation.navigate("Login")}
             ></Button>
           </View>
-        </>
-      ) : (
-        <View style={styles.logInOutBox}>
-          <Text style={styles.boxText}>Staff Member Login</Text>
-          <Button
-            buttonStyle={styles.button}
-            title="Log In"
-            type="outline"
-            titleStyle={{ color: "white", fontFamily: "serif" }}
-            onPress={() => navigation.navigate("Login")}
-          ></Button>
-        </View>
-      )}
+        )}
+      </View>
     </ScrollView>
   );
 }
@@ -240,24 +241,22 @@ const styles = StyleSheet.create({
   box: {
     backgroundColor: boxColor,
     height: 150,
-    width: 335,
+    width: 345,
     marginBottom: 20,
-    marginRight: 10,
-    marginLeft: 10,
     alignSelf: "center",
     elevation: 10,
+    borderRadius: 20,
     justifyContent: "center",
   },
 
   logInOutBox: {
     backgroundColor: boxColor,
     height: 120,
-    width: 335,
+    width: 345,
     marginBottom: 20,
-    marginRight: 10,
-    marginLeft: 10,
     justifyContent: "center",
     alignSelf: "center",
+    borderRadius: 20,
     elevation: 15,
   },
 
