@@ -3,10 +3,17 @@ import { useState } from "react";
 import "./styles.css";
 import { Form, Button } from "react-bootstrap";
 import ApiLogin from "../ApiCalls/ApiLogin";
+import { useHistory } from "react-router-dom";
 
 function AdminPortal() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+
+  const history = useHistory();
+
+  function handleClick() {
+    history.push("/ViewPublicData");
+  }
 
   const handleEmailChange = (event) => {
     setemail(event.target.value);
@@ -21,7 +28,8 @@ function AdminPortal() {
     try {
       let res = await ApiLogin(email, password);
       if (res.status === 200) {
-        alert("did the login");
+        alert("Your login was successful!");
+        handleClick();
       }
     } catch {
       alert("Incorrect username and/or password.");
