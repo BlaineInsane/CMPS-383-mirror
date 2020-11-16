@@ -58,7 +58,7 @@ function Main({ navigation }) {
           width: 420,
           height: 315,
           alignSelf: "flex-start",
-          marginBottom: 20,
+          marginBottom: 15,
         }}
       >
         <Text style={styles.welcome}></Text>
@@ -67,7 +67,7 @@ function Main({ navigation }) {
             backgroundColor: "rgba(50, 50, 50, .70)",
             height: 95,
             justifyContent: "center",
-            padding: 5,
+            padding: 3,
           }}
         >
           <Text
@@ -83,11 +83,12 @@ function Main({ navigation }) {
             }}
           >
             Creating trust by being transparent with school health statistics.
-            Don't worry, we do not store any personally identifiable information
-            about students.
+            Don't worry - we do not store any personally identifiable
+            information about students.
           </Text>
         </View>
       </ImageBackground>
+      <StatusBar hidden={false} backgroundColor={statusBar}></StatusBar>
       <View style={{ padding: 5 }}>
         <View style={styles.box}>
           <Text style={styles.boxText}>
@@ -235,7 +236,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginTop: 100,
     fontFamily: "serif",
-    padding: 30,
+    padding: 23,
   },
 
   box: {
@@ -243,6 +244,8 @@ const styles = StyleSheet.create({
     height: 150,
     width: 345,
     marginBottom: 20,
+    marginRight: 10,
+    marginLeft: 10,
     alignSelf: "center",
     elevation: 10,
     borderRadius: 20,
@@ -254,6 +257,8 @@ const styles = StyleSheet.create({
     height: 120,
     width: 345,
     marginBottom: 20,
+    marginRight: 10,
+    marginLeft: 10,
     justifyContent: "center",
     alignSelf: "center",
     borderRadius: 20,
