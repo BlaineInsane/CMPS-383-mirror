@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 
 import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
@@ -7,8 +9,7 @@ import { activeSchoolsContext } from "../Context/ActiveSchoolsContext";
 
 export default function ViewPublicData() {
   const { activeSchools } = useContext(activeSchoolsContext);
-  const [datePicked, setDatePicked] = useState("");
-  const [schoolId, setId] = useState();
+  const [datePicked, setDatePicked] = useState(new Date());
   const [healthyTemps, setHealthyTemps] = useState("");
   const [unhealthyTemps, setUnhealthyTemps] = useState("");
   const [schoolPickedValue, setSchoolPickedValue] = useState("");
@@ -25,31 +26,41 @@ export default function ViewPublicData() {
     return school.id;
   });
 
-  const handleDateChange = (date) => {
-    setDatePicked(date);
+  const handleDateChange = (data, value) => {
+    data.preventDefault();
+
+    //setDatePicked(date);
+    console.log(data);
+    console.log(value);
   };
 
   const handleSchoolChange = (event) => {
-    setSchoolPickedValue(event);
-    setId(
-      schoolPickedValue != null ? schoolPickedValue : parseFloat(idBySchool)
-    );
+    event.preventDefault();
+
+    setSchoolPickedValue(event.target.value);
+    console.log(event.target.value);
   };
 
   const handleConfirm = async (event) => {
     event.preventDefault();
+    setSchoolPickedValue(
+      schoolPickedValue != null ? schoolPickedValue : parseInt(idBySchool)
+    );
+
     try {
-      let res = await ApiGetTempsBySchoolId(schoolId, datePicked);
+      let res = await ApiGetTempsBySchoolId(
+        parseInt(schoolPickedValue),
+        datePicked
+      );
       if (res.status === 200) {
+        console.log(res.status);
+
         setHealthyTemps(res.data.numHealthyTemps);
         setUnhealthyTemps(res.data.numUnhealthyTemps);
-
-        console.log(res.status);
-        console.log(datePicked);
-        console.log(schoolId);
       }
-      console.log(res.status);
-    } catch {}
+    } catch {
+      // didn't get data
+    }
   };
 
   return (
@@ -67,12 +78,21 @@ export default function ViewPublicData() {
                 Date:
               </label>{" "}
               <br></br>
+              <DatePicker
+                selected={datePicked}
+                onChange={(date) => {
+                  setDatePicked(date);
+                  console.log(datePicked);
+                }}
+              />
+              {/*
               <input
                 type="date"
-                id="start"
                 name="trip-start"
+                value={datePicked}
                 onChange={handleDateChange}
               />
+              */}
               <br></br>
               <label style={{ color: "white" }} htmlFor="school">
                 Choose a School:
