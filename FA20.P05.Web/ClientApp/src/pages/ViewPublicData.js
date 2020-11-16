@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 import ApiGetTempsBySchoolId from "../ApiCalls/ApiGetTempsBySchoolId";
 import { activeSchoolsContext } from "../Context/ActiveSchoolsContext";
@@ -29,18 +30,26 @@ export default function ViewPublicData() {
   const handleConfirm = async (event) => {
     event.preventDefault();
 
-    try {
-      let schoolId = Number.isInteger(schoolPickedValue)
-        ? schoolPickedValue
-        : activeSchools[0].id;
+    // check if user selected a future(invalid) date
+    if (moment(datePicked).isAfter(moment(), "day")) {
+      alert("Please select a non-future date.");
+      setDatePicked(new Date()); // reset date(feels nice)
+    } else {
+      try {
+        // if school hasn't been selected set default value
+        let schoolId =
+          typeof schoolPickedValue === "string"
+            ? schoolPickedValue
+            : activeSchools[0].id;
 
-      let res = await ApiGetTempsBySchoolId(schoolId, datePicked);
-      if (res.status === 200) {
-        setHealthyTemps(res.data.numHealthyTemps);
-        setUnhealthyTemps(res.data.numUnhealthyTemps);
+        let res = await ApiGetTempsBySchoolId(schoolId, datePicked);
+        if (res.status === 200) {
+          setHealthyTemps(res.data.numHealthyTemps);
+          setUnhealthyTemps(res.data.numUnhealthyTemps);
+        }
+      } catch {
+        // didn't get data
       }
-    } catch {
-      // didn't get data
     }
   };
 
@@ -63,7 +72,6 @@ export default function ViewPublicData() {
                 selected={datePicked}
                 onChange={(date) => {
                   setDatePicked(date);
-                  console.log(datePicked);
                 }}
               />
               <br></br>
